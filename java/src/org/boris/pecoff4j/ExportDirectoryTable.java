@@ -2,7 +2,7 @@ package org.boris.pecoff4j;
 
 import java.io.IOException;
 
-import org.boris.pecoff4j.io.OldDataReader;
+import org.boris.pecoff4j.io.DataReader;
 
 /**
  * The export directory table. See section 6.3.1 of the PE/COFF specification
@@ -21,7 +21,7 @@ public class ExportDirectoryTable {
     private long namePointerRVA;
     private long ordinalTableRVA;
 
-    public void read(OldDataReader dis) throws IOException {
+    public void read(DataReader dis) throws IOException {
         exportFlags = dis.readDoubleWord();
         timeDateStamp = dis.readDoubleWord();
         majorVersion = dis.readWord();

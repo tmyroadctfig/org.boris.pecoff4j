@@ -7,7 +7,7 @@ import java.io.InputStream;
 
 public class DataReaderImpl implements DataReader {
     private DataInputStream dis;
-    private int position = 0;
+    int position = 0;
 
     public DataReaderImpl(InputStream is) {
         this.dis = new DataInputStream(new BufferedInputStream(is));
@@ -47,8 +47,14 @@ public class DataReaderImpl implements DataReader {
         dis.close();
     }
 
-    public void read(byte[] signature) throws IOException {
-        position += signature.length;
-        dis.read(signature);
+    public void read(byte[] b) throws IOException {
+        position += b.length;
+        dis.read(b);
+    }
+
+    public String readUtf(int size) throws IOException {
+        position += size;
+        byte b[] = new byte[size];
+        return DataInputStream.readUTF(new ByteArrayDataInputStream(b));
     }
 }

@@ -17,10 +17,10 @@ public class PEFile {
 
     public void read(DataReader dr) throws IOException {
         dosHeader = DOSHeader.read(dr);
-        stub = DOSStub.read(dr);
+        stub = DOSStub.read(dosHeader, dr);
         signature = PESignature.read(dr);
         coffHeader = COFFHeader.read(dr);
         optionalHeader = OptionalHeader.read(dr);
-        sectionTable = SectionTable.read(dr);
+        sectionTable = SectionTable.read(coffHeader.getNumberOfSections(), dr);
     }
 }

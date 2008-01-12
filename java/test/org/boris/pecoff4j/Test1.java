@@ -15,6 +15,17 @@ public class Test1 {
     public static void testExe(String file) throws Exception {
         DataReader dr = new DataReaderImpl(new FileInputStream(file));
         System.out.println(file);
-        System.out.println(DOSHeader.read(dr));
+        DOSHeader header = DOSHeader.read(dr);
+        System.out.println(header);
+        DOSStub stub = DOSStub.read(header, dr);
+        System.out.println(stub);
+        PESignature pe = PESignature.read(dr);
+        System.out.println(pe);
+        COFFHeader ch = COFFHeader.read(dr);
+        System.out.println(ch);
+        OptionalHeader oh = OptionalHeader.read(dr);
+        System.out.println(oh);
+        SectionTable st = SectionTable.read(ch.getNumberOfSections(), dr);
+        System.out.println(st);
     }
 }

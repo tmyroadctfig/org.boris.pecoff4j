@@ -5,29 +5,27 @@ import java.io.IOException;
 import org.boris.pecoff4j.io.DataReader;
 import org.boris.pecoff4j.io.Reflection;
 
-/**
- * The DOS header.
- */
 public class DOSHeader {
     private int magic;
     private int usedBytesInLastPage;
     private int fileSizeInPages;
-    private int numberOfRelocationItems;
+    private int numRelocationItems;
     private int headerSizeInParagraphs;
     private int minExtraParagraphs;
     private int maxExtraParagraphs;
-    private int initialRelativeSS;
+    private int initialSS;
     private int initialSP;
     private int checksum;
     private int initialIP;
     private int initialRelativeCS;
     private int addressOfRelocationTable;
     private int overlayNumber;
-    private int reserved[] = new int[4];
+    private int[] reserverd;
+    private int[] reserved2;
     private int oemId;
     private int oemInfo;
-    private int reserved2[] = new int[10];
-    private long addressOfNewExeHeader;
+    private int addressOfNewExeHeader;
+    private int stubSize;
 
     public static DOSHeader read(DataReader dr) throws IOException {
         DOSHeader dh = new DOSHeader();
@@ -35,28 +33,43 @@ public class DOSHeader {
         return dh;
     }
 
-    void readFrom(DataReader dr) throws IOException {
-        magic = dr.readWord();
-        usedBytesInLastPage = dr.readWord();
-        fileSizeInPages = dr.readWord();
-        numberOfRelocationItems = dr.readWord();
-        headerSizeInParagraphs = dr.readWord();
-        minExtraParagraphs = dr.readWord();
-        maxExtraParagraphs = dr.readWord();
-        initialRelativeSS = dr.readWord();
-        initialSP = dr.readWord();
-        checksum = dr.readWord();
-        initialIP = dr.readWord();
-        initialRelativeCS = dr.readWord();
-        addressOfRelocationTable = dr.readWord();
-        overlayNumber = dr.readWord();
-        for (int i = 0; i < 4; i++)
-            reserved[i] = dr.readWord();
-        oemId = dr.readWord();
-        oemInfo = dr.readWord();
-        for (int i = 0; i < 10; i++)
-            reserved2[i] = dr.readWord();
-        addressOfNewExeHeader = dr.readDoubleWord();
+    private void readFrom(DataReader dis) throws IOException {
+        magic = dis.readWord(); // Magic number
+        usedBytesInLastPage = dis.readWord(); // Bytes on last page of file
+        fileSizeInPages = dis.readWord(); // Pages in file
+        numRelocationItems = dis.readWord(); // Relocations
+        headerSizeInParagraphs = dis.readWord(); // Size of header in
+        // paragraphs
+        minExtraParagraphs = dis.readWord(); // Minimum extra paragraphs
+        // needed
+        maxExtraParagraphs = dis.readWord(); // Maximum extra paragraphs
+        // needed
+        initialSS = dis.readWord(); // Initial (relative) SS value
+        initialSP = dis.readWord(); // Initial SP value
+        checksum = dis.readWord(); // Checksum
+        initialIP = dis.readWord(); // Initial IP value
+        initialRelativeCS = dis.readWord(); // Initial (relative) CS value
+        addressOfRelocationTable = dis.readWord(); // File address of
+        // relocation table
+        overlayNumber = dis.readWord(); // Overlay number
+        reserverd = new int[4];
+        for (int i = 0; i < reserverd.length; i++) {
+            reserverd[i] = dis.readWord(); // Reserved words
+        }
+        oemId = dis.readWord(); // OEM identifier (for e_oeminfo)
+        oemInfo = dis.readWord(); // OEM information; e_oemid specific
+        reserved2 = new int[10];
+        for (int i = 0; i < reserved2.length; i++) {
+            reserved2[i] = dis.readWord(); // Reserved words
+        }
+        addressOfNewExeHeader = dis.readDoubleWord(); // File address of new
+        // exe header
+
+        // calc stub size
+        stubSize = fileSizeInPages * 512 - (512 - usedBytesInLastPage);
+        if (stubSize > addressOfNewExeHeader)
+            stubSize = addressOfNewExeHeader;
+        stubSize -= headerSizeInParagraphs * 16;
     }
 
     public String toString() {
@@ -75,8 +88,8 @@ public class DOSHeader {
         return fileSizeInPages;
     }
 
-    public int getNumberOfRelocationItems() {
-        return numberOfRelocationItems;
+    public int getNumRelocationItems() {
+        return numRelocationItems;
     }
 
     public int getHeaderSizeInParagraphs() {
@@ -91,8 +104,8 @@ public class DOSHeader {
         return maxExtraParagraphs;
     }
 
-    public int getInitialRelativeSS() {
-        return initialRelativeSS;
+    public int getInitialSS() {
+        return initialSS;
     }
 
     public int getInitialSP() {
@@ -119,10 +132,6 @@ public class DOSHeader {
         return overlayNumber;
     }
 
-    public int[] getReserved() {
-        return reserved;
-    }
-
     public int getOemId() {
         return oemId;
     }
@@ -131,11 +140,19 @@ public class DOSHeader {
         return oemInfo;
     }
 
+    public int getAddressOfNewExeHeader() {
+        return addressOfNewExeHeader;
+    }
+
+    public int[] getReserverd() {
+        return reserverd;
+    }
+
     public int[] getReserved2() {
         return reserved2;
     }
 
-    public long getAddressOfNewExeHeader() {
-        return addressOfNewExeHeader;
+    public int getStubSize() {
+        return stubSize;
     }
 }

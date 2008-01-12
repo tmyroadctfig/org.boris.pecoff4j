@@ -3,9 +3,8 @@ package org.boris.pecoff4j;
 import java.io.DataInputStream;
 import java.io.IOException;
 
+import org.boris.pecoff4j.io.ByteArrayDataInputStream;
 import org.boris.pecoff4j.io.DataReader;
-
-import com.sun.org.apache.bcel.internal.util.ByteSequence;
 
 /**
  * The PE signature block.
@@ -26,9 +25,10 @@ public class PESignature {
 
     public String toString() {
         try {
-            return DataInputStream.readUTF(new ByteSequence(signature));
+            return DataInputStream.readUTF(new ByteArrayDataInputStream(
+                    signature));
         } catch (IOException e) {
-            return null;
+            return "";
         }
     }
 }

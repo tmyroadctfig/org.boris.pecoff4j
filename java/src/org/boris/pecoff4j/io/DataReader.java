@@ -20,4 +20,6 @@ public interface DataReader {
 
     public abstract void read(byte[] signature) throws IOException;
 
+    public String readUtf(int size) throws IOException;
+
 }
