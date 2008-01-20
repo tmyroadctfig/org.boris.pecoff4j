@@ -39,8 +39,7 @@ public class DataReaderImpl implements DataReader {
 
     public void skipBytes(int numBytes) throws IOException {
         position += numBytes;
-        for (int i = 0; i < numBytes; i++)
-            dis.read();
+        dis.skipBytes(numBytes);
     }
 
     public void close() throws IOException {
@@ -55,6 +54,12 @@ public class DataReaderImpl implements DataReader {
     public String readUtf(int size) throws IOException {
         position += size;
         byte b[] = new byte[size];
-        return DataInputStream.readUTF(new ByteArrayDataInputStream(b));
+        dis.read(b);
+        int i = 0;
+        for (; i < size; i++) {
+            if (b[i] == 0)
+                break;
+        }
+        return new String(b, 0, i);
     }
 }

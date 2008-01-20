@@ -10,17 +10,17 @@ import org.boris.pecoff4j.io.DataReader;
 public class PEFile {
     private DOSHeader dosHeader;
     private DOSStub stub;
-    private PESignature signature;
-    private COFFHeader coffHeader;
-    private OptionalHeader optionalHeader;
+    private NTHeader ntHeader;
     private SectionTable sectionTable;
 
     public void read(DataReader dr) throws IOException {
         dosHeader = DOSHeader.read(dr);
         stub = DOSStub.read(dosHeader, dr);
-        signature = PESignature.read(dr);
-        coffHeader = COFFHeader.read(dr);
-        optionalHeader = OptionalHeader.read(dr);
-        sectionTable = SectionTable.read(coffHeader.getNumberOfSections(), dr);
+        ntHeader = new NTHeader();
+        ntHeader.setSignature(dr.readDoubleWord());
+        ntHeader.setFileHeader(COFFHeader.read(dr));
+        ntHeader.setOptionalHeader(OptionalHeader.read(dr));
+        sectionTable = SectionTable.read(ntHeader.getFileHeader()
+                .getNumberOfSections(), dr);
     }
 }

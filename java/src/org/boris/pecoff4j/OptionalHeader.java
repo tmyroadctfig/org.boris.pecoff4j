@@ -38,22 +38,22 @@ public class OptionalHeader {
     private int numberOfRvaAndSizes;
 
     // Data directories
-    private ImageDataDirectory exportTable;
-    private ImageDataDirectory importTable;
-    private ImageDataDirectory resourceTable;
-    private ImageDataDirectory exceptionTable;
-    private ImageDataDirectory certificateTable;
-    private ImageDataDirectory baseRolocationTable;
-    private ImageDataDirectory debug;
-    private ImageDataDirectory architecture;
-    private ImageDataDirectory globalPtr;
-    private ImageDataDirectory tlsTable;
-    private ImageDataDirectory loadConfigTable;
-    private ImageDataDirectory boundImport;
-    private ImageDataDirectory iat;
-    private ImageDataDirectory delayImportDescriptor;
-    private ImageDataDirectory clrRuntimeHeader;
-    private ImageDataDirectory reserved;
+    private ImageDirectoryEntry exportTable;
+    private ImageDirectoryEntry importTable;
+    private ImageDirectoryEntry resourceTable;
+    private ImageDirectoryEntry exceptionTable;
+    private ImageDirectoryEntry certificateTable;
+    private ImageDirectoryEntry baseRolocationTable;
+    private ImageDirectoryEntry debug;
+    private ImageDirectoryEntry architecture;
+    private ImageDirectoryEntry globalPtr;
+    private ImageDirectoryEntry tlsTable;
+    private ImageDirectoryEntry loadConfigTable;
+    private ImageDirectoryEntry boundImport;
+    private ImageDirectoryEntry iat;
+    private ImageDirectoryEntry delayImportDescriptor;
+    private ImageDirectoryEntry clrRuntimeHeader;
+    private ImageDirectoryEntry reserved;
 
     public static OptionalHeader read(DataReader dr) throws IOException {
         OptionalHeader oh = new OptionalHeader();
@@ -94,22 +94,22 @@ public class OptionalHeader {
         loaderFlags = dr.readDoubleWord();
         numberOfRvaAndSizes = dr.readDoubleWord();
         // Data directories
-        exportTable = ImageDataDirectory.read(dr);
-        importTable = ImageDataDirectory.read(dr);
-        resourceTable = ImageDataDirectory.read(dr);
-        exceptionTable = ImageDataDirectory.read(dr);
-        certificateTable = ImageDataDirectory.read(dr);
-        baseRolocationTable = ImageDataDirectory.read(dr);
-        debug = ImageDataDirectory.read(dr);
-        architecture = ImageDataDirectory.read(dr);
-        globalPtr = ImageDataDirectory.read(dr);
-        tlsTable = ImageDataDirectory.read(dr);
-        loadConfigTable = ImageDataDirectory.read(dr);
-        boundImport = ImageDataDirectory.read(dr);
-        iat = ImageDataDirectory.read(dr);
-        delayImportDescriptor = ImageDataDirectory.read(dr);
-        clrRuntimeHeader = ImageDataDirectory.read(dr);
-        reserved = ImageDataDirectory.read(dr);
+        exportTable = ImageDirectoryEntry.read(dr);
+        importTable = ImageDirectoryEntry.read(dr);
+        resourceTable = ImageDirectoryEntry.read(dr);
+        exceptionTable = ImageDirectoryEntry.read(dr);
+        certificateTable = ImageDirectoryEntry.read(dr);
+        baseRolocationTable = ImageDirectoryEntry.read(dr);
+        debug = ImageDirectoryEntry.read(dr);
+        architecture = ImageDirectoryEntry.read(dr);
+        globalPtr = ImageDirectoryEntry.read(dr);
+        tlsTable = ImageDirectoryEntry.read(dr);
+        loadConfigTable = ImageDirectoryEntry.read(dr);
+        boundImport = ImageDirectoryEntry.read(dr);
+        iat = ImageDirectoryEntry.read(dr);
+        delayImportDescriptor = ImageDirectoryEntry.read(dr);
+        clrRuntimeHeader = ImageDirectoryEntry.read(dr);
+        reserved = ImageDirectoryEntry.read(dr);
     }
 
     public String toString() {
@@ -236,67 +236,67 @@ public class OptionalHeader {
         return numberOfRvaAndSizes;
     }
 
-    public ImageDataDirectory getExportTable() {
+    public ImageDirectoryEntry getExportTable() {
         return exportTable;
     }
 
-    public ImageDataDirectory getImportTable() {
+    public ImageDirectoryEntry getImportTable() {
         return importTable;
     }
 
-    public ImageDataDirectory getResourceTable() {
+    public ImageDirectoryEntry getResourceTable() {
         return resourceTable;
     }
 
-    public ImageDataDirectory getExceptionTable() {
+    public ImageDirectoryEntry getExceptionTable() {
         return exceptionTable;
     }
 
-    public ImageDataDirectory getCertificateTable() {
+    public ImageDirectoryEntry getCertificateTable() {
         return certificateTable;
     }
 
-    public ImageDataDirectory getBaseRolocationTable() {
+    public ImageDirectoryEntry getBaseRolocationTable() {
         return baseRolocationTable;
     }
 
-    public ImageDataDirectory getDebug() {
+    public ImageDirectoryEntry getDebug() {
         return debug;
     }
 
-    public ImageDataDirectory getArchitecture() {
+    public ImageDirectoryEntry getArchitecture() {
         return architecture;
     }
 
-    public ImageDataDirectory getGlobalPtr() {
+    public ImageDirectoryEntry getGlobalPtr() {
         return globalPtr;
     }
 
-    public ImageDataDirectory getTlsTable() {
+    public ImageDirectoryEntry getTlsTable() {
         return tlsTable;
     }
 
-    public ImageDataDirectory getLoadConfigTable() {
+    public ImageDirectoryEntry getLoadConfigTable() {
         return loadConfigTable;
     }
 
-    public ImageDataDirectory getBoundImport() {
+    public ImageDirectoryEntry getBoundImport() {
         return boundImport;
     }
 
-    public ImageDataDirectory getIat() {
+    public ImageDirectoryEntry getIat() {
         return iat;
     }
 
-    public ImageDataDirectory getDelayImportDescriptor() {
+    public ImageDirectoryEntry getDelayImportDescriptor() {
         return delayImportDescriptor;
     }
 
-    public ImageDataDirectory getClrRuntimeHeader() {
+    public ImageDirectoryEntry getClrRuntimeHeader() {
         return clrRuntimeHeader;
     }
 
-    public ImageDataDirectory getReserved() {
+    public ImageDirectoryEntry getReserved() {
         return reserved;
     }
 }

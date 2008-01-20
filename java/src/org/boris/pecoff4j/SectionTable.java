@@ -17,6 +17,7 @@ public class SectionTable {
 
     private void readFrom(int numberOfSections, DataReader dr)
             throws IOException {
+        dr.readWord(); // padding to 8-byte boundary?
         headers = new SectionHeader[numberOfSections];
         for (int i = 0; i < numberOfSections; i++) {
             headers[i] = SectionHeader.read(dr);

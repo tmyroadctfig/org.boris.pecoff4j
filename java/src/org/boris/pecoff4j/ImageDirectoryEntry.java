@@ -5,12 +5,12 @@ import java.io.IOException;
 import org.boris.pecoff4j.io.DataReader;
 import org.boris.pecoff4j.io.Reflection;
 
-public class ImageDataDirectory {
+public class ImageDirectoryEntry {
     private int virtualAddress;
     private int size;
 
-    public static ImageDataDirectory read(DataReader dr) throws IOException {
-        ImageDataDirectory idd = new ImageDataDirectory();
+    public static ImageDirectoryEntry read(DataReader dr) throws IOException {
+        ImageDirectoryEntry idd = new ImageDirectoryEntry();
         idd.readFrom(dr);
         return idd;
     }
