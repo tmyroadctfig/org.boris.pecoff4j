@@ -7,11 +7,27 @@ import org.boris.pecoff4j.io.DataReader;
 /**
  * Encapsulates a portable executable file.
  */
-public class PEFile {
+public class PE {
     private DOSHeader dosHeader;
     private DOSStub stub;
     private NTHeader ntHeader;
     private SectionTable sectionTable;
+
+    public DOSHeader getDosHeader() {
+        return dosHeader;
+    }
+
+    public DOSStub getStub() {
+        return stub;
+    }
+
+    public NTHeader getNtHeader() {
+        return ntHeader;
+    }
+
+    public SectionTable getSectionTable() {
+        return sectionTable;
+    }
 
     public void read(DataReader dr) throws IOException {
         dosHeader = DOSHeader.read(dr);

@@ -34,4 +34,48 @@ public class ExportDirectoryTable {
         namePointerRVA = dis.readDoubleWord();
         ordinalTableRVA = dis.readDoubleWord();
     }
+
+    public long getExportFlags() {
+        return exportFlags;
+    }
+
+    public long getTimeDateStamp() {
+        return timeDateStamp;
+    }
+
+    public int getMajorVersion() {
+        return majorVersion;
+    }
+
+    public int getMinorVersion() {
+        return minorVersion;
+    }
+
+    public long getNameRVA() {
+        return nameRVA;
+    }
+
+    public long getOrdinalBase() {
+        return ordinalBase;
+    }
+
+    public long getAddressTableEntries() {
+        return addressTableEntries;
+    }
+
+    public long getNumberOfNamePointers() {
+        return numberOfNamePointers;
+    }
+
+    public long getExportAddressTableRVA() {
+        return exportAddressTableRVA;
+    }
+
+    public long getNamePointerRVA() {
+        return namePointerRVA;
+    }
+
+    public long getOrdinalTableRVA() {
+        return ordinalTableRVA;
+    }
 }

@@ -18,7 +18,7 @@ public interface DataReader {
 
     public abstract void close() throws IOException;
 
-    public abstract void read(byte[] signature) throws IOException;
+    public abstract void read(byte[] buffer) throws IOException;
 
     public String readUtf(int size) throws IOException;
 

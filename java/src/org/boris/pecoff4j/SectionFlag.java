@@ -1,5 +1,8 @@
 package org.boris.pecoff4j;
 
+/**
+ * DOCUMENT ME!
+ */
 public class SectionFlag {
     public static final int RESERVED_1 = 0x00000000;
     public static final int RESERVED_2 = 0x00000001;

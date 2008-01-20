@@ -22,6 +22,8 @@
 				PE/COFF 4J is an engineering library for portable executables, the format used by Windows. It has the following features:
 				<ul>
 						<li>Parser for Windows executables and DLLs.</li>
+						<li>Assembler for creating and modifying executables and DLLs.</li>
+						<li>Resource directory parser - understands version info, icons.</li>
 				</ul>
 				<p>
 					PE/COFF 4J is licensed under the <a href="http://www.eclipse.org/legal/cpl-v10.html">Common Public License (CPL)</a>.
@@ -31,7 +33,36 @@
 		<div class="section">
 			<div class="section-title">Download</div>
 			<div class="section-content">
-				The latest <a href="https://sourceforge.net/project/showfiles.php?group_id=195634">download</a> is available from the Project Page.
+				The latest <a href="https://sourceforge.net/project/showfiles.php?group_id=214146">download</a> is available from the Project Page.
+			</div>
+		</div>
+		<div class="section">
+			<div class="section-title">Documentation</div>
+			<div class="section-content">
+				The javadoc for the library can be found <a href="http://pecoff4j.sourceforge.net/javadoc/index.html">here</a>.
+			</div>
+		</div>
+		<div class="section">
+			<div class="section-title">Usage</div>
+			<div class="section-content">
+				The following snippet shows how to parse an executable.
+<pre>
+package org.boris.pecoff4j;
+
+import java.io.File;
+
+import org.boris.pecoff4j.io.PEParser;
+
+/**
+ * An example demonstrating parsing an executable.
+ */
+public class ParseExecutableTest {
+    public static void main(String[] args) throws Exception {
+        PE pe = PEParser.parse(new File("c:/windows/system32/notepad.exe"));
+        System.out.println(pe);
+    }
+}
+</pre>
 			</div>
 		</div>
 		<div class="section">

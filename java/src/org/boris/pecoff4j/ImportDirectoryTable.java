@@ -21,4 +21,24 @@ public class ImportDirectoryTable {
         nameRVA = dis.readDoubleWord();
         importAddressTableRVA = dis.readDoubleWord();
     }
+
+    public long getImportLookupTableRVA() {
+        return importLookupTableRVA;
+    }
+
+    public long getTimeDateStamp() {
+        return timeDateStamp;
+    }
+
+    public long getForwarderChain() {
+        return forwarderChain;
+    }
+
+    public long getNameRVA() {
+        return nameRVA;
+    }
+
+    public long getImportAddressTableRVA() {
+        return importAddressTableRVA;
+    }
 }
