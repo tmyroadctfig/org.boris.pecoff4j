@@ -2,7 +2,7 @@ package org.boris.pecoff4j;
 
 import java.io.File;
 
-import org.boris.pecoff4j.io.PEParser;
+import org.boris.pecoff4j.parser.PEParser;
 
 /**
  * An example demonstrating parsing an executables.

@@ -1,7 +1,8 @@
 package org.boris.pecoff4j.io;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
-
 
 public class ByteArrayDataReader implements DataReader {
     private byte[] buffer;
@@ -60,5 +61,12 @@ public class ByteArrayDataReader implements DataReader {
     }
 
     public void close() throws IOException {
+    }
+
+    public static ByteArrayDataReader create(File file) throws IOException {
+        FileInputStream fis = new FileInputStream(file);
+        byte[] buf = new byte[(int) file.length()];
+        fis.read(buf);
+        return new ByteArrayDataReader(buf);
     }
 }

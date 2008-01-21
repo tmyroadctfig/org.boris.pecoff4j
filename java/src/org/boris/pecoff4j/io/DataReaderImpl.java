@@ -62,4 +62,8 @@ public class DataReaderImpl implements DataReader {
         }
         return new String(b, 0, i);
     }
+
+    public void jumpTo(int position) {
+        throw new RuntimeException("Not implemented: DataReader.jumpTo");
+    }
 }

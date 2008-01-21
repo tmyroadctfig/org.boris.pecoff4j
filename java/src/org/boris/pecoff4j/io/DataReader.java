@@ -4,6 +4,8 @@ import java.io.IOException;
 
 public interface DataReader {
 
+    public abstract void jumpTo(int position);
+
     public abstract int readByte() throws IOException;
 
     public abstract int readWord() throws IOException;

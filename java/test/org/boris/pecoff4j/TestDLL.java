@@ -2,6 +2,10 @@ package org.boris.pecoff4j;
 
 import java.io.FileInputStream;
 
+import org.boris.pecoff4j.header.COFFHeader;
+import org.boris.pecoff4j.header.DOSHeader;
+import org.boris.pecoff4j.header.DOSStub;
+import org.boris.pecoff4j.header.OptionalHeader;
 import org.boris.pecoff4j.io.DataReader;
 import org.boris.pecoff4j.io.DataReaderImpl;
 

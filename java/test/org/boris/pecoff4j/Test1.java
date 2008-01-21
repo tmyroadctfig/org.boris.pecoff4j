@@ -1,9 +1,9 @@
 package org.boris.pecoff4j;
 
-import java.io.FileInputStream;
+import java.io.File;
 
+import org.boris.pecoff4j.io.ByteArrayDataReader;
 import org.boris.pecoff4j.io.DataReader;
-import org.boris.pecoff4j.io.DataReaderImpl;
 
 public class Test1 {
     public static void main(String[] args) throws Exception {
@@ -14,19 +14,6 @@ public class Test1 {
     }
 
     public static void testExe(String file) throws Exception {
-        DataReader dr = new DataReaderImpl(new FileInputStream(file));
-        System.out.println(file);
-        DOSHeader header = DOSHeader.read(dr);
-        System.out.println(header);
-        DOSStub stub = DOSStub.read(header, dr);
-        System.out.println(stub);
-        long pe = dr.readDoubleWord();
-        System.out.println(pe);
-        COFFHeader ch = COFFHeader.read(dr);
-        System.out.println(ch);
-        OptionalHeader oh = OptionalHeader.read(dr);
-        System.out.println(oh);
-        SectionTable st = SectionTable.read(ch.getNumberOfSections(), dr);
-        System.out.println(st);
+        DataReader dr = ByteArrayDataReader.create(new File(file));
     }
 }
