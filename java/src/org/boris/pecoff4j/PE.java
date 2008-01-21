@@ -2,6 +2,11 @@ package org.boris.pecoff4j;
 
 import java.io.IOException;
 
+import org.boris.pecoff4j.header.COFFHeader;
+import org.boris.pecoff4j.header.DOSHeader;
+import org.boris.pecoff4j.header.DOSStub;
+import org.boris.pecoff4j.header.NTHeader;
+import org.boris.pecoff4j.header.OptionalHeader;
 import org.boris.pecoff4j.io.DataReader;
 
 /**
