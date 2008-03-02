@@ -1,4 +1,4 @@
-package org.boris.pecoff4j;
+package org.boris.pecoff4j.constant;
 
 /**
  * The debug types.

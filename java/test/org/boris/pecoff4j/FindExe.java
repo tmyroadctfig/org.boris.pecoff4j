@@ -11,12 +11,17 @@ public class FindExe {
         File[] files = findFiles(new File("C:/windows/system32"),
                 new FilenameFilter() {
                     public boolean accept(File dir, String name) {
-                        return name.endsWith(".dll");
+                        return name.endsWith(".dll") &&
+                                name.indexOf("dllcache") == -1;
                     }
                 });
+        System.out.println("public static String[] DLL_FILES = {");
         for (File f : files) {
-            System.out.println(f);
+            String str = f.toString();
+            str = str.replaceAll("\\\\", "/");
+            System.out.println("\"" + str + "\",");
         }
+        System.out.println("};");
     }
 
     public static File[] findFiles(File dir, FilenameFilter filter) {

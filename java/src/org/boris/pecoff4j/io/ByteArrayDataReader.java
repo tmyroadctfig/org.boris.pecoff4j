@@ -8,6 +8,12 @@ public class ByteArrayDataReader implements DataReader {
     private byte[] buffer;
     private int position = 0;
 
+    public ByteArrayDataReader(File file) throws IOException {
+        buffer = new byte[(int) file.length()];
+        FileInputStream fis = new FileInputStream(file);
+        fis.read(buffer);
+    }
+
     public ByteArrayDataReader(byte[] buffer) {
         this.buffer = buffer;
     }
@@ -41,8 +47,8 @@ public class ByteArrayDataReader implements DataReader {
     }
 
     public void read(byte[] b) throws IOException {
-        position += b.length;
         System.arraycopy(buffer, position, b, 0, b.length);
+        position += b.length;
     }
 
     public String readUtf(int size) throws IOException {
@@ -57,7 +63,7 @@ public class ByteArrayDataReader implements DataReader {
     }
 
     private int read() {
-        return buffer[position++];
+        return buffer[position++] & 0x00ff;
     }
 
     public void close() throws IOException {

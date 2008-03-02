@@ -3,6 +3,7 @@ package org.boris.pecoff4j;
 import java.io.IOException;
 
 import org.boris.pecoff4j.io.DataReader;
+import org.boris.pecoff4j.io.Reflection;
 
 /**
  * The export directory table. See section 6.3.1 of the PE/COFF specification
@@ -21,18 +22,24 @@ public class ExportDirectoryTable {
     private long namePointerRVA;
     private long ordinalTableRVA;
 
-    public void read(DataReader dis) throws IOException {
-        exportFlags = dis.readDoubleWord();
-        timeDateStamp = dis.readDoubleWord();
-        majorVersion = dis.readWord();
-        minorVersion = dis.readWord();
-        nameRVA = dis.readDoubleWord();
-        ordinalBase = dis.readDoubleWord();
-        addressTableEntries = dis.readDoubleWord();
-        numberOfNamePointers = dis.readDoubleWord();
-        exportAddressTableRVA = dis.readDoubleWord();
-        namePointerRVA = dis.readDoubleWord();
-        ordinalTableRVA = dis.readDoubleWord();
+    public static ExportDirectoryTable read(DataReader dis) throws IOException {
+        ExportDirectoryTable edt = new ExportDirectoryTable();
+        edt.exportFlags = dis.readDoubleWord();
+        edt.timeDateStamp = dis.readDoubleWord();
+        edt.majorVersion = dis.readWord();
+        edt.minorVersion = dis.readWord();
+        edt.nameRVA = dis.readDoubleWord();
+        edt.ordinalBase = dis.readDoubleWord();
+        edt.addressTableEntries = dis.readDoubleWord();
+        edt.numberOfNamePointers = dis.readDoubleWord();
+        edt.exportAddressTableRVA = dis.readDoubleWord();
+        edt.namePointerRVA = dis.readDoubleWord();
+        edt.ordinalTableRVA = dis.readDoubleWord();
+        return edt;
+    }
+
+    public String toString() {
+        return Reflection.toString(this);
     }
 
     public long getExportFlags() {

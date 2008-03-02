@@ -18,6 +18,11 @@ public class Reflection {
                     sb.append(" (0x");
                     sb.append(Integer.toHexString(((Integer) val).intValue()));
                     sb.append(")");
+                } else if (val instanceof Long) {
+                    sb.append(f.get(o));
+                    sb.append(" (0x");
+                    sb.append(Long.toHexString(((Long) val).longValue()));
+                    sb.append(")");
                 } else if (val != null && val.getClass().isArray()) {
                     Object[] arr = (Object[]) val;
                     for (int i = 0; i < arr.length; i++) {

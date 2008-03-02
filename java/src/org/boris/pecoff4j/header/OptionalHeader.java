@@ -44,7 +44,7 @@ public class OptionalHeader {
     private ImageDirectoryEntry resourceTable;
     private ImageDirectoryEntry exceptionTable;
     private ImageDirectoryEntry certificateTable;
-    private ImageDirectoryEntry baseRolocationTable;
+    private ImageDirectoryEntry baseRelocationTable;
     private ImageDirectoryEntry debug;
     private ImageDirectoryEntry architecture;
     private ImageDirectoryEntry globalPtr;
@@ -82,7 +82,7 @@ public class OptionalHeader {
         minorImageVersion = dr.readWord();
         majorSubsystemVersion = dr.readWord();
         minorSubsystemVersion = dr.readWord();
-        win32VersionValue = dr.readWord();
+        win32VersionValue = dr.readDoubleWord();
         sizeOfImage = dr.readDoubleWord();
         sizeOfHeaders = dr.readDoubleWord();
         checkSum = dr.readDoubleWord();
@@ -100,7 +100,7 @@ public class OptionalHeader {
         resourceTable = ImageDirectoryEntry.read(dr);
         exceptionTable = ImageDirectoryEntry.read(dr);
         certificateTable = ImageDirectoryEntry.read(dr);
-        baseRolocationTable = ImageDirectoryEntry.read(dr);
+        baseRelocationTable = ImageDirectoryEntry.read(dr);
         debug = ImageDirectoryEntry.read(dr);
         architecture = ImageDirectoryEntry.read(dr);
         globalPtr = ImageDirectoryEntry.read(dr);
@@ -258,7 +258,7 @@ public class OptionalHeader {
     }
 
     public ImageDirectoryEntry getBaseRolocationTable() {
-        return baseRolocationTable;
+        return baseRelocationTable;
     }
 
     public ImageDirectoryEntry getDebug() {

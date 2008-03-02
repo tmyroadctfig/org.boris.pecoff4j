@@ -1,27 +1,27 @@
 package org.boris.pecoff4j;
 
-import java.io.FileInputStream;
+import java.io.File;
 
 import org.boris.pecoff4j.header.COFFHeader;
 import org.boris.pecoff4j.header.DOSHeader;
 import org.boris.pecoff4j.header.DOSStub;
 import org.boris.pecoff4j.header.OptionalHeader;
+import org.boris.pecoff4j.io.ByteArrayDataReader;
 import org.boris.pecoff4j.io.DataReader;
-import org.boris.pecoff4j.io.DataReaderImpl;
 
 public class TestDLL {
 
-    public static final boolean dump = true;
+    public static final boolean dump = false;
 
     public static void main(String[] args) throws Exception {
-        // testDll("c:/windows/system32/winsock.dll");
-        for (int i = 0; i < 20; i++) {
-            testDll(FoundDLLs.DLL_FILES[i]);
-        }
+        testDll("c:/windows/system32/user32.dll");
+        /*
+         * for (int i = 0; i < 20; i++) { testDll(FoundDLLs.DLL_FILES[i]); }
+         */
     }
 
     public static void testDll(String file) throws Exception {
-        DataReader dr = new DataReaderImpl(new FileInputStream(file));
+        DataReader dr = new ByteArrayDataReader(new File(file));
         System.out.println(file);
         DOSHeader header = DOSHeader.read(dr);
         if (dump)
@@ -41,8 +41,12 @@ public class TestDLL {
         SectionTable st = SectionTable.read(ch.getNumberOfSections(), dr);
         if (dump)
             System.out.println(st);
-        for (int i = 0; i < st.getNumberOfSections(); i++) {
-            System.out.println(st.getSection(i).getName());
-        }
+        if (dump)
+            for (int i = 0; i < st.getNumberOfSections(); i++) {
+                System.out.println(st.getSection(i));
+            }
+
+        ExportDirectoryTable edt = ExportDirectoryTable.read(dr);
+        System.out.println(edt);
     }
 }

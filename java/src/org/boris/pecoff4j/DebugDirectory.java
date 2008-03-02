@@ -26,4 +26,32 @@ public class DebugDirectory {
         addressOfRawData = dis.readInt();
         pointerToRawData = dis.readInt();
     }
+
+    public int getCharacteristics() {
+        return characteristics;
+    }
+
+    public int getTimeDateStamp() {
+        return timeDateStamp;
+    }
+
+    public int getMajorVersion() {
+        return majorVersion;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public int getSizeOfData() {
+        return sizeOfData;
+    }
+
+    public int getAddressOfRawData() {
+        return addressOfRawData;
+    }
+
+    public int getPointerToRawData() {
+        return pointerToRawData;
+    }
 }
