@@ -41,12 +41,18 @@ public class TestDLL {
         SectionTable st = SectionTable.read(ch.getNumberOfSections(), dr);
         if (dump)
             System.out.println(st);
-        if (dump)
-            for (int i = 0; i < st.getNumberOfSections(); i++) {
-                System.out.println(st.getSection(i));
-            }
+        // if (dump)
+        for (int i = 0; i < st.getNumberOfSections(); i++) {
+            System.out.println(st.getSection(i));
+        }
 
-        ExportDirectoryTable edt = ExportDirectoryTable.read(dr);
-        System.out.println(edt);
+        System.out.println(oh.getFileAlignment());
+        System.out.println(dr.getPosition());
+
+        int jump = oh.getFileAlignment() -
+                (dr.getPosition() ^ oh.getFileAlignment());
+        System.out.println(jump);
+        dr.skipBytes(jump);
+
     }
 }
