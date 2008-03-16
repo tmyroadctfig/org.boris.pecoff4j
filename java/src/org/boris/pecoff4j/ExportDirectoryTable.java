@@ -3,7 +3,7 @@ package org.boris.pecoff4j;
 import java.io.IOException;
 
 import org.boris.pecoff4j.io.DataReader;
-import org.boris.pecoff4j.io.Reflection;
+import org.boris.pecoff4j.util.Reflection;
 
 /**
  * The export directory table. See section 6.3.1 of the PE/COFF specification

@@ -2,8 +2,8 @@ package org.boris.pecoff4j;
 
 import java.io.IOException;
 
-import org.boris.pecoff4j.io.DataReader;
-import org.boris.pecoff4j.io.Reflection;
+import org.boris.pecoff4j.io.IDataReader;
+import org.boris.pecoff4j.util.Reflection;
 
 public class SectionHeader {
     private String name;
@@ -17,13 +17,13 @@ public class SectionHeader {
     private int numberOfLineNumbers;
     private int characteristics;
 
-    public static SectionHeader read(DataReader dr) throws IOException {
+    public static SectionHeader read(IDataReader dr) throws IOException {
         SectionHeader sh = new SectionHeader();
         sh.readFrom(dr);
         return sh;
     }
 
-    private void readFrom(DataReader dr) throws IOException {
+    private void readFrom(IDataReader dr) throws IOException {
         name = dr.readUtf(8);
         virtualSize = dr.readDoubleWord();
         virtualAddress = dr.readDoubleWord();
