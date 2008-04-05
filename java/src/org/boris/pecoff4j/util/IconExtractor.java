@@ -21,10 +21,10 @@ public class IconExtractor {
     public static void extract(File pecoff, File outputDir) throws IOException {
         PEFile pe = PEFile.parse(pecoff);
         ResourceDirectory rd = pe.getResourceDirectory();
+        if(rd == null) return;
         ResourceEntry[] entries = rd.findResources(ResourceType.RT_GROUP_ICON);
         for (int i = 0; i < entries.length; i++) {
             GroupIconDirectory gid = GroupIconDirectory.read(entries[i].getData());
-            System.out.println(gid);
             IconFile icf = new IconFile();
             IconDirectory icd = new IconDirectory();
             icd.setCount(gid.getCount());
@@ -46,11 +46,17 @@ public class IconExtractor {
                 }
                 byte[] d = icos[0].getData();
                 dentries[j].setBytesInRes(d.length);
-                IconImage ii = IconImage.read(new ByteArrayDataReader(d), gide.getBytesInRes());
-                images[j] = ii;
+                // Check for PNG data
+                if(gide.getWidth() == 0 && gide.getHeight() == 0) {
+                    IconImage ii = IconImage.readPNG(d);
+                    images[j] = ii;
+                } else {
+                    IconImage ii = IconImage.read(new ByteArrayDataReader(d), gide.getBytesInRes());
+                    images[j] = ii;
+                }
             }
 
-            File outFile = new File(outputDir, pecoff.getName() + "-" + i + ".ico");
+            File outFile = new File(outputDir, pecoff.getName() + "-icon" + i + ".ico");
             DataWriter dw = new DataWriter(new FileOutputStream(outFile));
             icf.write(dw);
             dw.close();

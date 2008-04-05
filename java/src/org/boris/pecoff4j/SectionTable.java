@@ -9,6 +9,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.boris.pecoff4j.io.DataWriter;
 import org.boris.pecoff4j.io.IDataReader;
 import org.boris.pecoff4j.util.Reflection;
 
@@ -42,10 +43,12 @@ public class SectionTable {
 
         sectionData = new HashMap();
         for (SectionHeader sh : sections) {
-            dr.jumpTo(sh.getPointerToRawData());
-            byte[] data = new byte[sh.getSizeOfRawData()];
-            dr.read(data);
-            sectionData.put(sh.getName(), data);
+            if(sh.getPointerToRawData() != 0) {
+                dr.jumpTo(sh.getPointerToRawData());
+                byte[] data = new byte[sh.getSizeOfRawData()];
+                dr.read(data);
+                sectionData.put(sh.getName(), data);
+            }
         }
 
         // Store sorted sections based on virtual address
@@ -84,6 +87,10 @@ public class SectionTable {
     public byte[] getSectionData(String name) {
         return sectionData.get(name);
     }
+    
+    public void putSection(String name, byte[] data) {
+        sectionData.put(name, data);
+    }
 
     public RVAConverter getRVAConverter() {
         return this.rvaConverter;
@@ -91,5 +98,8 @@ public class SectionTable {
 
     public String toString() {
         return Reflection.toString(this);
+    }
+
+    public void write(DataWriter dw) {
     }
 }

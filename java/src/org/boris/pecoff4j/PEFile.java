@@ -42,15 +42,20 @@ public class PEFile {
             pf.resourceDirectory = ResourceDirectory.parse(res, pf.getOptionalHeader()
                     .getResourceTable().getVirtualAddress());
         }
-
+        
         // Parse import directory table
         res = pf.getSectionTable().getSectionData(".rdata");
         if (res != null) {
             IDataReader drr = new ByteArrayDataReader(res);
-            drr.jumpTo(pf.getOptionalHeader().getImportTable().getVirtualAddress()
-                    - pf.getSectionTable().getSection(".rdata").getVirtualAddress());
-            pf.importDirectory = ImportDirectory.read(drr, pf.getSectionTable()
-                    .getSection(".rdata").getVirtualAddress());
+            int itva = pf.getOptionalHeader().getImportTable().getVirtualAddress();
+            int rdva = pf.getSectionTable().getSection(".rdata").getVirtualAddress();
+            int offset = itva - rdva;
+            // Sanity check
+            if(offset > 0 && offset < res.length) {
+                drr.jumpTo(itva - rdva);
+                pf.importDirectory = ImportDirectory.read(drr, pf.getSectionTable()
+                        .getSection(".rdata").getVirtualAddress());
+            }
 
             if (pf.getOptionalHeader().getLoadConfigTable().getSize() > 0) {
                 drr.jumpTo(pf.getOptionalHeader().getLoadConfigTable().getVirtualAddress()
@@ -103,5 +108,10 @@ public class PEFile {
     }
 
     public void write(DataWriter dw) {
+        dosHeader.write(dw);
+        stub.write(dw);
+        coffHeader.write(dw);
+        optionalHeader.write(dw);
+        sectionTable.write(dw);
     }
 }

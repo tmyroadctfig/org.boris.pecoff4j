@@ -1,6 +1,7 @@
 package org.boris.pecoff4j;
 import java.io.IOException;
 
+import org.boris.pecoff4j.io.DataWriter;
 import org.boris.pecoff4j.io.IDataReader;
 import org.boris.pecoff4j.util.Reflection;
 
@@ -27,4 +28,6 @@ public class DOSStub {
         return Reflection.toString(this);
     }
 
+    public void write(DataWriter dw) {
+    }
 }

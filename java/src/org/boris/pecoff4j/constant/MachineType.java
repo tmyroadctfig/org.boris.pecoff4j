@@ -1,5 +1,7 @@
 package org.boris.pecoff4j.constant;
 
+import java.lang.reflect.Field;
+
 /**
  * The constants for machine types.
  */
@@ -24,4 +26,14 @@ public class MachineType {
     public static final int IMAGE_FILE_MACHINE_SH5 = 0x1a8;
     public static final int IMAGE_FILE_MACHINE_THUMB = 0x1c2;
     public static final int IMAGE_FILE_MACHINE_WCEMIPSV2 = 0x169;
+    
+    public static String toString(int value) throws Exception {
+        Field[] fields = MachineType.class.getFields();
+        for(Field f : fields) {
+            if(f.get(null).equals(value)) {
+                return f.getName();
+            }
+        }
+        return null;
+    }
 }

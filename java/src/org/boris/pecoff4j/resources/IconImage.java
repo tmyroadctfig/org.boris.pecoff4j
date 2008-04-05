@@ -11,6 +11,13 @@ public class IconImage {
     private RGBQuad[] colors;
     private byte[] xorMask;
     private byte[] andMask;
+    private byte[] pngData;
+    
+    public static IconImage readPNG(byte[] data) {
+        IconImage ii = new IconImage();
+        ii.pngData = data;
+        return ii;
+    }
 
     public static IconImage read(IDataReader dr, int bytesInRes) throws IOException {
         IconImage ii = new IconImage();
@@ -48,18 +55,22 @@ public class IconImage {
     }
 
     public void write(IDataWriter dw) throws IOException {
-        header.write(dw);
-        if (colors != null) {
-            for (int i = 0; i < colors.length; i++) {
-                colors[i].write(dw);
+        if(header != null) {
+            header.write(dw);
+            if (colors != null) {
+                for (int i = 0; i < colors.length; i++) {
+                    colors[i].write(dw);
+                }
             }
+            dw.writeBytes(xorMask);
+            dw.writeBytes(andMask);
+        } else {
+            dw.writeBytes(pngData);
         }
-        dw.writeBytes(xorMask);
-        dw.writeBytes(andMask);
     }
 
     public int sizeOf() {
-        return header.getSize() + (colors == null ? 0 : colors.length * 4) + xorMask.length
+        return header == null ? pngData.length : header.getSize() + (colors == null ? 0 : colors.length * 4) + xorMask.length
                 + andMask.length;
     }
 
@@ -78,6 +89,11 @@ public class IconImage {
     public byte[] getAndMask() {
         return andMask;
     }
+    
+    public byte[] getPNG() {
+        return pngData;
+    }
+        
 
     public String toString() {
         return Reflection.toString(this);

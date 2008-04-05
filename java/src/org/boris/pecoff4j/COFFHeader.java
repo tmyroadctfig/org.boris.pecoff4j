@@ -1,6 +1,7 @@
 package org.boris.pecoff4j;
 import java.io.IOException;
 
+import org.boris.pecoff4j.io.DataWriter;
 import org.boris.pecoff4j.io.IDataReader;
 import org.boris.pecoff4j.util.Reflection;
 
@@ -59,6 +60,9 @@ public class COFFHeader {
 
     public int getCharacteristics() {
         return characteristics;
+    }
+
+    public void write(DataWriter dw) {
     }
 
 }
