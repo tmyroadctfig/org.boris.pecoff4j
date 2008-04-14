@@ -12,6 +12,22 @@ public class StringTable {
     private String key;
     private int padding;
 
+    public int getLength() {
+        return length;
+    }
+
+    public int getValueLength() {
+        return valueLength;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public int getPadding() {
+        return padding;
+    }
+
     public String getKey() {
         return key;
     }

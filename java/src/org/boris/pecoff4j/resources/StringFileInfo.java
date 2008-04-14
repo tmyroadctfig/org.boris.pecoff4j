@@ -6,7 +6,6 @@ import org.boris.pecoff4j.io.IDataReader;
 import org.boris.pecoff4j.util.Reflection;
 
 public class StringFileInfo {
-
     private String key;
 
     public static StringFileInfo read(IDataReader dr, int length) throws IOException {
