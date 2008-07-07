@@ -1,3 +1,12 @@
+/*******************************************************************************
+ * This program and the accompanying materials
+ * are made available under the terms of the Common Public License v1.0
+ * which accompanies this distribution, and is available at 
+ * http://www.eclipse.org/legal/cpl-v10.html
+ * 
+ * Contributors:
+ *     Peter Smith
+ *******************************************************************************/
 package org.boris.pecoff4j;
 
 import java.io.DataInputStream;
@@ -7,7 +16,8 @@ import java.io.IOException;
  * Encapsulates the Debug Directory (Image Only). Section 6.1.1 of the PE/COFF
  * spec v8.
  */
-public class DebugDirectory {
+public class DebugDirectory
+{
     private int characteristics;
     private int timeDateStamp;
     private int majorVersion;

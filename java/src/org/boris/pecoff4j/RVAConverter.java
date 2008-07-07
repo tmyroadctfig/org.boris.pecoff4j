@@ -1,6 +1,16 @@
+/*******************************************************************************
+ * This program and the accompanying materials
+ * are made available under the terms of the Common Public License v1.0
+ * which accompanies this distribution, and is available at 
+ * http://www.eclipse.org/legal/cpl-v10.html
+ * 
+ * Contributors:
+ *     Peter Smith
+ *******************************************************************************/
 package org.boris.pecoff4j;
 
-public class RVAConverter {
+public class RVAConverter
+{
     private int[] virtualAddress;
     private int[] pointerToRawData;
 
@@ -13,8 +23,8 @@ public class RVAConverter {
         for (int i = 0; i < this.virtualAddress.length; i++) {
             if (virtualAddress < this.virtualAddress[i]) {
                 if (i > 0) {
-                    return this.pointerToRawData[i - 1] + virtualAddress
-                            - this.virtualAddress[i - 1];
+                    return this.pointerToRawData[i - 1] + virtualAddress -
+                            this.virtualAddress[i - 1];
                 } else {
                     return -1;
                 }
@@ -22,8 +32,9 @@ public class RVAConverter {
         }
 
         // Hit the last item
-        return this.pointerToRawData[this.virtualAddress.length - 1] + virtualAddress
-                - this.virtualAddress[this.virtualAddress.length - 1];
+        return this.pointerToRawData[this.virtualAddress.length - 1] +
+                virtualAddress -
+                this.virtualAddress[this.virtualAddress.length - 1];
 
     }
 }

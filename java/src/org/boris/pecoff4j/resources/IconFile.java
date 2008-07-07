@@ -1,3 +1,12 @@
+/*******************************************************************************
+ * This program and the accompanying materials
+ * are made available under the terms of the Common Public License v1.0
+ * which accompanies this distribution, and is available at 
+ * http://www.eclipse.org/legal/cpl-v10.html
+ * 
+ * Contributors:
+ *     Peter Smith
+ *******************************************************************************/
 package org.boris.pecoff4j.resources;
 
 import java.io.File;
@@ -9,7 +18,8 @@ import org.boris.pecoff4j.io.IDataReader;
 import org.boris.pecoff4j.io.IDataWriter;
 import org.boris.pecoff4j.util.Reflection;
 
-public class IconFile {
+public class IconFile
+{
     private IconDirectory directory;
     private IconImage[] images;
 
@@ -23,7 +33,8 @@ public class IconFile {
         ic.images = new IconImage[ic.directory.getCount()];
         for (int i = 0; i < ic.directory.getCount(); i++) {
             dr.jumpTo(ic.directory.getEntry(i).getOffset());
-            ic.images[i] = IconImage.read(dr, ic.directory.getEntry(i).getBytesInRes());
+            ic.images[i] = IconImage.read(dr, ic.directory.getEntry(i)
+                    .getBytesInRes());
         }
         return ic;
     }

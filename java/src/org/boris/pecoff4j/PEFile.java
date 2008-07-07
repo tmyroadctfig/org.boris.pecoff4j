@@ -1,3 +1,12 @@
+/*******************************************************************************
+ * This program and the accompanying materials
+ * are made available under the terms of the Common Public License v1.0
+ * which accompanies this distribution, and is available at 
+ * http://www.eclipse.org/legal/cpl-v10.html
+ * 
+ * Contributors:
+ *     Peter Smith
+ *******************************************************************************/
 package org.boris.pecoff4j;
 
 import java.io.File;
@@ -11,7 +20,8 @@ import org.boris.pecoff4j.io.DataWriter;
 import org.boris.pecoff4j.io.IDataReader;
 import org.boris.pecoff4j.util.Reflection;
 
-public class PEFile {
+public class PEFile
+{
     private DOSHeader dosHeader;
     private DOSStub stub;
     private PESignature signature;
@@ -33,33 +43,41 @@ public class PEFile {
         pf.signature = PESignature.read(dr);
         pf.coffHeader = COFFHeader.read(dr);
         pf.optionalHeader = OptionalHeader.read(dr);
-        pf.sectionTable = SectionTable.read(pf.coffHeader.getNumberOfSections(), dr);
+        pf.sectionTable = SectionTable.read(
+                pf.coffHeader.getNumberOfSections(), dr);
 
         // Parse resources if present
         // TODO: ensure the resource table covers the .rsrc section
         byte[] res = pf.getSectionTable().getSectionData(".rsrc");
-        if (res != null && pf.getOptionalHeader().getResourceTable().getSize() > 0) {
-            pf.resourceDirectory = ResourceDirectory.parse(res, pf.getOptionalHeader()
-                    .getResourceTable().getVirtualAddress());
+        if (res != null &&
+                pf.getOptionalHeader().getResourceTable().getSize() > 0) {
+            pf.resourceDirectory = ResourceDirectory
+                    .parse(res, pf.getOptionalHeader().getResourceTable()
+                            .getVirtualAddress());
         }
-        
+
         // Parse import directory table
         res = pf.getSectionTable().getSectionData(".rdata");
         if (res != null) {
             IDataReader drr = new ByteArrayDataReader(res);
-            int itva = pf.getOptionalHeader().getImportTable().getVirtualAddress();
-            int rdva = pf.getSectionTable().getSection(".rdata").getVirtualAddress();
+            int itva = pf.getOptionalHeader().getImportTable()
+                    .getVirtualAddress();
+            int rdva = pf.getSectionTable().getSection(".rdata")
+                    .getVirtualAddress();
             int offset = itva - rdva;
             // Sanity check
-            if(offset > 0 && offset < res.length) {
+            if (offset > 0 && offset < res.length) {
                 drr.jumpTo(itva - rdva);
-                pf.importDirectory = ImportDirectory.read(drr, pf.getSectionTable()
-                        .getSection(".rdata").getVirtualAddress());
+                pf.importDirectory = ImportDirectory.read(drr, pf
+                        .getSectionTable().getSection(".rdata")
+                        .getVirtualAddress());
             }
 
             if (pf.getOptionalHeader().getLoadConfigTable().getSize() > 0) {
-                drr.jumpTo(pf.getOptionalHeader().getLoadConfigTable().getVirtualAddress()
-                        - pf.getSectionTable().getSection(".rdata").getVirtualAddress());
+                drr.jumpTo(pf.getOptionalHeader().getLoadConfigTable()
+                        .getVirtualAddress() -
+                        pf.getSectionTable().getSection(".rdata")
+                                .getVirtualAddress());
                 pf.loadConfigDirectory = LoadConfigDirectory.read(drr);
             }
         }

@@ -1,3 +1,12 @@
+/*******************************************************************************
+ * This program and the accompanying materials
+ * are made available under the terms of the Common Public License v1.0
+ * which accompanies this distribution, and is available at 
+ * http://www.eclipse.org/legal/cpl-v10.html
+ * 
+ * Contributors:
+ *     Peter Smith
+ *******************************************************************************/
 package org.boris.pecoff4j;
 
 import java.io.IOException;
@@ -8,11 +17,13 @@ import org.boris.pecoff4j.io.ByteArrayDataReader;
 import org.boris.pecoff4j.io.IDataReader;
 import org.boris.pecoff4j.util.Reflection;
 
-public class ResourceDirectory {
+public class ResourceDirectory
+{
     private ResourceDirectoryEntry entry;
     private ResourceTypeDirectory[] types;
 
-    public static ResourceDirectory parse(byte[] data, int baseAddress) throws IOException {
+    public static ResourceDirectory parse(byte[] data, int baseAddress)
+            throws IOException {
         ResourceDirectory rd = new ResourceDirectory();
         IDataReader dr = new ByteArrayDataReader(data);
         rd.entry = ResourceDirectoryEntry.read(dr);
@@ -42,7 +53,8 @@ public class ResourceDirectory {
                         for (int k = 0; k < rn.getLanguageCount(); k++) {
                             int language = types[i].getName(j).getEntryName(k);
                             byte[] data = rn.getLanguage(k).getData();
-                            entries.add(new ResourceEntry(data, nameId, language));
+                            entries.add(new ResourceEntry(data, nameId,
+                                    language));
                         }
                     }
                 }

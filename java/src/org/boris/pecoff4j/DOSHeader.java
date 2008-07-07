@@ -1,11 +1,22 @@
+/*******************************************************************************
+ * This program and the accompanying materials
+ * are made available under the terms of the Common Public License v1.0
+ * which accompanies this distribution, and is available at 
+ * http://www.eclipse.org/legal/cpl-v10.html
+ * 
+ * Contributors:
+ *     Peter Smith
+ *******************************************************************************/
 package org.boris.pecoff4j;
+
 import java.io.IOException;
 
 import org.boris.pecoff4j.io.DataWriter;
 import org.boris.pecoff4j.io.IDataReader;
 import org.boris.pecoff4j.util.Reflection;
 
-public class DOSHeader {
+public class DOSHeader
+{
     private int magic;
     private int usedBytesInLastPage;
     private int fileSizeInPages;
@@ -38,15 +49,19 @@ public class DOSHeader {
         usedBytesInLastPage = dis.readWord(); // Bytes on last page of file
         fileSizeInPages = dis.readWord(); // Pages in file
         numRelocationItems = dis.readWord(); // Relocations
-        headerSizeInParagraphs = dis.readWord(); // Size of header in paragraphs
-        minExtraParagraphs = dis.readWord(); // Minimum extra paragraphs needed
-        maxExtraParagraphs = dis.readWord(); // Maximum extra paragraphs needed
+        headerSizeInParagraphs = dis.readWord(); // Size of header in
+                                                    // paragraphs
+        minExtraParagraphs = dis.readWord(); // Minimum extra paragraphs
+                                                // needed
+        maxExtraParagraphs = dis.readWord(); // Maximum extra paragraphs
+                                                // needed
         initialSS = dis.readWord(); // Initial (relative) SS value
         initialSP = dis.readWord(); // Initial SP value
         checksum = dis.readWord(); // Checksum
         initialIP = dis.readWord(); // Initial IP value
         initialRelativeCS = dis.readWord(); // Initial (relative) CS value
-        addressOfRelocationTable = dis.readWord(); // File address of relocation table
+        addressOfRelocationTable = dis.readWord(); // File address of
+                                                    // relocation table
         overlayNumber = dis.readWord(); // Overlay number
         reserverd = new int[4];
         for (int i = 0; i < reserverd.length; i++) {
@@ -58,7 +73,8 @@ public class DOSHeader {
         for (int i = 0; i < reserved2.length; i++) {
             reserved2[i] = dis.readWord(); // Reserved words
         }
-        addressOfNewExeHeader = dis.readDoubleWord(); // File address of new exe header
+        addressOfNewExeHeader = dis.readDoubleWord(); // File address of new
+                                                        // exe header
 
         // calc stub size
         stubSize = fileSizeInPages * 512 - (512 - usedBytesInLastPage);

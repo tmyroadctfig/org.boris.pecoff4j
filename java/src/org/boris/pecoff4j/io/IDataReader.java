@@ -1,9 +1,18 @@
+/*******************************************************************************
+ * This program and the accompanying materials
+ * are made available under the terms of the Common Public License v1.0
+ * which accompanies this distribution, and is available at 
+ * http://www.eclipse.org/legal/cpl-v10.html
+ * 
+ * Contributors:
+ *     Peter Smith
+ *******************************************************************************/
 package org.boris.pecoff4j.io;
 
 import java.io.IOException;
 
-public interface IDataReader {
-
+public interface IDataReader
+{
     public abstract int readByte() throws IOException;
 
     public abstract int readWord() throws IOException;
@@ -29,5 +38,4 @@ public interface IDataReader {
     public abstract String readUnicode() throws IOException;
 
     public abstract String readUnicode(int size) throws IOException;
-
 }

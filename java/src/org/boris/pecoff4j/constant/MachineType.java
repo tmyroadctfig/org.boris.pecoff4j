@@ -1,3 +1,12 @@
+/*******************************************************************************
+ * This program and the accompanying materials
+ * are made available under the terms of the Common Public License v1.0
+ * which accompanies this distribution, and is available at 
+ * http://www.eclipse.org/legal/cpl-v10.html
+ * 
+ * Contributors:
+ *     Peter Smith
+ *******************************************************************************/
 package org.boris.pecoff4j.constant;
 
 import java.lang.reflect.Field;
@@ -5,7 +14,8 @@ import java.lang.reflect.Field;
 /**
  * The constants for machine types.
  */
-public class MachineType {
+public class MachineType
+{
     public static final int IMAGE_FILE_MACHINE_UNKNOWN = 0x0;
     public static final int IMAGE_FILE_MACHINE_AM33 = 0x1d3;
     public static final int IMAGE_FILE_MACHINE_AMD64 = 0x8664;
@@ -26,11 +36,11 @@ public class MachineType {
     public static final int IMAGE_FILE_MACHINE_SH5 = 0x1a8;
     public static final int IMAGE_FILE_MACHINE_THUMB = 0x1c2;
     public static final int IMAGE_FILE_MACHINE_WCEMIPSV2 = 0x169;
-    
+
     public static String toString(int value) throws Exception {
         Field[] fields = MachineType.class.getFields();
-        for(Field f : fields) {
-            if(f.get(null).equals(value)) {
+        for (Field f : fields) {
+            if (f.get(null).equals(value)) {
                 return f.getName();
             }
         }

@@ -1,3 +1,12 @@
+/*******************************************************************************
+ * This program and the accompanying materials
+ * are made available under the terms of the Common Public License v1.0
+ * which accompanies this distribution, and is available at 
+ * http://www.eclipse.org/legal/cpl-v10.html
+ * 
+ * Contributors:
+ *     Peter Smith
+ *******************************************************************************/
 package org.boris.pecoff4j.io;
 
 import java.io.BufferedOutputStream;
@@ -7,7 +16,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
-public class DataWriter implements IDataWriter {
+public class DataWriter implements IDataWriter
+{
     private BufferedOutputStream out;
 
     public DataWriter(File output) throws FileNotFoundException {

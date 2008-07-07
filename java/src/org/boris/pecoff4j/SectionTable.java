@@ -1,3 +1,12 @@
+/*******************************************************************************
+ * This program and the accompanying materials
+ * are made available under the terms of the Common Public License v1.0
+ * which accompanies this distribution, and is available at 
+ * http://www.eclipse.org/legal/cpl-v10.html
+ * 
+ * Contributors:
+ *     Peter Smith
+ *******************************************************************************/
 package org.boris.pecoff4j;
 
 import java.io.IOException;
@@ -13,19 +22,22 @@ import org.boris.pecoff4j.io.DataWriter;
 import org.boris.pecoff4j.io.IDataReader;
 import org.boris.pecoff4j.util.Reflection;
 
-public class SectionTable {
+public class SectionTable
+{
     private SectionHeader[] headers;
     private Map<String, SectionHeader> sectionByName;
     private Map<String, byte[]> sectionData;
     private RVAConverter rvaConverter;
 
-    public static SectionTable read(int numberOfSections, IDataReader dr) throws IOException {
+    public static SectionTable read(int numberOfSections, IDataReader dr)
+            throws IOException {
         SectionTable st = new SectionTable();
         st.readFrom(numberOfSections, dr);
         return st;
     }
 
-    private void readFrom(int numberOfSections, IDataReader dr) throws IOException {
+    private void readFrom(int numberOfSections, IDataReader dr)
+            throws IOException {
         headers = new SectionHeader[numberOfSections];
         sectionByName = new LinkedHashMap();
         for (int i = 0; i < numberOfSections; i++) {
@@ -43,7 +55,7 @@ public class SectionTable {
 
         sectionData = new HashMap();
         for (SectionHeader sh : sections) {
-            if(sh.getPointerToRawData() != 0) {
+            if (sh.getPointerToRawData() != 0) {
                 dr.jumpTo(sh.getPointerToRawData());
                 byte[] data = new byte[sh.getSizeOfRawData()];
                 dr.read(data);
@@ -52,7 +64,8 @@ public class SectionTable {
         }
 
         // Store sorted sections based on virtual address
-        SectionHeader[] sorted = Arrays.asList(headers).toArray(new SectionHeader[0]);
+        SectionHeader[] sorted = Arrays.asList(headers).toArray(
+                new SectionHeader[0]);
         Arrays.sort(sorted, new Comparator<SectionHeader>() {
             public int compare(SectionHeader o1, SectionHeader o2) {
                 return o1.getVirtualAddress() - o2.getVirtualAddress();
@@ -87,7 +100,7 @@ public class SectionTable {
     public byte[] getSectionData(String name) {
         return sectionData.get(name);
     }
-    
+
     public void putSection(String name, byte[] data) {
         sectionData.put(name, data);
     }

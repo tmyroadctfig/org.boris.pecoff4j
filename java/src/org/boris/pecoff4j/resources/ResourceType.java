@@ -1,6 +1,16 @@
+/*******************************************************************************
+ * This program and the accompanying materials
+ * are made available under the terms of the Common Public License v1.0
+ * which accompanies this distribution, and is available at 
+ * http://www.eclipse.org/legal/cpl-v10.html
+ * 
+ * Contributors:
+ *     Peter Smith
+ *******************************************************************************/
 package org.boris.pecoff4j.resources;
 
-public class ResourceType {
+public class ResourceType
+{
     public static final int RT_CURSOR = 1;
     public static final int RT_BITMAP = 2;
     public static final int RT_ICON = 3;

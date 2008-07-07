@@ -1,3 +1,12 @@
+/*******************************************************************************
+ * This program and the accompanying materials
+ * are made available under the terms of the Common Public License v1.0
+ * which accompanies this distribution, and is available at 
+ * http://www.eclipse.org/legal/cpl-v10.html
+ * 
+ * Contributors:
+ *     Peter Smith
+ *******************************************************************************/
 package org.boris.pecoff4j;
 
 import java.io.IOException;
@@ -9,7 +18,8 @@ import org.boris.pecoff4j.util.Reflection;
  * The export directory table. See section 6.3.1 of the PE/COFF specification
  * v8.
  */
-public class ExportDirectoryTable {
+public class ExportDirectoryTable
+{
     private long exportFlags;
     private long timeDateStamp;
     private int majorVersion;
