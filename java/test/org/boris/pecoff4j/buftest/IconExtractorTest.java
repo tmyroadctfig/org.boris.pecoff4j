@@ -7,11 +7,12 @@ import org.boris.pecoff4j.util.IconExtractor;
 
 public class IconExtractorTest
 {
-    private static int limit = 1000;
-    private static File outdir = new File("F:/Development/icons");
+    private static int limit = 100;
+    private static File outdir = new File("F:/Development/icons/extracted");
 
     public static void main(String[] args) throws Exception {
-        //IconExtractor.extract(new File("F:\\program files\\FlashGet\\gt.exe"), outdir);
+        // IconExtractor.extract(new File("F:\\program
+        // files\\FlashGet\\gt.exe"), outdir);
         recurse(new File("F:/program files/"));
     }
 
