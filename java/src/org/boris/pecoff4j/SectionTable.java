@@ -18,8 +18,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.boris.pecoff4j.io.DataWriter;
 import org.boris.pecoff4j.io.IDataReader;
+import org.boris.pecoff4j.io.IDataWriter;
 import org.boris.pecoff4j.util.Reflection;
 
 public class SectionTable
@@ -113,6 +113,6 @@ public class SectionTable
         return Reflection.toString(this);
     }
 
-    public void write(DataWriter dw) {
+    public void write(IDataWriter dw) {
     }
 }

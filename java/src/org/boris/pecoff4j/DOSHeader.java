@@ -11,8 +11,8 @@ package org.boris.pecoff4j;
 
 import java.io.IOException;
 
-import org.boris.pecoff4j.io.DataWriter;
 import org.boris.pecoff4j.io.IDataReader;
+import org.boris.pecoff4j.io.IDataWriter;
 import org.boris.pecoff4j.util.Reflection;
 
 public class DOSHeader
@@ -50,18 +50,18 @@ public class DOSHeader
         fileSizeInPages = dis.readWord(); // Pages in file
         numRelocationItems = dis.readWord(); // Relocations
         headerSizeInParagraphs = dis.readWord(); // Size of header in
-                                                    // paragraphs
+        // paragraphs
         minExtraParagraphs = dis.readWord(); // Minimum extra paragraphs
-                                                // needed
+        // needed
         maxExtraParagraphs = dis.readWord(); // Maximum extra paragraphs
-                                                // needed
+        // needed
         initialSS = dis.readWord(); // Initial (relative) SS value
         initialSP = dis.readWord(); // Initial SP value
         checksum = dis.readWord(); // Checksum
         initialIP = dis.readWord(); // Initial IP value
         initialRelativeCS = dis.readWord(); // Initial (relative) CS value
         addressOfRelocationTable = dis.readWord(); // File address of
-                                                    // relocation table
+        // relocation table
         overlayNumber = dis.readWord(); // Overlay number
         reserverd = new int[4];
         for (int i = 0; i < reserverd.length; i++) {
@@ -74,13 +74,16 @@ public class DOSHeader
             reserved2[i] = dis.readWord(); // Reserved words
         }
         addressOfNewExeHeader = dis.readDoubleWord(); // File address of new
-                                                        // exe header
+        // exe header
 
         // calc stub size
         stubSize = fileSizeInPages * 512 - (512 - usedBytesInLastPage);
         if (stubSize > addressOfNewExeHeader)
             stubSize = addressOfNewExeHeader;
         stubSize -= headerSizeInParagraphs * 16;
+    }
+
+    public void write(IDataWriter dw) {
     }
 
     public String toString() {
@@ -165,8 +168,5 @@ public class DOSHeader
 
     public int getStubSize() {
         return stubSize;
-    }
-
-    public void write(DataWriter dw) {
     }
 }

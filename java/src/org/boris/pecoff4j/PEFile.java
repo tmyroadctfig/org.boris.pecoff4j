@@ -16,8 +16,8 @@ import java.io.IOException;
 import org.boris.pecoff4j.imports.ImportDirectory;
 import org.boris.pecoff4j.io.ByteArrayDataReader;
 import org.boris.pecoff4j.io.DataReader;
-import org.boris.pecoff4j.io.DataWriter;
 import org.boris.pecoff4j.io.IDataReader;
+import org.boris.pecoff4j.io.IDataWriter;
 import org.boris.pecoff4j.util.Reflection;
 
 public class PEFile
@@ -85,6 +85,14 @@ public class PEFile
         return pf;
     }
 
+    public void write(IDataWriter dw) throws IOException {
+        dosHeader.write(dw);
+        stub.write(dw);
+        coffHeader.write(dw);
+        optionalHeader.write(dw);
+        sectionTable.write(dw);
+    }
+
     public DOSHeader getDosHeader() {
         return dosHeader;
     }
@@ -123,13 +131,5 @@ public class PEFile
 
     public String toString() {
         return Reflection.toString(this);
-    }
-
-    public void write(DataWriter dw) {
-        dosHeader.write(dw);
-        stub.write(dw);
-        coffHeader.write(dw);
-        optionalHeader.write(dw);
-        sectionTable.write(dw);
     }
 }

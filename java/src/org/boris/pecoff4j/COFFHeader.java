@@ -11,8 +11,8 @@ package org.boris.pecoff4j;
 
 import java.io.IOException;
 
-import org.boris.pecoff4j.io.DataWriter;
 import org.boris.pecoff4j.io.IDataReader;
+import org.boris.pecoff4j.io.IDataWriter;
 import org.boris.pecoff4j.util.Reflection;
 
 public class COFFHeader
@@ -39,6 +39,9 @@ public class COFFHeader
         numberOfSymbols = dr.readDoubleWord();
         sizeOfOptionalHeader = dr.readWord();
         characteristics = dr.readWord();
+    }
+
+    public void write(IDataWriter dw) throws IOException {
     }
 
     public String toString() {
@@ -73,6 +76,4 @@ public class COFFHeader
         return characteristics;
     }
 
-    public void write(DataWriter dw) {
-    }
 }
