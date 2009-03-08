@@ -9,16 +9,7 @@
  *******************************************************************************/
 package org.boris.pecoff4j;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-
 import org.boris.pecoff4j.imports.ImportDirectory;
-import org.boris.pecoff4j.io.ByteArrayDataReader;
-import org.boris.pecoff4j.io.DataReader;
-import org.boris.pecoff4j.io.IDataReader;
-import org.boris.pecoff4j.io.IDataWriter;
-import org.boris.pecoff4j.util.Reflection;
 
 public class PEFile
 {
@@ -31,67 +22,6 @@ public class PEFile
     private ResourceDirectory resourceDirectory;
     private ImportDirectory importDirectory;
     private LoadConfigDirectory loadConfigDirectory;
-
-    public static PEFile parse(File file) throws IOException {
-        return read(new DataReader(new FileInputStream(file)));
-    }
-
-    public static PEFile read(IDataReader dr) throws IOException {
-        PEFile pf = new PEFile();
-        pf.dosHeader = DOSHeader.read(dr);
-        pf.stub = DOSStub.read(pf.dosHeader, dr);
-        pf.signature = PESignature.read(dr);
-        pf.coffHeader = COFFHeader.read(dr);
-        pf.optionalHeader = OptionalHeader.read(dr);
-        pf.sectionTable = SectionTable.read(
-                pf.coffHeader.getNumberOfSections(), dr);
-
-        // Parse resources if present
-        // TODO: ensure the resource table covers the .rsrc section
-        byte[] res = pf.getSectionTable().getSectionData(".rsrc");
-        if (res != null &&
-                pf.getOptionalHeader().getResourceTable().getSize() > 0) {
-            pf.resourceDirectory = ResourceDirectory
-                    .parse(res, pf.getOptionalHeader().getResourceTable()
-                            .getVirtualAddress());
-        }
-
-        // Parse import directory table
-        res = pf.getSectionTable().getSectionData(".rdata");
-        if (res != null) {
-            IDataReader drr = new ByteArrayDataReader(res);
-            int itva = pf.getOptionalHeader().getImportTable()
-                    .getVirtualAddress();
-            int rdva = pf.getSectionTable().getSection(".rdata")
-                    .getVirtualAddress();
-            int offset = itva - rdva;
-            // Sanity check
-            if (offset > 0 && offset < res.length) {
-                drr.jumpTo(itva - rdva);
-                pf.importDirectory = ImportDirectory.read(drr, pf
-                        .getSectionTable().getSection(".rdata")
-                        .getVirtualAddress());
-            }
-
-            if (pf.getOptionalHeader().getLoadConfigTable().getSize() > 0) {
-                drr.jumpTo(pf.getOptionalHeader().getLoadConfigTable()
-                        .getVirtualAddress() -
-                        pf.getSectionTable().getSection(".rdata")
-                                .getVirtualAddress());
-                pf.loadConfigDirectory = LoadConfigDirectory.read(drr);
-            }
-        }
-
-        return pf;
-    }
-
-    public void write(IDataWriter dw) throws IOException {
-        dosHeader.write(dw);
-        stub.write(dw);
-        coffHeader.write(dw);
-        optionalHeader.write(dw);
-        sectionTable.write(dw);
-    }
 
     public DOSHeader getDosHeader() {
         return dosHeader;
@@ -118,18 +48,50 @@ public class PEFile
     }
 
     public ResourceDirectory getResourceDirectory() {
-        return this.resourceDirectory;
+        return resourceDirectory;
     }
 
     public ImportDirectory getImportDirectory() {
-        return this.importDirectory;
+        return importDirectory;
     }
 
     public LoadConfigDirectory getLoadConfigDirectory() {
-        return this.loadConfigDirectory;
+        return loadConfigDirectory;
     }
 
-    public String toString() {
-        return Reflection.toString(this);
+    public void setDosHeader(DOSHeader dosHeader) {
+        this.dosHeader = dosHeader;
+    }
+
+    public void setStub(DOSStub stub) {
+        this.stub = stub;
+    }
+
+    public void setSignature(PESignature signature) {
+        this.signature = signature;
+    }
+
+    public void setCoffHeader(COFFHeader coffHeader) {
+        this.coffHeader = coffHeader;
+    }
+
+    public void setOptionalHeader(OptionalHeader optionalHeader) {
+        this.optionalHeader = optionalHeader;
+    }
+
+    public void setSectionTable(SectionTable sectionTable) {
+        this.sectionTable = sectionTable;
+    }
+
+    public void setResourceDirectory(ResourceDirectory resourceDirectory) {
+        this.resourceDirectory = resourceDirectory;
+    }
+
+    public void setImportDirectory(ImportDirectory importDirectory) {
+        this.importDirectory = importDirectory;
+    }
+
+    public void setLoadConfigDirectory(LoadConfigDirectory loadConfigDirectory) {
+        this.loadConfigDirectory = loadConfigDirectory;
     }
 }

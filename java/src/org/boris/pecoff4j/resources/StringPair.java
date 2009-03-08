@@ -9,9 +9,6 @@
  *******************************************************************************/
 package org.boris.pecoff4j.resources;
 
-import java.io.IOException;
-
-import org.boris.pecoff4j.io.IDataReader;
 import org.boris.pecoff4j.util.Reflection;
 
 public class StringPair
@@ -22,20 +19,6 @@ public class StringPair
     private String key;
     private String value;
     private int padding;
-
-    public static StringPair read(IDataReader dr) throws IOException {
-        StringPair sp = new StringPair();
-        sp.length = dr.readWord();
-        sp.valueLength = dr.readWord();
-        sp.type = dr.readWord();
-        sp.key = dr.readUnicode();
-        if (sp.key.length() % 2 == 0) {
-            dr.readWord();
-            sp.padding = 2;
-        }
-        sp.value = dr.readUnicode();
-        return sp;
-    }
 
     public int getLength() {
         return length;
@@ -83,5 +66,13 @@ public class StringPair
 
     public int sizeOf() {
         return 6 + padding + key.length() * 2 + value.length() * 2;
+    }
+
+    public int getPadding() {
+        return padding;
+    }
+
+    public void setPadding(int padding) {
+        this.padding = padding;
     }
 }

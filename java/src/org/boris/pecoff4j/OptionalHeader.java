@@ -9,12 +9,6 @@
  *******************************************************************************/
 package org.boris.pecoff4j;
 
-import java.io.IOException;
-
-import org.boris.pecoff4j.io.IDataReader;
-import org.boris.pecoff4j.io.IDataWriter;
-import org.boris.pecoff4j.util.Reflection;
-
 public class OptionalHeader
 {
     private int magic;
@@ -65,67 +59,6 @@ public class OptionalHeader
     private ImageDataDirectory delayImportDescriptor;
     private ImageDataDirectory clrRuntimeHeader;
     private ImageDataDirectory reserved;
-
-    public static OptionalHeader read(IDataReader dr) throws IOException {
-        OptionalHeader oh = new OptionalHeader();
-        oh.readFrom(dr);
-        return oh;
-    }
-
-    private void readFrom(IDataReader dr) throws IOException {
-        magic = dr.readWord();
-        majorLinkerVersion = dr.readByte();
-        minorLinkerVersion = dr.readByte();
-        sizeOfCode = dr.readDoubleWord();
-        sizeOfInitializedData = dr.readDoubleWord();
-        sizeOfUninitializedData = dr.readDoubleWord();
-        addressOfEntryPoint = dr.readDoubleWord();
-        baseOfCode = dr.readDoubleWord();
-        baseOfData = dr.readDoubleWord();
-        // NT additional fields.
-        imageBase = dr.readDoubleWord();
-        sectionAlignment = dr.readDoubleWord();
-        fileAlignment = dr.readDoubleWord();
-        majorOperatingSystemVersion = dr.readWord();
-        minorOperatingSystemVersion = dr.readWord();
-        majorImageVersion = dr.readWord();
-        minorImageVersion = dr.readWord();
-        majorSubsystemVersion = dr.readWord();
-        minorSubsystemVersion = dr.readWord();
-        win32VersionValue = dr.readDoubleWord();
-        sizeOfImage = dr.readDoubleWord();
-        sizeOfHeaders = dr.readDoubleWord();
-        checkSum = dr.readDoubleWord();
-        subsystem = dr.readWord();
-        dllCharacteristics = dr.readWord();
-        sizeOfStackReserve = dr.readDoubleWord();
-        sizeOfStackCommit = dr.readDoubleWord();
-        sizeOfHeapReserve = dr.readDoubleWord();
-        sizeOfHeapCommit = dr.readDoubleWord();
-        loaderFlags = dr.readDoubleWord();
-        numberOfRvaAndSizes = dr.readDoubleWord();
-        // Data directories
-        exportTable = ImageDataDirectory.read(dr);
-        importTable = ImageDataDirectory.read(dr);
-        resourceTable = ImageDataDirectory.read(dr);
-        exceptionTable = ImageDataDirectory.read(dr);
-        certificateTable = ImageDataDirectory.read(dr);
-        baseRolocationTable = ImageDataDirectory.read(dr);
-        debug = ImageDataDirectory.read(dr);
-        architecture = ImageDataDirectory.read(dr);
-        globalPtr = ImageDataDirectory.read(dr);
-        tlsTable = ImageDataDirectory.read(dr);
-        loadConfigTable = ImageDataDirectory.read(dr);
-        boundImport = ImageDataDirectory.read(dr);
-        iat = ImageDataDirectory.read(dr);
-        delayImportDescriptor = ImageDataDirectory.read(dr);
-        clrRuntimeHeader = ImageDataDirectory.read(dr);
-        reserved = ImageDataDirectory.read(dr);
-    }
-
-    public String toString() {
-        return Reflection.toString(this);
-    }
 
     public int getMagic() {
         return magic;
@@ -311,6 +244,188 @@ public class OptionalHeader
         return reserved;
     }
 
-    public void write(IDataWriter dw) {
+    public void setMagic(int magic) {
+        this.magic = magic;
+    }
+
+    public void setMajorLinkerVersion(int majorLinkerVersion) {
+        this.majorLinkerVersion = majorLinkerVersion;
+    }
+
+    public void setMinorLinkerVersion(int minorLinkerVersion) {
+        this.minorLinkerVersion = minorLinkerVersion;
+    }
+
+    public void setSizeOfCode(int sizeOfCode) {
+        this.sizeOfCode = sizeOfCode;
+    }
+
+    public void setSizeOfInitializedData(int sizeOfInitializedData) {
+        this.sizeOfInitializedData = sizeOfInitializedData;
+    }
+
+    public void setSizeOfUninitializedData(int sizeOfUninitializedData) {
+        this.sizeOfUninitializedData = sizeOfUninitializedData;
+    }
+
+    public void setAddressOfEntryPoint(int addressOfEntryPoint) {
+        this.addressOfEntryPoint = addressOfEntryPoint;
+    }
+
+    public void setBaseOfCode(int baseOfCode) {
+        this.baseOfCode = baseOfCode;
+    }
+
+    public void setBaseOfData(int baseOfData) {
+        this.baseOfData = baseOfData;
+    }
+
+    public void setImageBase(int imageBase) {
+        this.imageBase = imageBase;
+    }
+
+    public void setSectionAlignment(int sectionAlignment) {
+        this.sectionAlignment = sectionAlignment;
+    }
+
+    public void setFileAlignment(int fileAlignment) {
+        this.fileAlignment = fileAlignment;
+    }
+
+    public void setMajorOperatingSystemVersion(int majorOperatingSystemVersion) {
+        this.majorOperatingSystemVersion = majorOperatingSystemVersion;
+    }
+
+    public void setMinorOperatingSystemVersion(int minorOperatingSystemVersion) {
+        this.minorOperatingSystemVersion = minorOperatingSystemVersion;
+    }
+
+    public void setMajorImageVersion(int majorImageVersion) {
+        this.majorImageVersion = majorImageVersion;
+    }
+
+    public void setMinorImageVersion(int minorImageVersion) {
+        this.minorImageVersion = minorImageVersion;
+    }
+
+    public void setMajorSubsystemVersion(int majorSubsystemVersion) {
+        this.majorSubsystemVersion = majorSubsystemVersion;
+    }
+
+    public void setMinorSubsystemVersion(int minorSubsystemVersion) {
+        this.minorSubsystemVersion = minorSubsystemVersion;
+    }
+
+    public void setWin32VersionValue(int win32VersionValue) {
+        this.win32VersionValue = win32VersionValue;
+    }
+
+    public void setSizeOfImage(int sizeOfImage) {
+        this.sizeOfImage = sizeOfImage;
+    }
+
+    public void setSizeOfHeaders(int sizeOfHeaders) {
+        this.sizeOfHeaders = sizeOfHeaders;
+    }
+
+    public void setCheckSum(int checkSum) {
+        this.checkSum = checkSum;
+    }
+
+    public void setSubsystem(int subsystem) {
+        this.subsystem = subsystem;
+    }
+
+    public void setDllCharacteristics(int dllCharacteristics) {
+        this.dllCharacteristics = dllCharacteristics;
+    }
+
+    public void setSizeOfStackReserve(int sizeOfStackReserve) {
+        this.sizeOfStackReserve = sizeOfStackReserve;
+    }
+
+    public void setSizeOfStackCommit(int sizeOfStackCommit) {
+        this.sizeOfStackCommit = sizeOfStackCommit;
+    }
+
+    public void setSizeOfHeapReserve(int sizeOfHeapReserve) {
+        this.sizeOfHeapReserve = sizeOfHeapReserve;
+    }
+
+    public void setSizeOfHeapCommit(int sizeOfHeapCommit) {
+        this.sizeOfHeapCommit = sizeOfHeapCommit;
+    }
+
+    public void setLoaderFlags(int loaderFlags) {
+        this.loaderFlags = loaderFlags;
+    }
+
+    public void setNumberOfRvaAndSizes(int numberOfRvaAndSizes) {
+        this.numberOfRvaAndSizes = numberOfRvaAndSizes;
+    }
+
+    public void setExportTable(ImageDataDirectory exportTable) {
+        this.exportTable = exportTable;
+    }
+
+    public void setImportTable(ImageDataDirectory importTable) {
+        this.importTable = importTable;
+    }
+
+    public void setResourceTable(ImageDataDirectory resourceTable) {
+        this.resourceTable = resourceTable;
+    }
+
+    public void setExceptionTable(ImageDataDirectory exceptionTable) {
+        this.exceptionTable = exceptionTable;
+    }
+
+    public void setCertificateTable(ImageDataDirectory certificateTable) {
+        this.certificateTable = certificateTable;
+    }
+
+    public void setBaseRolocationTable(ImageDataDirectory baseRolocationTable) {
+        this.baseRolocationTable = baseRolocationTable;
+    }
+
+    public void setDebug(ImageDataDirectory debug) {
+        this.debug = debug;
+    }
+
+    public void setArchitecture(ImageDataDirectory architecture) {
+        this.architecture = architecture;
+    }
+
+    public void setGlobalPtr(ImageDataDirectory globalPtr) {
+        this.globalPtr = globalPtr;
+    }
+
+    public void setTlsTable(ImageDataDirectory tlsTable) {
+        this.tlsTable = tlsTable;
+    }
+
+    public void setLoadConfigTable(ImageDataDirectory loadConfigTable) {
+        this.loadConfigTable = loadConfigTable;
+    }
+
+    public void setBoundImport(ImageDataDirectory boundImport) {
+        this.boundImport = boundImport;
+    }
+
+    public void setIat(ImageDataDirectory iat) {
+        this.iat = iat;
+    }
+
+    public void setDelayImportDescriptor(
+            ImageDataDirectory delayImportDescriptor) {
+        this.delayImportDescriptor = delayImportDescriptor;
+    }
+
+    public void setClrRuntimeHeader(ImageDataDirectory clrRuntimeHeader) {
+        this.clrRuntimeHeader = clrRuntimeHeader;
+    }
+
+    public void setReserved(ImageDataDirectory reserved) {
+        this.reserved = reserved;
     }
 }

@@ -9,11 +9,6 @@
  *******************************************************************************/
 package org.boris.pecoff4j.resources;
 
-import java.io.IOException;
-
-import org.boris.pecoff4j.io.ByteArrayDataReader;
-import org.boris.pecoff4j.io.IDataReader;
-import org.boris.pecoff4j.util.Reflection;
 
 public class VersionInfo
 {
@@ -24,32 +19,6 @@ public class VersionInfo
     private FixedFileInfo fixedFileInfo;
     private StringFileInfo stringFileInfo;
     private VarFileInfo varFileInfo;
-
-    public static VersionInfo read(byte[] data) throws IOException {
-        return read(new ByteArrayDataReader(data));
-    }
-
-    public static VersionInfo read(IDataReader dr) throws IOException {
-        VersionInfo vi = new VersionInfo();
-        vi.length = dr.readWord();
-        vi.valueLength = dr.readWord();
-        vi.type = dr.readWord();
-        vi.key = dr.readUnicode();
-        if (vi.key.length() % 2 == 1)
-            dr.readWord(); // padding
-        vi.fixedFileInfo = FixedFileInfo.read(dr);
-
-        int length = dr.readWord(); // length
-        dr.readWord(); // value length
-        dr.readWord(); // type
-        vi.stringFileInfo = StringFileInfo.read(dr, length);
-
-        return vi;
-    }
-
-    public String toString() {
-        return Reflection.toString(this);
-    }
 
     public int getLength() {
         return length;

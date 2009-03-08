@@ -11,6 +11,7 @@ package org.boris.pecoff4j.util;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FilenameFilter;
 import java.io.IOException;
 
 public class IO
@@ -20,5 +21,17 @@ public class IO
         FileInputStream fis = new FileInputStream(f);
         fis.read(b);
         return b;
+    }
+
+    public static void findFiles(File dir, FilenameFilter filter,
+            FindFilesCallback callback) {
+        File[] f = dir.listFiles();
+        for (File fs : f) {
+            if (fs.isDirectory()) {
+                findFiles(fs, filter, callback);
+            } else if (filter == null || filter.accept(dir, fs.getName())) {
+                callback.fileFound(fs);
+            }
+        }
     }
 }

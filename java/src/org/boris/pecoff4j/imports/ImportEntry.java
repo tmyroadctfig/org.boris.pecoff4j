@@ -12,7 +12,6 @@ package org.boris.pecoff4j.imports;
 import java.io.IOException;
 
 import org.boris.pecoff4j.io.IDataReader;
-import org.boris.pecoff4j.util.Reflection;
 
 public class ImportEntry
 {
@@ -48,9 +47,5 @@ public class ImportEntry
 
     public int getVal() {
         return val;
-    }
-
-    public String toString() {
-        return Reflection.toString(this);
     }
 }

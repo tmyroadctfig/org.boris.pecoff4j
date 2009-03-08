@@ -7,7 +7,7 @@
  * Contributors:
  *     Peter Smith
  *******************************************************************************/
-package org.boris.pecoff4j.resources;
+package org.boris.pecoff4j.util;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -16,7 +16,8 @@ import java.io.IOException;
 import org.boris.pecoff4j.io.DataReader;
 import org.boris.pecoff4j.io.IDataReader;
 import org.boris.pecoff4j.io.IDataWriter;
-import org.boris.pecoff4j.util.Reflection;
+import org.boris.pecoff4j.resources.IconDirectory;
+import org.boris.pecoff4j.resources.IconImage;
 
 public class IconFile
 {
@@ -29,12 +30,12 @@ public class IconFile
 
     public static IconFile read(IDataReader dr) throws IOException {
         IconFile ic = new IconFile();
-        ic.directory = IconDirectory.read(dr);
+        ic.directory = ResourceParser.readIconDirectory(dr);
         ic.images = new IconImage[ic.directory.getCount()];
         for (int i = 0; i < ic.directory.getCount(); i++) {
             dr.jumpTo(ic.directory.getEntry(i).getOffset());
-            ic.images[i] = IconImage.read(dr, ic.directory.getEntry(i)
-                    .getBytesInRes());
+            ic.images[i] = ResourceParser.readIconImage(dr, ic.directory
+                    .getEntry(i).getBytesInRes());
         }
         return ic;
     }
@@ -45,14 +46,11 @@ public class IconFile
             directory.getEntry(i).setOffset(offset);
             offset += images[i].sizeOf();
         }
-        directory.write(dw);
+        ResourceAssembler.write(directory, dw);
         for (int i = 0; i < images.length; i++) {
-            images[i].write(dw);
+            // FIXME
+            // ResourceAssembler.images[i].write(dw);
         }
-    }
-
-    public String toString() {
-        return Reflection.toString(this);
     }
 
     public IconDirectory getDirectory() {

@@ -11,7 +11,6 @@ package org.boris.pecoff4j.resources;
 
 import java.io.IOException;
 
-import org.boris.pecoff4j.io.IDataReader;
 import org.boris.pecoff4j.io.IDataWriter;
 import org.boris.pecoff4j.util.Reflection;
 
@@ -28,24 +27,6 @@ public class BitmapInfoHeader
     private int ypelsPerMeter;
     private int clrUsed;
     private int clrImportant;
-
-    public static BitmapInfoHeader read(IDataReader dr) throws IOException {
-        BitmapInfoHeader bh = new BitmapInfoHeader();
-        bh.size = dr.readDoubleWord();
-        bh.width = dr.readDoubleWord();
-        bh.height = dr.readDoubleWord();
-        bh.planes = dr.readWord();
-        bh.bitCount = dr.readWord();
-        bh.compression = dr.readDoubleWord();
-        bh.sizeImage = dr.readDoubleWord();
-        bh.xpelsPerMeter = dr.readDoubleWord();
-        bh.ypelsPerMeter = dr.readDoubleWord();
-        bh.clrUsed = dr.readDoubleWord();
-        bh.clrImportant = dr.readDoubleWord();
-
-        return bh;
-
-    }
 
     public void write(IDataWriter dw) throws IOException {
         dw.writeDoubleWord(size);
@@ -107,5 +88,49 @@ public class BitmapInfoHeader
 
     public int getClrImportant() {
         return clrImportant;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    public void setPlanes(int planes) {
+        this.planes = planes;
+    }
+
+    public void setBitCount(int bitCount) {
+        this.bitCount = bitCount;
+    }
+
+    public void setCompression(int compression) {
+        this.compression = compression;
+    }
+
+    public void setSizeImage(int sizeImage) {
+        this.sizeImage = sizeImage;
+    }
+
+    public void setXpelsPerMeter(int xpelsPerMeter) {
+        this.xpelsPerMeter = xpelsPerMeter;
+    }
+
+    public void setYpelsPerMeter(int ypelsPerMeter) {
+        this.ypelsPerMeter = ypelsPerMeter;
+    }
+
+    public void setClrUsed(int clrUsed) {
+        this.clrUsed = clrUsed;
+    }
+
+    public void setClrImportant(int clrImportant) {
+        this.clrImportant = clrImportant;
     }
 }

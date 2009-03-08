@@ -9,12 +9,6 @@
  *******************************************************************************/
 package org.boris.pecoff4j;
 
-import java.io.IOException;
-
-import org.boris.pecoff4j.io.IDataReader;
-import org.boris.pecoff4j.io.IDataWriter;
-import org.boris.pecoff4j.util.Reflection;
-
 public class DOSHeader
 {
     private int magic;
@@ -31,64 +25,12 @@ public class DOSHeader
     private int initialRelativeCS;
     private int addressOfRelocationTable;
     private int overlayNumber;
-    private int[] reserverd;
+    private int[] reserved;
     private int[] reserved2;
     private int oemId;
     private int oemInfo;
     private int addressOfNewExeHeader;
     private int stubSize;
-
-    public static DOSHeader read(IDataReader dr) throws IOException {
-        DOSHeader dh = new DOSHeader();
-        dh.readFrom(dr);
-        return dh;
-    }
-
-    private void readFrom(IDataReader dis) throws IOException {
-        magic = dis.readWord(); // Magic number
-        usedBytesInLastPage = dis.readWord(); // Bytes on last page of file
-        fileSizeInPages = dis.readWord(); // Pages in file
-        numRelocationItems = dis.readWord(); // Relocations
-        headerSizeInParagraphs = dis.readWord(); // Size of header in
-        // paragraphs
-        minExtraParagraphs = dis.readWord(); // Minimum extra paragraphs
-        // needed
-        maxExtraParagraphs = dis.readWord(); // Maximum extra paragraphs
-        // needed
-        initialSS = dis.readWord(); // Initial (relative) SS value
-        initialSP = dis.readWord(); // Initial SP value
-        checksum = dis.readWord(); // Checksum
-        initialIP = dis.readWord(); // Initial IP value
-        initialRelativeCS = dis.readWord(); // Initial (relative) CS value
-        addressOfRelocationTable = dis.readWord(); // File address of
-        // relocation table
-        overlayNumber = dis.readWord(); // Overlay number
-        reserverd = new int[4];
-        for (int i = 0; i < reserverd.length; i++) {
-            reserverd[i] = dis.readWord(); // Reserved words
-        }
-        oemId = dis.readWord(); // OEM identifier (for e_oeminfo)
-        oemInfo = dis.readWord(); // OEM information; e_oemid specific
-        reserved2 = new int[10];
-        for (int i = 0; i < reserved2.length; i++) {
-            reserved2[i] = dis.readWord(); // Reserved words
-        }
-        addressOfNewExeHeader = dis.readDoubleWord(); // File address of new
-        // exe header
-
-        // calc stub size
-        stubSize = fileSizeInPages * 512 - (512 - usedBytesInLastPage);
-        if (stubSize > addressOfNewExeHeader)
-            stubSize = addressOfNewExeHeader;
-        stubSize -= headerSizeInParagraphs * 16;
-    }
-
-    public void write(IDataWriter dw) {
-    }
-
-    public String toString() {
-        return Reflection.toString(this);
-    }
 
     public int getMagic() {
         return magic;
@@ -158,8 +100,8 @@ public class DOSHeader
         return addressOfNewExeHeader;
     }
 
-    public int[] getReserverd() {
-        return reserverd;
+    public int[] getReserved() {
+        return reserved;
     }
 
     public int[] getReserved2() {
@@ -168,5 +110,85 @@ public class DOSHeader
 
     public int getStubSize() {
         return stubSize;
+    }
+
+    public void setMagic(int magic) {
+        this.magic = magic;
+    }
+
+    public void setUsedBytesInLastPage(int usedBytesInLastPage) {
+        this.usedBytesInLastPage = usedBytesInLastPage;
+    }
+
+    public void setFileSizeInPages(int fileSizeInPages) {
+        this.fileSizeInPages = fileSizeInPages;
+    }
+
+    public void setNumRelocationItems(int numRelocationItems) {
+        this.numRelocationItems = numRelocationItems;
+    }
+
+    public void setHeaderSizeInParagraphs(int headerSizeInParagraphs) {
+        this.headerSizeInParagraphs = headerSizeInParagraphs;
+    }
+
+    public void setMinExtraParagraphs(int minExtraParagraphs) {
+        this.minExtraParagraphs = minExtraParagraphs;
+    }
+
+    public void setMaxExtraParagraphs(int maxExtraParagraphs) {
+        this.maxExtraParagraphs = maxExtraParagraphs;
+    }
+
+    public void setInitialSS(int initialSS) {
+        this.initialSS = initialSS;
+    }
+
+    public void setInitialSP(int initialSP) {
+        this.initialSP = initialSP;
+    }
+
+    public void setChecksum(int checksum) {
+        this.checksum = checksum;
+    }
+
+    public void setInitialIP(int initialIP) {
+        this.initialIP = initialIP;
+    }
+
+    public void setInitialRelativeCS(int initialRelativeCS) {
+        this.initialRelativeCS = initialRelativeCS;
+    }
+
+    public void setAddressOfRelocationTable(int addressOfRelocationTable) {
+        this.addressOfRelocationTable = addressOfRelocationTable;
+    }
+
+    public void setOverlayNumber(int overlayNumber) {
+        this.overlayNumber = overlayNumber;
+    }
+
+    public void setReserved(int[] reserved) {
+        this.reserved = reserved;
+    }
+
+    public void setReserved2(int[] reserved2) {
+        this.reserved2 = reserved2;
+    }
+
+    public void setOemId(int oemId) {
+        this.oemId = oemId;
+    }
+
+    public void setOemInfo(int oemInfo) {
+        this.oemInfo = oemInfo;
+    }
+
+    public void setAddressOfNewExeHeader(int addressOfNewExeHeader) {
+        this.addressOfNewExeHeader = addressOfNewExeHeader;
+    }
+
+    public void setStubSize(int stubSize) {
+        this.stubSize = stubSize;
     }
 }

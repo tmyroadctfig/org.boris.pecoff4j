@@ -9,12 +9,6 @@
  *******************************************************************************/
 package org.boris.pecoff4j;
 
-import java.io.IOException;
-
-import org.boris.pecoff4j.io.IDataReader;
-import org.boris.pecoff4j.io.IDataWriter;
-import org.boris.pecoff4j.util.Reflection;
-
 public class COFFHeader
 {
     private int machine;
@@ -24,29 +18,6 @@ public class COFFHeader
     private int numberOfSymbols;
     private int sizeOfOptionalHeader;
     private int characteristics;
-
-    public static COFFHeader read(IDataReader dr) throws IOException {
-        COFFHeader h = new COFFHeader();
-        h.readFrom(dr);
-        return h;
-    }
-
-    public void readFrom(IDataReader dr) throws IOException {
-        machine = dr.readWord();
-        numberOfSections = dr.readWord();
-        timeDateStamp = dr.readDoubleWord();
-        pointerToSymbolTable = dr.readDoubleWord();
-        numberOfSymbols = dr.readDoubleWord();
-        sizeOfOptionalHeader = dr.readWord();
-        characteristics = dr.readWord();
-    }
-
-    public void write(IDataWriter dw) throws IOException {
-    }
-
-    public String toString() {
-        return Reflection.toString(this);
-    }
 
     public int getMachine() {
         return machine;
@@ -76,4 +47,31 @@ public class COFFHeader
         return characteristics;
     }
 
+    public void setMachine(int machine) {
+        this.machine = machine;
+    }
+
+    public void setNumberOfSections(int numberOfSections) {
+        this.numberOfSections = numberOfSections;
+    }
+
+    public void setTimeDateStamp(int timeDateStamp) {
+        this.timeDateStamp = timeDateStamp;
+    }
+
+    public void setPointerToSymbolTable(int pointerToSymbolTable) {
+        this.pointerToSymbolTable = pointerToSymbolTable;
+    }
+
+    public void setNumberOfSymbols(int numberOfSymbols) {
+        this.numberOfSymbols = numberOfSymbols;
+    }
+
+    public void setSizeOfOptionalHeader(int sizeOfOptionalHeader) {
+        this.sizeOfOptionalHeader = sizeOfOptionalHeader;
+    }
+
+    public void setCharacteristics(int characteristics) {
+        this.characteristics = characteristics;
+    }
 }

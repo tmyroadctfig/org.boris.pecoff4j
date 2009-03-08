@@ -7,9 +7,9 @@
  * Contributors:
  *     Peter Smith
  *******************************************************************************/
-package org.boris.pecoff4j.util;
+package org.boris.pecoff4j.buftest;
 
-
-public class Constants
+public class PrintBasicStructure
 {
+
 }

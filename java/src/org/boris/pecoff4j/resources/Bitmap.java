@@ -9,10 +9,6 @@
  *******************************************************************************/
 package org.boris.pecoff4j.resources;
 
-import java.io.IOException;
-
-import org.boris.pecoff4j.io.DataReader;
-import org.boris.pecoff4j.util.Reflection;
 
 public class Bitmap
 {
@@ -20,18 +16,6 @@ public class Bitmap
     private BitmapInfoHeader infoHeader;
     private byte[] colors;
     private byte[] bitmapBits;
-
-    public static Bitmap read(DataReader dr) throws IOException {
-        Bitmap bm = new Bitmap();
-        bm.fileHeader = BitmapFileHeader.read(dr);
-        bm.infoHeader = BitmapInfoHeader.read(dr);
-
-        return bm;
-    }
-
-    public String toString() {
-        return Reflection.toString(this);
-    }
 
     public BitmapFileHeader getFileHeader() {
         return fileHeader;
@@ -47,5 +31,21 @@ public class Bitmap
 
     public byte[] getBitmapBits() {
         return bitmapBits;
+    }
+
+    public void setFileHeader(BitmapFileHeader fileHeader) {
+        this.fileHeader = fileHeader;
+    }
+
+    public void setInfoHeader(BitmapInfoHeader infoHeader) {
+        this.infoHeader = infoHeader;
+    }
+
+    public void setColors(byte[] colors) {
+        this.colors = colors;
+    }
+
+    public void setBitmapBits(byte[] bitmapBits) {
+        this.bitmapBits = bitmapBits;
     }
 }

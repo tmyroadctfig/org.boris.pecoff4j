@@ -48,10 +48,6 @@ public class ExportDirectoryTable
         return edt;
     }
 
-    public String toString() {
-        return Reflection.toString(this);
-    }
-
     public long getExportFlags() {
         return exportFlags;
     }
@@ -94,5 +90,9 @@ public class ExportDirectoryTable
 
     public long getOrdinalTableRVA() {
         return ordinalTableRVA;
+    }
+
+    public String toString() {
+        return Reflection.toString(this);
     }
 }

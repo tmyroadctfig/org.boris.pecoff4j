@@ -9,11 +9,6 @@
  *******************************************************************************/
 package org.boris.pecoff4j.resources;
 
-import java.io.IOException;
-
-import org.boris.pecoff4j.io.IDataReader;
-import org.boris.pecoff4j.util.Reflection;
-
 public class StringTable
 {
     private int length;
@@ -46,23 +41,19 @@ public class StringTable
         this.key = key;
     }
 
-    public String toString() {
-        return Reflection.toString(this);
+    public void setLength(int length) {
+        this.length = length;
     }
 
-    public static StringTable read(IDataReader dr) throws IOException {
-        StringTable vfi = new StringTable();
-        vfi.length = dr.readWord();
-        if (vfi.length == 0) {
-            return null;
-        }
-        vfi.valueLength = dr.readWord();
-        vfi.type = dr.readWord();
-        vfi.key = dr.readUnicode();
-        if (vfi.key.length() % 2 == 1) {
-            dr.readWord(); // padding
-            vfi.padding = 2;
-        }
-        return vfi;
+    public void setValueLength(int valueLength) {
+        this.valueLength = valueLength;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    public void setPadding(int padding) {
+        this.padding = padding;
     }
 }

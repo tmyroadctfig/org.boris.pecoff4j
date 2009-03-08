@@ -9,11 +9,6 @@
  *******************************************************************************/
 package org.boris.pecoff4j.resources;
 
-import java.io.IOException;
-
-import org.boris.pecoff4j.io.IDataReader;
-import org.boris.pecoff4j.io.IDataWriter;
-import org.boris.pecoff4j.util.Reflection;
 
 public class FixedFileInfo
 {
@@ -30,10 +25,6 @@ public class FixedFileInfo
     private int fileSubtype;
     private int fileDateMS;
     private int fileDateLS;
-
-    public String toString() {
-        return Reflection.toString(this);
-    }
 
     public int getSignature() {
         return signature;
@@ -131,24 +122,6 @@ public class FixedFileInfo
         this.fileDateLS = fileDateLS;
     }
 
-    public static FixedFileInfo read(IDataReader dr) throws IOException {
-        FixedFileInfo ffi = new FixedFileInfo();
-        ffi.signature = dr.readDoubleWord();
-        ffi.strucVersion = dr.readDoubleWord();
-        ffi.fileVersionMS = dr.readDoubleWord();
-        ffi.fileVersionLS = dr.readDoubleWord();
-        ffi.productVersionMS = dr.readDoubleWord();
-        ffi.productVersionLS = dr.readDoubleWord();
-        ffi.fileFlagMask = dr.readDoubleWord();
-        ffi.fileFlags = dr.readDoubleWord();
-        ffi.fileOS = dr.readDoubleWord();
-        ffi.fileType = dr.readDoubleWord();
-        ffi.fileSubtype = dr.readDoubleWord();
-        ffi.fileDateMS = dr.readDoubleWord();
-        ffi.fileDateLS = dr.readDoubleWord();
-        return ffi;
-    }
-
     public static int sizeOf() {
         return 52;
     }
@@ -159,21 +132,5 @@ public class FixedFileInfo
 
     public void setFileOS(int fileOS) {
         this.fileOS = fileOS;
-    }
-
-    public void write(IDataWriter dw) throws IOException {
-        dw.writeDoubleWord(signature);
-        dw.writeDoubleWord(strucVersion);
-        dw.writeDoubleWord(fileVersionMS);
-        dw.writeDoubleWord(fileVersionLS);
-        dw.writeDoubleWord(productVersionMS);
-        dw.writeDoubleWord(productVersionLS);
-        dw.writeDoubleWord(fileFlagMask);
-        dw.writeDoubleWord(fileFlags);
-        dw.writeDoubleWord(fileOS);
-        dw.writeDoubleWord(fileType);
-        dw.writeDoubleWord(fileSubtype);
-        dw.writeDoubleWord(fileDateMS);
-        dw.writeDoubleWord(fileDateLS);
     }
 }

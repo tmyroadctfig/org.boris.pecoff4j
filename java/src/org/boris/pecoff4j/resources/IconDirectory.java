@@ -9,18 +9,13 @@
  *******************************************************************************/
 package org.boris.pecoff4j.resources;
 
-import java.io.IOException;
+import java.util.ArrayList;
 
-import org.boris.pecoff4j.io.ByteArrayDataReader;
-import org.boris.pecoff4j.io.IDataReader;
-import org.boris.pecoff4j.io.IDataWriter;
-import org.boris.pecoff4j.util.Reflection;
-
-public class IconDirectory {
+public class IconDirectory
+{
     private int reserved;
     private int type;
-    private int count;
-    private IconDirectoryEntry[] entries;
+    private ArrayList entries = new ArrayList();
 
     public int getReserved() {
         return reserved;
@@ -30,42 +25,8 @@ public class IconDirectory {
         return type;
     }
 
-    public int getCount() {
-        return count;
-    }
-
     public IconDirectoryEntry getEntry(int index) {
-        return entries[index];
-    }
-
-    public String toString() {
-        return Reflection.toString(this);
-    }
-
-    public static IconDirectory read(byte[] data) throws IOException {
-        return read(new ByteArrayDataReader(data));
-    }
-
-    public static IconDirectory read(IDataReader dr) throws IOException {
-        IconDirectory gi = new IconDirectory();
-        gi.reserved = dr.readWord();
-        gi.type = dr.readWord();
-        gi.count = dr.readWord();
-        gi.entries = new IconDirectoryEntry[gi.count];
-        for (int i = 0; i < gi.count; i++) {
-            gi.entries[i] = IconDirectoryEntry.read(dr);
-        }
-
-        return gi;
-    }
-
-    public void write(IDataWriter dw) throws IOException {
-        dw.writeWord(reserved);
-        dw.writeWord(type);
-        dw.writeWord(count);
-        for (int i = 0; i < count; i++) {
-            entries[i].write(dw);
-        }
+        return (IconDirectoryEntry) entries.get(index);
     }
 
     public void setReserved(int reserved) {
@@ -76,15 +37,15 @@ public class IconDirectory {
         this.type = type;
     }
 
-    public void setCount(int count) {
-        this.count = count;
+    public void add(IconDirectoryEntry entry) {
+        entries.add(entry);
     }
 
-    public void setEntries(IconDirectoryEntry[] entries) {
-        this.entries = entries;
+    public int getCount() {
+        return entries.size();
     }
 
     public int sizeOf() {
-        return 6 + count * IconDirectoryEntry.sizeOf();
+        return 6 + entries.size() * IconDirectoryEntry.sizeOf();
     }
 }

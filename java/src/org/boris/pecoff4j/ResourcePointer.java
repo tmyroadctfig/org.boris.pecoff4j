@@ -12,7 +12,6 @@ package org.boris.pecoff4j;
 import java.io.IOException;
 
 import org.boris.pecoff4j.io.IDataReader;
-import org.boris.pecoff4j.util.Reflection;
 
 public class ResourcePointer
 {
@@ -22,9 +21,8 @@ public class ResourcePointer
     public static ResourcePointer read(IDataReader dr) throws IOException {
         ResourcePointer rp = new ResourcePointer();
         rp.name = dr.readDoubleWord();
-        rp.offsetToData = dr.readDoubleWord() & 0x7fffffff; // high bit
-                                                            // indicates a
-                                                            // directory
+        // high bit indicates a directory
+        rp.offsetToData = dr.readDoubleWord() & 0x7fffffff;
         return rp;
     }
 
@@ -34,9 +32,5 @@ public class ResourcePointer
 
     public int getOffsetToData() {
         return offsetToData;
-    }
-
-    public String toString() {
-        return Reflection.toString(this);
     }
 }

@@ -12,7 +12,6 @@ package org.boris.pecoff4j.resources;
 import java.io.IOException;
 
 import org.boris.pecoff4j.io.DataReader;
-import org.boris.pecoff4j.util.Reflection;
 
 public class BitmapFileHeader
 {
@@ -33,10 +32,6 @@ public class BitmapFileHeader
         return bfh;
     }
 
-    public String toString() {
-        return Reflection.toString(this);
-    }
-
     public int getType() {
         return type;
     }
@@ -55,5 +50,25 @@ public class BitmapFileHeader
 
     public int getOffBits() {
         return offBits;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
+    }
+
+    public void setReserved1(int reserved1) {
+        this.reserved1 = reserved1;
+    }
+
+    public void setReserved2(int reserved2) {
+        this.reserved2 = reserved2;
+    }
+
+    public void setOffBits(int offBits) {
+        this.offBits = offBits;
     }
 }

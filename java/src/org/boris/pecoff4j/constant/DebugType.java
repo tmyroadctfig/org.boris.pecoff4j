@@ -9,6 +9,8 @@
  *******************************************************************************/
 package org.boris.pecoff4j.constant;
 
+import java.lang.reflect.Field;
+
 /**
  * The debug types.
  */
@@ -26,4 +28,14 @@ public class DebugType
     public static final int IMAGE_DEBUG_TYPE_BORLAND = 9;
     public static final int IMAGE_DEBUG_TYPE_RESERVED10 = 10;
     public static final int IMAGE_DEBUG_TYPE_CLSID = 11;
+
+    public static String toString(int value) throws Exception {
+        Field[] fields = DebugType.class.getFields();
+        for (Field f : fields) {
+            if (f.get(null).equals(value)) {
+                return f.getName();
+            }
+        }
+        return null;
+    }
 }

@@ -9,38 +9,12 @@
  *******************************************************************************/
 package org.boris.pecoff4j.resources;
 
-import java.io.IOException;
-
-import org.boris.pecoff4j.io.IDataReader;
-import org.boris.pecoff4j.io.IDataWriter;
-import org.boris.pecoff4j.util.Reflection;
-
 public class RGBQuad
 {
     private int blue;
     private int green;
     private int red;
     private int reserved;
-
-    public static RGBQuad read(IDataReader dr) throws IOException {
-        RGBQuad r = new RGBQuad();
-        r.blue = dr.readByte();
-        r.green = dr.readByte();
-        r.red = dr.readByte();
-        r.reserved = dr.readByte();
-        return r;
-    }
-
-    public void write(IDataWriter dw) throws IOException {
-        dw.writeByte(blue);
-        dw.writeByte(green);
-        dw.writeByte(red);
-        dw.writeByte(reserved);
-    }
-
-    public String toString() {
-        return Reflection.toString(this);
-    }
 
     public int getBlue() {
         return blue;
@@ -56,5 +30,21 @@ public class RGBQuad
 
     public int getReserved() {
         return reserved;
+    }
+
+    public void setBlue(int blue) {
+        this.blue = blue;
+    }
+
+    public void setGreen(int green) {
+        this.green = green;
+    }
+
+    public void setRed(int red) {
+        this.red = red;
+    }
+
+    public void setReserved(int reserved) {
+        this.reserved = reserved;
     }
 }

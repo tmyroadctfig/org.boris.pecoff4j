@@ -9,6 +9,8 @@
  *******************************************************************************/
 package org.boris.pecoff4j.constant;
 
+import java.lang.reflect.Field;
+
 /**
  * The constants for the windows subsystem.
  */
@@ -25,4 +27,14 @@ public class WindowsSubsystem
     public static final int IMAGE_SUBSYSTEM_EFI_RUNTIME_DRIVER = 12;
     public static final int IMAGE_SUBSYSTEM_EFI_ROM = 13;
     public static final int IMAGE_SUBSYSTEM_XBOX = 14;
+
+    public static String toString(int value) throws Exception {
+        Field[] fields = WindowsSubsystem.class.getFields();
+        for (Field f : fields) {
+            if (f.get(null).equals(value)) {
+                return f.getName();
+            }
+        }
+        return null;
+    }
 }

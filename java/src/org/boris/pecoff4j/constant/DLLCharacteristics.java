@@ -9,6 +9,8 @@
  *******************************************************************************/
 package org.boris.pecoff4j.constant;
 
+import java.lang.reflect.Field;
+
 /**
  * Constants for DLL characteristics.
  */
@@ -27,4 +29,14 @@ public class DLLCharacteristics
     public static final int RESERVED_5 = 0x1000;
     public static final int IMAGE_DLLCHARACTERISTICS_WDM_DRIVER = 0x2000;
     public static final int IMAGE_DLLCHARACTERISTICS_TERMINAL_SERVER_AWARE = 0x8000;
+
+    public static String toString(int value) throws Exception {
+        Field[] fields = DLLCharacteristics.class.getFields();
+        for (Field f : fields) {
+            if (f.get(null).equals(value)) {
+                return f.getName();
+            }
+        }
+        return null;
+    }
 }

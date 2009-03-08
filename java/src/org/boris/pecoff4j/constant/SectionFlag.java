@@ -9,6 +9,8 @@
  *******************************************************************************/
 package org.boris.pecoff4j.constant;
 
+import java.lang.reflect.Field;
+
 public class SectionFlag
 {
     public static final int RESERVED_1 = 0x00000000;
@@ -52,4 +54,14 @@ public class SectionFlag
     public static final int IMAGE_SCN_MEM_EXECUTE = 0x20000000;
     public static final int IMAGE_SCN_MEM_READ = 0x40000000;
     public static final int IMAGE_SCN_MEM_WRITE = 0x80000000;
+
+    public static String toString(int value) throws Exception {
+        Field[] fields = SectionFlag.class.getFields();
+        for (Field f : fields) {
+            if (f.get(null).equals(value)) {
+                return f.getName();
+            }
+        }
+        return null;
+    }
 }

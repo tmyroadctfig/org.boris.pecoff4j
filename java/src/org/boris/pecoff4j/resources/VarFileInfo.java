@@ -9,12 +9,8 @@
  *******************************************************************************/
 package org.boris.pecoff4j.resources;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.boris.pecoff4j.io.IDataReader;
-import org.boris.pecoff4j.util.Reflection;
 
 public class VarFileInfo
 {
@@ -51,22 +47,4 @@ public class VarFileInfo
         names.clear();
         values.clear();
     }
-
-    public String toString() {
-        return Reflection.toString(this);
-    }
-
-    public static VarFileInfo read(IDataReader dr) throws IOException {
-        VarFileInfo vfi = new VarFileInfo();
-        vfi.key = dr.readUnicode();
-        String name = null;
-        while ((name = dr.readUnicode()) != null) {
-            vfi.names.add(name);
-            if (name.length() % 2 == 1)
-                dr.readWord();
-            vfi.values.add(dr.readUnicode());
-        }
-        return vfi;
-    }
-
 }

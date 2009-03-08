@@ -7,8 +7,11 @@
  * Contributors:
  *     Peter Smith
  *******************************************************************************/
-package org.boris.pecoff4j;
+package org.boris.pecoff4j.util;
 
-public class NTHeader
+import java.io.File;
+
+public interface FindFilesCallback
 {
+    void fileFound(File fs);
 }
