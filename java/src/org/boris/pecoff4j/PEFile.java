@@ -9,7 +9,6 @@
  *******************************************************************************/
 package org.boris.pecoff4j;
 
-import org.boris.pecoff4j.imports.ImportDirectory;
 
 public class PEFile
 {

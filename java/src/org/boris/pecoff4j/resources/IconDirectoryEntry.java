@@ -9,7 +9,6 @@
  *******************************************************************************/
 package org.boris.pecoff4j.resources;
 
-import org.boris.pecoff4j.GroupIconDirectoryEntry;
 
 public class IconDirectoryEntry
 {
@@ -21,21 +20,6 @@ public class IconDirectoryEntry
     private int bitCount;
     private int bytesInRes;
     private int offset;
-
-    public void copyFrom(GroupIconDirectoryEntry gide) {
-        width = gide.getWidth();
-        height = gide.getHeight();
-        colorCount = gide.getColorCount();
-        reserved = 0;
-        planes = gide.getPlanes();
-        bitCount = gide.getBitCount();
-        bytesInRes = gide.getBitCount();
-        offset = 0;
-    }
-
-    public static int sizeOf() {
-        return 16;
-    }
 
     public int getWidth() {
         return width;
@@ -99,5 +83,20 @@ public class IconDirectoryEntry
 
     public void setOffset(int offset) {
         this.offset = offset;
+    }
+
+    public void copyFrom(GroupIconDirectoryEntry gide) {
+        width = gide.getWidth();
+        height = gide.getHeight();
+        colorCount = gide.getColorCount();
+        reserved = 0;
+        planes = gide.getPlanes();
+        bitCount = gide.getBitCount();
+        bytesInRes = gide.getBitCount();
+        offset = 0;
+    }
+
+    public static int sizeOf() {
+        return 16;
     }
 }

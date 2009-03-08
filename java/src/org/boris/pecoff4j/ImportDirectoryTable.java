@@ -9,24 +9,21 @@
  *******************************************************************************/
 package org.boris.pecoff4j;
 
-public class ResourceLanguageDirectory
+import java.util.ArrayList;
+
+public class ImportDirectoryTable
 {
-    private ResourceDataEntry entry;
-    private byte[] data;
+    private ArrayList imports = new ArrayList();
 
-    public ResourceDataEntry getEntry() {
-        return entry;
+    public void add(ImportEntry entry) {
+        imports.add(entry);
     }
 
-    public byte[] getData() {
-        return data;
+    public int size() {
+        return imports.size();
     }
 
-    public void setEntry(ResourceDataEntry entry) {
-        this.entry = entry;
-    }
-
-    public void setData(byte[] data) {
-        this.data = data;
+    public ImportEntry getEntry(int index) {
+        return (ImportEntry) imports.get(index);
     }
 }

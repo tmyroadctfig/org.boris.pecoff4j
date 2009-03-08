@@ -7,12 +7,7 @@
  * Contributors:
  *     Peter Smith
  *******************************************************************************/
-package org.boris.pecoff4j.imports;
-
-import java.io.IOException;
-
-import org.boris.pecoff4j.io.IDataReader;
-import org.boris.pecoff4j.util.Reflection;
+package org.boris.pecoff4j;
 
 public class ImportDirectoryEntry
 {
@@ -21,26 +16,6 @@ public class ImportDirectoryEntry
     private int forwarderChain;
     private int nameRVA;
     private int importAddressTableRVA;
-
-    public static ImportDirectoryEntry read(IDataReader dr) throws IOException {
-        ImportDirectoryEntry id = new ImportDirectoryEntry();
-        id.importLookupTableRVA = dr.readDoubleWord();
-        id.timeDateStamp = dr.readDoubleWord();
-        id.forwarderChain = dr.readDoubleWord();
-        id.nameRVA = dr.readDoubleWord();
-        id.importAddressTableRVA = dr.readDoubleWord();
-
-        // The last entry is null
-        if (id.importLookupTableRVA == 0) {
-            return null;
-        }
-
-        return id;
-    }
-
-    public String toString() {
-        return Reflection.toString(this);
-    }
 
     public int getImportLookupTableRVA() {
         return importLookupTableRVA;
@@ -60,5 +35,25 @@ public class ImportDirectoryEntry
 
     public int getImportAddressTableRVA() {
         return importAddressTableRVA;
+    }
+
+    public void setImportLookupTableRVA(int importLookupTableRVA) {
+        this.importLookupTableRVA = importLookupTableRVA;
+    }
+
+    public void setTimeDateStamp(int timeDateStamp) {
+        this.timeDateStamp = timeDateStamp;
+    }
+
+    public void setForwarderChain(int forwarderChain) {
+        this.forwarderChain = forwarderChain;
+    }
+
+    public void setNameRVA(int nameRVA) {
+        this.nameRVA = nameRVA;
+    }
+
+    public void setImportAddressTableRVA(int importAddressTableRVA) {
+        this.importAddressTableRVA = importAddressTableRVA;
     }
 }

@@ -9,11 +9,6 @@
  *******************************************************************************/
 package org.boris.pecoff4j;
 
-import java.io.IOException;
-
-import org.boris.pecoff4j.io.IDataReader;
-import org.boris.pecoff4j.util.Reflection;
-
 public class SectionHeader
 {
     private String name;
@@ -26,29 +21,6 @@ public class SectionHeader
     private int numberOfRelocations;
     private int numberOfLineNumbers;
     private int characteristics;
-
-    public static SectionHeader read(IDataReader dr) throws IOException {
-        SectionHeader sh = new SectionHeader();
-        sh.readFrom(dr);
-        return sh;
-    }
-
-    private void readFrom(IDataReader dr) throws IOException {
-        name = dr.readUtf(8);
-        virtualSize = dr.readDoubleWord();
-        virtualAddress = dr.readDoubleWord();
-        sizeOfRawData = dr.readDoubleWord();
-        pointerToRawData = dr.readDoubleWord();
-        pointerToRelocations = dr.readDoubleWord();
-        pointerToLineNumbers = dr.readDoubleWord();
-        numberOfRelocations = dr.readWord();
-        numberOfLineNumbers = dr.readWord();
-        characteristics = dr.readDoubleWord();
-    }
-
-    public String toString() {
-        return Reflection.toString(this);
-    }
 
     public String getName() {
         return name;
@@ -88,5 +60,45 @@ public class SectionHeader
 
     public int getCharacteristics() {
         return characteristics;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setVirtualSize(int virtualSize) {
+        this.virtualSize = virtualSize;
+    }
+
+    public void setVirtualAddress(int virtualAddress) {
+        this.virtualAddress = virtualAddress;
+    }
+
+    public void setSizeOfRawData(int sizeOfRawData) {
+        this.sizeOfRawData = sizeOfRawData;
+    }
+
+    public void setPointerToRawData(int pointerToRawData) {
+        this.pointerToRawData = pointerToRawData;
+    }
+
+    public void setPointerToRelocations(int pointerToRelocations) {
+        this.pointerToRelocations = pointerToRelocations;
+    }
+
+    public void setPointerToLineNumbers(int pointerToLineNumbers) {
+        this.pointerToLineNumbers = pointerToLineNumbers;
+    }
+
+    public void setNumberOfRelocations(int numberOfRelocations) {
+        this.numberOfRelocations = numberOfRelocations;
+    }
+
+    public void setNumberOfLineNumbers(int numberOfLineNumbers) {
+        this.numberOfLineNumbers = numberOfLineNumbers;
+    }
+
+    public void setCharacteristics(int characteristics) {
+        this.characteristics = characteristics;
     }
 }

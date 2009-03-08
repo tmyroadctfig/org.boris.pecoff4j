@@ -7,7 +7,7 @@
  * Contributors:
  *     Peter Smith
  *******************************************************************************/
-package org.boris.pecoff4j;
+package org.boris.pecoff4j.resources;
 
 import java.io.IOException;
 

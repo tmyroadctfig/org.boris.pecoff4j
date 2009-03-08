@@ -17,12 +17,6 @@ public class IconImage
     private byte[] andMask;
     private byte[] pngData;
 
-    public int sizeOf() {
-        return header == null ? pngData.length : header.getSize() +
-                (colors == null ? 0 : colors.length * 4) + xorMask.length +
-                andMask.length;
-    }
-
     public BitmapInfoHeader getHeader() {
         return header;
     }
@@ -61,5 +55,11 @@ public class IconImage
 
     public void setPngData(byte[] pngData) {
         this.pngData = pngData;
+    }
+
+    public int sizeOf() {
+        return header == null ? pngData.length : header.getSize() +
+                (colors == null ? 0 : colors.length * 4) + xorMask.length +
+                andMask.length;
     }
 }

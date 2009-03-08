@@ -9,8 +9,6 @@
  *******************************************************************************/
 package org.boris.pecoff4j;
 
-import org.boris.pecoff4j.util.Reflection;
-
 public class ResourceEntry
 {
     private byte[] data;
@@ -35,7 +33,15 @@ public class ResourceEntry
         return language;
     }
 
-    public String toString() {
-        return Reflection.toString(this);
+    public void setData(byte[] data) {
+        this.data = data;
+    }
+
+    public void setName(int name) {
+        this.name = name;
+    }
+
+    public void setLanguage(int language) {
+        this.language = language;
     }
 }

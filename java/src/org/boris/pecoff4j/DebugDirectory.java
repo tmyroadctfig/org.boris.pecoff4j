@@ -9,9 +9,6 @@
  *******************************************************************************/
 package org.boris.pecoff4j;
 
-import java.io.DataInputStream;
-import java.io.IOException;
-
 /**
  * Encapsulates the Debug Directory (Image Only). Section 6.1.1 of the PE/COFF
  * spec v8.
@@ -25,17 +22,6 @@ public class DebugDirectory
     private int sizeOfData;
     private int addressOfRawData;
     private int pointerToRawData;
-
-    public void read(DataInputStream dis) throws IOException {
-        characteristics = dis.readInt();
-        timeDateStamp = dis.readInt();
-        majorVersion = dis.readUnsignedShort();
-        majorVersion = dis.readUnsignedShort();
-        type = dis.readInt();
-        sizeOfData = dis.readInt();
-        addressOfRawData = dis.readInt();
-        pointerToRawData = dis.readInt();
-    }
 
     public int getCharacteristics() {
         return characteristics;
@@ -63,5 +49,33 @@ public class DebugDirectory
 
     public int getPointerToRawData() {
         return pointerToRawData;
+    }
+
+    public void setCharacteristics(int characteristics) {
+        this.characteristics = characteristics;
+    }
+
+    public void setTimeDateStamp(int timeDateStamp) {
+        this.timeDateStamp = timeDateStamp;
+    }
+
+    public void setMajorVersion(int majorVersion) {
+        this.majorVersion = majorVersion;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    public void setSizeOfData(int sizeOfData) {
+        this.sizeOfData = sizeOfData;
+    }
+
+    public void setAddressOfRawData(int addressOfRawData) {
+        this.addressOfRawData = addressOfRawData;
+    }
+
+    public void setPointerToRawData(int pointerToRawData) {
+        this.pointerToRawData = pointerToRawData;
     }
 }

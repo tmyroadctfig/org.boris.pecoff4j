@@ -9,22 +9,10 @@
  *******************************************************************************/
 package org.boris.pecoff4j;
 
-import java.io.IOException;
-
-import org.boris.pecoff4j.io.IDataReader;
-
 public class ResourcePointer
 {
     private int name;
     private int offsetToData;
-
-    public static ResourcePointer read(IDataReader dr) throws IOException {
-        ResourcePointer rp = new ResourcePointer();
-        rp.name = dr.readDoubleWord();
-        // high bit indicates a directory
-        rp.offsetToData = dr.readDoubleWord() & 0x7fffffff;
-        return rp;
-    }
 
     public int getName() {
         return name;
@@ -32,5 +20,13 @@ public class ResourcePointer
 
     public int getOffsetToData() {
         return offsetToData;
+    }
+
+    public void setName(int name) {
+        this.name = name;
+    }
+
+    public void setOffsetToData(int offsetToData) {
+        this.offsetToData = offsetToData;
     }
 }

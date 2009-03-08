@@ -13,14 +13,14 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import org.boris.pecoff4j.GroupIconDirectory;
-import org.boris.pecoff4j.GroupIconDirectoryEntry;
 import org.boris.pecoff4j.PEFile;
 import org.boris.pecoff4j.ResourceDirectory;
 import org.boris.pecoff4j.ResourceEntry;
 import org.boris.pecoff4j.constant.ResourceType;
 import org.boris.pecoff4j.io.ByteArrayDataReader;
 import org.boris.pecoff4j.io.DataWriter;
+import org.boris.pecoff4j.resources.GroupIconDirectory;
+import org.boris.pecoff4j.resources.GroupIconDirectoryEntry;
 import org.boris.pecoff4j.resources.IconDirectory;
 import org.boris.pecoff4j.resources.IconDirectoryEntry;
 import org.boris.pecoff4j.resources.IconImage;

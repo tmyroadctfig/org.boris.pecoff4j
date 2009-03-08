@@ -9,43 +9,34 @@
  *******************************************************************************/
 package org.boris.pecoff4j;
 
-import java.io.IOException;
-
-import org.boris.pecoff4j.io.IDataReader;
-import org.boris.pecoff4j.util.Reflection;
+import java.util.ArrayList;
 
 public class ResourceTypeDirectory
 {
     private ResourceDirectoryEntry entry;
-    private ResourceNameDirectory[] names;
+    private ArrayList names = new ArrayList();
 
-    public static ResourceTypeDirectory read(IDataReader dr, int baseAddress)
-            throws IOException {
-        ResourceTypeDirectory rt = new ResourceTypeDirectory();
-        rt.entry = ResourceDirectoryEntry.read(dr);
-        ResourcePointer[] pointers = rt.entry.getEntries();
-        rt.names = new ResourceNameDirectory[pointers.length];
-        for (int i = 0; i < pointers.length; i++) {
-            dr.jumpTo(pointers[i].getOffsetToData());
-            rt.names[i] = ResourceNameDirectory.read(dr, baseAddress);
-        }
-        return rt;
-
+    public void setEntry(ResourceDirectoryEntry entry) {
+        this.entry = entry;
     }
 
-    public int getNameCount() {
-        return names.length;
+    public ResourceDirectoryEntry getEntry() {
+        return entry;
+    }
+
+    public void add(ResourceNameDirectory name) {
+        names.add(name);
+    }
+
+    public int size() {
+        return names.size();
     }
 
     public ResourceNameDirectory getName(int index) {
-        return names[index];
+        return (ResourceNameDirectory) names.get(index);
     }
 
     public int getEntryName(int index) {
         return entry.getEntries()[index].getName();
-    }
-
-    public String toString() {
-        return Reflection.toString(this);
     }
 }

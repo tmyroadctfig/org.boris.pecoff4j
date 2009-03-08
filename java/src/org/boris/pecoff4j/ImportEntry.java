@@ -7,27 +7,13 @@
  * Contributors:
  *     Peter Smith
  *******************************************************************************/
-package org.boris.pecoff4j.imports;
-
-import java.io.IOException;
-
-import org.boris.pecoff4j.io.IDataReader;
+package org.boris.pecoff4j;
 
 public class ImportEntry
 {
     private int val;
     private int ordinal;
     private String name;
-
-    public static ImportEntry read(IDataReader dr) throws IOException {
-        ImportEntry ie = new ImportEntry();
-        ie.val = dr.readDoubleWord();
-        if (ie.val == 0) {
-            return null;
-        }
-
-        return ie;
-    }
 
     public int getOrdinal() {
         return ordinal;
@@ -47,5 +33,9 @@ public class ImportEntry
 
     public int getVal() {
         return val;
+    }
+
+    public void setVal(int val) {
+        this.val = val;
     }
 }

@@ -17,12 +17,12 @@ public class IconDirectory
     private int type;
     private ArrayList entries = new ArrayList();
 
-    public int getReserved() {
-        return reserved;
+    public void add(IconDirectoryEntry entry) {
+        entries.add(entry);
     }
 
-    public int getType() {
-        return type;
+    public int getCount() {
+        return entries.size();
     }
 
     public IconDirectoryEntry getEntry(int index) {
@@ -37,12 +37,12 @@ public class IconDirectory
         this.type = type;
     }
 
-    public void add(IconDirectoryEntry entry) {
-        entries.add(entry);
+    public int getReserved() {
+        return reserved;
     }
 
-    public int getCount() {
-        return entries.size();
+    public int getType() {
+        return type;
     }
 
     public int sizeOf() {

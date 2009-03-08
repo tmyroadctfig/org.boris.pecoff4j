@@ -9,10 +9,6 @@
  *******************************************************************************/
 package org.boris.pecoff4j;
 
-import java.io.IOException;
-
-import org.boris.pecoff4j.io.IDataReader;
-import org.boris.pecoff4j.util.Reflection;
 
 public class ResourceDirectoryEntry
 {
@@ -23,23 +19,6 @@ public class ResourceDirectoryEntry
     private int numNamedEntries;
     private int numIdEntries;
     private ResourcePointer[] entries;
-
-    public static ResourceDirectoryEntry read(IDataReader dr)
-            throws IOException {
-        ResourceDirectoryEntry rd = new ResourceDirectoryEntry();
-        rd.characteristics = dr.readDoubleWord();
-        rd.timeDateStamp = dr.readDoubleWord();
-        rd.majorVersion = dr.readWord();
-        rd.minorVersion = dr.readWord();
-        rd.numNamedEntries = dr.readWord();
-        rd.numIdEntries = dr.readWord();
-        rd.entries = new ResourcePointer[rd.numIdEntries];
-        for (int i = 0; i < rd.entries.length; i++) {
-            rd.entries[i] = ResourcePointer.read(dr);
-        }
-
-        return rd;
-    }
 
     public int getCharacteristics() {
         return characteristics;
@@ -69,7 +48,31 @@ public class ResourceDirectoryEntry
         return entries;
     }
 
-    public String toString() {
-        return Reflection.toString(this);
+    public void setCharacteristics(int characteristics) {
+        this.characteristics = characteristics;
+    }
+
+    public void setTimeDateStamp(int timeDateStamp) {
+        this.timeDateStamp = timeDateStamp;
+    }
+
+    public void setMajorVersion(int majorVersion) {
+        this.majorVersion = majorVersion;
+    }
+
+    public void setMinorVersion(int minorVersion) {
+        this.minorVersion = minorVersion;
+    }
+
+    public void setNumNamedEntries(int numNamedEntries) {
+        this.numNamedEntries = numNamedEntries;
+    }
+
+    public void setNumIdEntries(int numIdEntries) {
+        this.numIdEntries = numIdEntries;
+    }
+
+    public void setEntries(ResourcePointer[] entries) {
+        this.entries = entries;
     }
 }

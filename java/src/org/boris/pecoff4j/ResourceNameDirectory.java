@@ -9,31 +9,27 @@
  *******************************************************************************/
 package org.boris.pecoff4j;
 
-import java.io.IOException;
-
-import org.boris.pecoff4j.io.IDataReader;
-import org.boris.pecoff4j.util.Reflection;
+import java.util.ArrayList;
 
 public class ResourceNameDirectory
 {
     private ResourceDirectoryEntry entry;
-    private ResourceLanguageDirectory[] languages;
+    private ArrayList languages = new ArrayList();
 
-    public static ResourceNameDirectory read(IDataReader dr, int baseAddress)
-            throws IOException {
-        ResourceNameDirectory rn = new ResourceNameDirectory();
-        rn.entry = ResourceDirectoryEntry.read(dr);
-        ResourcePointer[] pointers = rn.entry.getEntries();
-        rn.languages = new ResourceLanguageDirectory[pointers.length];
-        for (int i = 0; i < pointers.length; i++) {
-            dr.jumpTo(pointers[i].getOffsetToData());
-            rn.languages[i] = ResourceLanguageDirectory.read(dr, baseAddress);
-        }
-        return rn;
+    public void setEntry(ResourceDirectoryEntry entry) {
+        this.entry = entry;
     }
 
-    public int getLanguageCount() {
-        return languages.length;
+    public ResourceDirectoryEntry getEntry() {
+        return entry;
+    }
+
+    public void add(ResourceLanguageDirectory language) {
+        languages.add(language);
+    }
+
+    public int size() {
+        return languages.size();
     }
 
     public int getEntryName(int index) {
@@ -41,10 +37,6 @@ public class ResourceNameDirectory
     }
 
     public ResourceLanguageDirectory getLanguage(int index) {
-        return languages[index];
-    }
-
-    public String toString() {
-        return Reflection.toString(this);
+        return (ResourceLanguageDirectory) languages.get(index);
     }
 }

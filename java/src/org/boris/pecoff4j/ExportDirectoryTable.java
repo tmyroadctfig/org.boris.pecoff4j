@@ -9,9 +9,6 @@
  *******************************************************************************/
 package org.boris.pecoff4j;
 
-import java.io.IOException;
-
-import org.boris.pecoff4j.io.DataReader;
 import org.boris.pecoff4j.util.Reflection;
 
 /**
@@ -31,22 +28,6 @@ public class ExportDirectoryTable
     private long exportAddressTableRVA;
     private long namePointerRVA;
     private long ordinalTableRVA;
-
-    public static ExportDirectoryTable read(DataReader dis) throws IOException {
-        ExportDirectoryTable edt = new ExportDirectoryTable();
-        edt.exportFlags = dis.readDoubleWord();
-        edt.timeDateStamp = dis.readDoubleWord();
-        edt.majorVersion = dis.readWord();
-        edt.minorVersion = dis.readWord();
-        edt.nameRVA = dis.readDoubleWord();
-        edt.ordinalBase = dis.readDoubleWord();
-        edt.addressTableEntries = dis.readDoubleWord();
-        edt.numberOfNamePointers = dis.readDoubleWord();
-        edt.exportAddressTableRVA = dis.readDoubleWord();
-        edt.namePointerRVA = dis.readDoubleWord();
-        edt.ordinalTableRVA = dis.readDoubleWord();
-        return edt;
-    }
 
     public long getExportFlags() {
         return exportFlags;
@@ -94,5 +75,49 @@ public class ExportDirectoryTable
 
     public String toString() {
         return Reflection.toString(this);
+    }
+
+    public void setExportFlags(long exportFlags) {
+        this.exportFlags = exportFlags;
+    }
+
+    public void setTimeDateStamp(long timeDateStamp) {
+        this.timeDateStamp = timeDateStamp;
+    }
+
+    public void setMajorVersion(int majorVersion) {
+        this.majorVersion = majorVersion;
+    }
+
+    public void setMinorVersion(int minorVersion) {
+        this.minorVersion = minorVersion;
+    }
+
+    public void setNameRVA(long nameRVA) {
+        this.nameRVA = nameRVA;
+    }
+
+    public void setOrdinalBase(long ordinalBase) {
+        this.ordinalBase = ordinalBase;
+    }
+
+    public void setAddressTableEntries(long addressTableEntries) {
+        this.addressTableEntries = addressTableEntries;
+    }
+
+    public void setNumberOfNamePointers(long numberOfNamePointers) {
+        this.numberOfNamePointers = numberOfNamePointers;
+    }
+
+    public void setExportAddressTableRVA(long exportAddressTableRVA) {
+        this.exportAddressTableRVA = exportAddressTableRVA;
+    }
+
+    public void setNamePointerRVA(long namePointerRVA) {
+        this.namePointerRVA = namePointerRVA;
+    }
+
+    public void setOrdinalTableRVA(long ordinalTableRVA) {
+        this.ordinalTableRVA = ordinalTableRVA;
     }
 }
