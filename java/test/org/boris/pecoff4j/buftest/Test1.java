@@ -11,9 +11,9 @@ package org.boris.pecoff4j.buftest;
 
 import java.io.File;
 
-import org.boris.pecoff4j.Executable;
+import org.boris.pecoff4j.PE;
+import org.boris.pecoff4j.io.PEParser;
 import org.boris.pecoff4j.util.HexDump;
-import org.boris.pecoff4j.util.PEParser;
 import org.boris.pecoff4j.util.ResourceList;
 
 public class Test1
@@ -21,7 +21,7 @@ public class Test1
     private static String E1 = "F:\\Development\\test\\eclipse.exe";
 
     public static void main(String[] args) throws Exception {
-        Executable pe = PEParser.parse(new File(E1));
+        PE pe = PEParser.parse(new File(E1));
         ResourceList rl = ResourceList.extract(pe);
         for (int i = 0; i < rl.size(); i++) {
             System.out.println(rl.getType(i));

@@ -16,6 +16,8 @@ import java.io.IOException;
 import org.boris.pecoff4j.io.DataReader;
 import org.boris.pecoff4j.io.IDataReader;
 import org.boris.pecoff4j.io.IDataWriter;
+import org.boris.pecoff4j.io.ResourceAssembler;
+import org.boris.pecoff4j.io.ResourceParser;
 import org.boris.pecoff4j.resources.IconDirectory;
 import org.boris.pecoff4j.resources.IconImage;
 

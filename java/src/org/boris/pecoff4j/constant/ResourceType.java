@@ -35,11 +35,15 @@ public class ResourceType
     public static final int MENU_NEW = 0x2004;
     public static final int CURSOR_NEW = 0x2005;
 
-    public static String toString(int value) throws Exception {
+    public static String toString(int value) {
         Field[] fields = ResourceType.class.getFields();
         for (Field f : fields) {
-            if (f.get(null).equals(value)) {
-                return f.getName();
+            try {
+                if (f.get(null).equals(value)) {
+                    return f.getName();
+                }
+            } catch (Exception e) {
+                throw new RuntimeException(e);
             }
         }
         return null;

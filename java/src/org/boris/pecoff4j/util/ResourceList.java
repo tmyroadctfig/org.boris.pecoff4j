@@ -12,11 +12,12 @@ package org.boris.pecoff4j.util;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.boris.pecoff4j.Executable;
+import org.boris.pecoff4j.PE;
 import org.boris.pecoff4j.ResourceDirectory;
 import org.boris.pecoff4j.ResourceLanguageDirectory;
 import org.boris.pecoff4j.ResourceNameDirectory;
 import org.boris.pecoff4j.ResourceTypeDirectory;
+import org.boris.pecoff4j.constant.ResourceType;
 
 public class ResourceList
 {
@@ -25,7 +26,7 @@ public class ResourceList
     private List<String> langIds = new ArrayList();
     private List<byte[]> datas = new ArrayList();
 
-    public static ResourceList extract(Executable pe) {
+    public static ResourceList extract(PE pe) {
         ResourceList rl = new ResourceList();
         ResourceDirectory rd = pe.getResourceDirectory();
         if (rd == null) {
@@ -34,7 +35,9 @@ public class ResourceList
 
         for (int i = 0; i < rd.size(); i++) {
             int tni = rd.getEntryName(i);
-            String tn = Integer.toString(tni);
+            String tn = ResourceType.toString(tni);
+            if (tn == null)
+                tn = Integer.toString(tni);
             ResourceTypeDirectory rtd = rd.getType(i);
             for (int j = 0; j < rtd.size(); j++) {
                 int nni = rtd.getEntryName(j);

@@ -7,11 +7,10 @@
  * Contributors:
  *     Peter Smith
  *******************************************************************************/
-package org.boris.pecoff4j.util;
+package org.boris.pecoff4j.io;
 
 import java.io.IOException;
 
-import org.boris.pecoff4j.io.IDataWriter;
 import org.boris.pecoff4j.resources.FixedFileInfo;
 import org.boris.pecoff4j.resources.IconDirectory;
 import org.boris.pecoff4j.resources.IconDirectoryEntry;

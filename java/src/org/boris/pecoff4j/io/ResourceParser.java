@@ -7,13 +7,10 @@
  * Contributors:
  *     Peter Smith
  *******************************************************************************/
-package org.boris.pecoff4j.util;
+package org.boris.pecoff4j.io;
 
 import java.io.IOException;
 
-import org.boris.pecoff4j.io.ByteArrayDataReader;
-import org.boris.pecoff4j.io.DataReader;
-import org.boris.pecoff4j.io.IDataReader;
 import org.boris.pecoff4j.resources.Bitmap;
 import org.boris.pecoff4j.resources.BitmapFileHeader;
 import org.boris.pecoff4j.resources.BitmapInfoHeader;

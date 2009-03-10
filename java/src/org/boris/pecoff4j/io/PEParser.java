@@ -7,7 +7,7 @@
  * Contributors:
  *     Peter Smith
  *******************************************************************************/
-package org.boris.pecoff4j.util;
+package org.boris.pecoff4j.io;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -22,6 +22,7 @@ import org.boris.pecoff4j.COFFHeader;
 import org.boris.pecoff4j.DOSHeader;
 import org.boris.pecoff4j.DOSStub;
 import org.boris.pecoff4j.DebugDirectory;
+import org.boris.pecoff4j.PE;
 import org.boris.pecoff4j.ExportDirectoryTable;
 import org.boris.pecoff4j.ImageDataDirectory;
 import org.boris.pecoff4j.ImportDirectory;
@@ -30,7 +31,6 @@ import org.boris.pecoff4j.ImportDirectoryTable;
 import org.boris.pecoff4j.ImportEntry;
 import org.boris.pecoff4j.LoadConfigDirectory;
 import org.boris.pecoff4j.OptionalHeader;
-import org.boris.pecoff4j.Executable;
 import org.boris.pecoff4j.PESignature;
 import org.boris.pecoff4j.RVAConverter;
 import org.boris.pecoff4j.ResourceDataEntry;
@@ -42,18 +42,19 @@ import org.boris.pecoff4j.ResourcePointer;
 import org.boris.pecoff4j.ResourceTypeDirectory;
 import org.boris.pecoff4j.SectionHeader;
 import org.boris.pecoff4j.SectionTable;
-import org.boris.pecoff4j.io.ByteArrayDataReader;
-import org.boris.pecoff4j.io.DataReader;
-import org.boris.pecoff4j.io.IDataReader;
 
 public class PEParser
 {
-    public static Executable parse(File file) throws IOException {
+    public static PE parse(String filename) throws IOException {
+        return parse(new File(filename));
+    }
+
+    public static PE parse(File file) throws IOException {
         return read(new DataReader(new FileInputStream(file)));
     }
 
-    public static Executable read(IDataReader dr) throws IOException {
-        Executable pf = new Executable();
+    public static PE read(IDataReader dr) throws IOException {
+        PE pf = new PE();
         pf.setDosHeader(readDos(dr));
         pf.setStub(readStub(pf.getDosHeader(), dr));
         pf.setSignature(readSignature(dr));
@@ -314,7 +315,8 @@ public class PEParser
             dr.jumpTo(e.getImportLookupTableRVA() - baseAddress);
             ImportDirectoryTable nt = readImportDirectoryTable(dr, baseAddress);
             dr.jumpTo(e.getImportAddressTableRVA() - baseAddress);
-            ImportDirectoryTable at = readImportDirectoryTable(dr, baseAddress);
+            ImportDirectoryTable at = null; // readImportDirectoryTable(dr,
+                                            // baseAddress);
             id.add(name, nt, at);
         }
 

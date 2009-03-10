@@ -7,16 +7,15 @@
  * Contributors:
  *     Peter Smith
  *******************************************************************************/
-package org.boris.pecoff4j.util;
+package org.boris.pecoff4j;
 
-import java.io.File;
-
-import org.boris.pecoff4j.PE;
 import org.boris.pecoff4j.io.PEParser;
 
-public class ResourceStripper
+public class TestParseProblemDLL
 {
-    public static void remove(File pecoff, File output) throws Exception {
-        PE pe = PEParser.parse(pecoff);
+    private static String PF = "C:\\windows\\system32\\usrrtosa.dll";
+
+    public static void main(String[] args) throws Exception {
+        PE pe = PEParser.parse(PF);
     }
 }

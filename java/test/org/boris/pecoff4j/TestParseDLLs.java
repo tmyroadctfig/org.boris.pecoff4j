@@ -3,9 +3,11 @@ package org.boris.pecoff4j;
 import java.io.File;
 import java.io.FilenameFilter;
 
+import org.boris.pecoff4j.io.PEParser;
 import org.boris.pecoff4j.util.IO;
+import org.boris.pecoff4j.util.Reflection;
 
-public class FindExe
+public class TestParseDLLs
 {
 
     public static void main(String[] args) throws Exception {
@@ -16,13 +18,11 @@ public class FindExe
                                 name.indexOf("dllcache") == -1;
                     }
                 });
-        System.out.println("public static String[] DLL_FILES = {");
-        for (File f : files) {
-            String str = f.toString();
-            str = str.replaceAll("\\\\", "/");
-            System.out.println("\"" + str + "\",");
+        for (int i = 0; i < files.length; i++) {
+            System.out.println(files[i]);
+            PE pe = PEParser.parse(files[i]);
+            System.out.println(Reflection.toString(pe));
         }
-        System.out.println("};");
     }
 
 }

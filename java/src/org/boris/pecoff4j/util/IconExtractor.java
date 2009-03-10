@@ -13,12 +13,14 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import org.boris.pecoff4j.Executable;
+import org.boris.pecoff4j.PE;
 import org.boris.pecoff4j.ResourceDirectory;
 import org.boris.pecoff4j.ResourceEntry;
 import org.boris.pecoff4j.constant.ResourceType;
 import org.boris.pecoff4j.io.ByteArrayDataReader;
 import org.boris.pecoff4j.io.DataWriter;
+import org.boris.pecoff4j.io.PEParser;
+import org.boris.pecoff4j.io.ResourceParser;
 import org.boris.pecoff4j.resources.GroupIconDirectory;
 import org.boris.pecoff4j.resources.GroupIconDirectoryEntry;
 import org.boris.pecoff4j.resources.IconDirectory;
@@ -28,7 +30,7 @@ import org.boris.pecoff4j.resources.IconImage;
 public class IconExtractor
 {
     public static void extract(File pecoff, File outputDir) throws IOException {
-        Executable pe = PEParser.parse(pecoff);
+        PE pe = PEParser.parse(pecoff);
         ResourceDirectory rd = pe.getResourceDirectory();
         if (rd == null)
             return;
