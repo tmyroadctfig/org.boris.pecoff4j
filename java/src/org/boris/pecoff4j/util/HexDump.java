@@ -13,15 +13,19 @@ public class HexDump
 {
     private static final int WIDTH = 20;
 
-    public static void dump(byte[] data) {
-        int numRows = data.length / WIDTH;
+    public static void dump(byte[] data, int offset, int length) {
+        int numRows = length / WIDTH;
         for (int i = 0; i < numRows; i++) {
-            dumpRow(data, i * WIDTH, WIDTH);
+            dumpRow(data, offset + i * WIDTH, WIDTH);
         }
-        int leftover = data.length % WIDTH;
+        int leftover = length % WIDTH;
         if (leftover > 0) {
-            dumpRow(data, data.length - leftover, leftover);
+            dumpRow(data, offset + data.length - leftover, leftover);
         }
+    }
+
+    public static void dump(byte[] data) {
+        dump(data, 0, data.length);
     }
 
     private static void dumpRow(byte[] data, int start, int length) {

@@ -7,15 +7,9 @@
  * Contributors:
  *     Peter Smith
  *******************************************************************************/
-package org.boris.pecoff4j.util;
+package org.boris.pecoff4j;
 
-import java.io.File;
-
-import org.boris.pecoff4j.Executable;
-
-public class ResourceStripper
+public class DynamicLinkLibrary
 {
-    public static void remove(File pecoff, File output) throws Exception {
-        Executable pe = PEParser.parse(pecoff);
-    }
+
 }

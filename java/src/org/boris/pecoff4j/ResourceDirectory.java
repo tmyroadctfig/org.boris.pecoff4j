@@ -56,7 +56,7 @@ public class ResourceDirectory
         return entries.toArray(new ResourceEntry[0]);
     }
 
-    public int getTypeCount() {
+    public int size() {
         return types.size();
     }
 

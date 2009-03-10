@@ -12,13 +12,11 @@ package org.boris.pecoff4j.util;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.boris.pecoff4j.COFFHeader;
 import org.boris.pecoff4j.DOSHeader;
@@ -32,7 +30,7 @@ import org.boris.pecoff4j.ImportDirectoryTable;
 import org.boris.pecoff4j.ImportEntry;
 import org.boris.pecoff4j.LoadConfigDirectory;
 import org.boris.pecoff4j.OptionalHeader;
-import org.boris.pecoff4j.PEFile;
+import org.boris.pecoff4j.Executable;
 import org.boris.pecoff4j.PESignature;
 import org.boris.pecoff4j.RVAConverter;
 import org.boris.pecoff4j.ResourceDataEntry;
@@ -50,12 +48,12 @@ import org.boris.pecoff4j.io.IDataReader;
 
 public class PEParser
 {
-    public static PEFile parse(File file) throws IOException {
+    public static Executable parse(File file) throws IOException {
         return read(new DataReader(new FileInputStream(file)));
     }
 
-    public static PEFile read(IDataReader dr) throws IOException {
-        PEFile pf = new PEFile();
+    public static Executable read(IDataReader dr) throws IOException {
+        Executable pf = new Executable();
         pf.setDosHeader(readDos(dr));
         pf.setStub(readStub(pf.getDosHeader(), dr));
         pf.setSignature(readSignature(dr));
@@ -260,34 +258,31 @@ public class PEParser
     public static SectionTable readSections(int numberOfSections, IDataReader dr)
             throws IOException {
         SectionTable st = new SectionTable();
-        SectionHeader[] headers = new SectionHeader[numberOfSections];
-        Map sectionByName = new LinkedHashMap();
+        List<SectionHeader> sections = new ArrayList();
         for (int i = 0; i < numberOfSections; i++) {
-            headers[i] = readSectionHeader(dr);
-            sectionByName.put(headers[i].getName(), headers[i]);
+            SectionHeader sh = readSectionHeader(dr);
+            st.add(sh);
+            sections.add(sh);
         }
 
         // Now sort on section address and load
-        List<SectionHeader> sections = Arrays.asList(headers);
         Collections.sort(sections, new Comparator<SectionHeader>() {
             public int compare(SectionHeader o1, SectionHeader o2) {
                 return o1.getPointerToRawData() - o2.getPointerToRawData();
             }
         });
 
-        Map sectionData = new HashMap();
         for (SectionHeader sh : sections) {
             if (sh.getPointerToRawData() != 0) {
                 dr.jumpTo(sh.getPointerToRawData());
                 byte[] data = new byte[sh.getSizeOfRawData()];
                 dr.read(data);
-                sectionData.put(sh.getName(), data);
+                st.putSection(sh.getName(), data);
             }
         }
 
         // Store sorted sections based on virtual address
-        SectionHeader[] sorted = Arrays.asList(headers).toArray(
-                new SectionHeader[0]);
+        SectionHeader[] sorted = sections.toArray(new SectionHeader[0]);
         Arrays.sort(sorted, new Comparator<SectionHeader>() {
             public int compare(SectionHeader o1, SectionHeader o2) {
                 return o1.getVirtualAddress() - o2.getVirtualAddress();

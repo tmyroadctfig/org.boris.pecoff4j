@@ -10,7 +10,7 @@
 package org.boris.pecoff4j;
 
 
-public class PEFile
+public class Executable
 {
     private DOSHeader dosHeader;
     private DOSStub stub;

@@ -9,21 +9,29 @@
  *******************************************************************************/
 package org.boris.pecoff4j;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class SectionTable
 {
-    private SectionHeader[] headers;
-    private Map<String, SectionHeader> sectionByName;
-    private Map<String, byte[]> sectionData;
+    private List<SectionHeader> headers = new ArrayList();
+    private Map<String, SectionHeader> sectionByName = new HashMap();
+    private Map<String, byte[]> sectionData = new HashMap();
     private RVAConverter rvaConverter;
 
+    public void add(SectionHeader header) {
+        headers.add(header);
+        sectionByName.put(header.getName(), header);
+    }
+
     public int getNumberOfSections() {
-        return headers.length;
+        return headers.size();
     }
 
     public SectionHeader getSection(int index) {
-        return headers[index];
+        return headers.get(index);
     }
 
     public SectionHeader getSection(String name) {
@@ -44,10 +52,6 @@ public class SectionTable
 
     public RVAConverter getRVAConverter() {
         return rvaConverter;
-    }
-
-    public void setHeaders(SectionHeader[] headers) {
-        this.headers = headers;
     }
 
     public void setRvaConverter(RVAConverter rvaConverter) {
