@@ -257,7 +257,7 @@ public class PEParser
                 dr.read(data);
                 SectionData sd = new SectionData();
                 sd.add(data);
-                st.putSection(sh.getName(), sd);
+                st.putData(sh.getName(), sd);
             }
         }
 

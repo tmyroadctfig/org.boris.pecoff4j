@@ -52,7 +52,7 @@ public class OptionalHeader
     private ImageDataDirectory resourceTable;
     private ImageDataDirectory exceptionTable;
     private ImageDataDirectory certificateTable;
-    private ImageDataDirectory baseRolocationTable;
+    private ImageDataDirectory baseRelocationTable;
     private ImageDataDirectory debug;
     private ImageDataDirectory architecture;
     private ImageDataDirectory globalPtr;
@@ -213,7 +213,7 @@ public class OptionalHeader
     }
 
     public ImageDataDirectory getBaseRolocationTable() {
-        return baseRolocationTable;
+        return baseRelocationTable;
     }
 
     public ImageDataDirectory getDebug() {
@@ -397,7 +397,7 @@ public class OptionalHeader
     }
 
     public void setBaseRolocationTable(ImageDataDirectory baseRolocationTable) {
-        this.baseRolocationTable = baseRolocationTable;
+        this.baseRelocationTable = baseRolocationTable;
     }
 
     public void setDebug(ImageDataDirectory debug) {

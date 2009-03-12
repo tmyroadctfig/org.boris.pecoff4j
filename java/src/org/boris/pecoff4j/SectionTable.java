@@ -30,11 +30,11 @@ public class SectionTable
         return headers.size();
     }
 
-    public SectionHeader getSection(int index) {
+    public SectionHeader getHeader(int index) {
         return headers.get(index);
     }
 
-    public SectionHeader getSection(String name) {
+    public SectionHeader getHeader(String name) {
         return sectionByName.get(name);
     }
 
@@ -42,11 +42,11 @@ public class SectionTable
         return sectionByName.keySet().toArray(new String[0]);
     }
 
-    public SectionData getSectionData(String name) {
+    public SectionData getData(String name) {
         return sectionData.get(name);
     }
 
-    public void putSection(String name, SectionData data) {
+    public void putData(String name, SectionData data) {
         sectionData.put(name, data);
     }
 
