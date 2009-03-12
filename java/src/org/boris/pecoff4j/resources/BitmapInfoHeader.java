@@ -9,10 +9,6 @@
  *******************************************************************************/
 package org.boris.pecoff4j.resources;
 
-import java.io.IOException;
-
-import org.boris.pecoff4j.io.IDataWriter;
-import org.boris.pecoff4j.util.Reflection;
 
 public class BitmapInfoHeader
 {
@@ -27,24 +23,6 @@ public class BitmapInfoHeader
     private int ypelsPerMeter;
     private int clrUsed;
     private int clrImportant;
-
-    public void write(IDataWriter dw) throws IOException {
-        dw.writeDoubleWord(size);
-        dw.writeDoubleWord(width);
-        dw.writeDoubleWord(height);
-        dw.writeWord(planes);
-        dw.writeWord(bitCount);
-        dw.writeDoubleWord(compression);
-        dw.writeDoubleWord(sizeImage);
-        dw.writeDoubleWord(xpelsPerMeter);
-        dw.writeDoubleWord(ypelsPerMeter);
-        dw.writeDoubleWord(clrUsed);
-        dw.writeDoubleWord(clrImportant);
-    }
-
-    public String toString() {
-        return Reflection.toString(this);
-    }
 
     public int getSize() {
         return size;

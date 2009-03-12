@@ -31,7 +31,7 @@ public class IconExtractor
 {
     public static void extract(File pecoff, File outputDir) throws IOException {
         PE pe = PEParser.parse(pecoff);
-        ResourceDirectory rd = pe.getResourceDirectory();
+        ResourceDirectory rd = null; // FIXME
         if (rd == null)
             return;
         ResourceEntry[] entries = rd.findResources(ResourceType.GROUP_ICON);

@@ -28,7 +28,7 @@ public class ResourceList
 
     public static ResourceList extract(PE pe) {
         ResourceList rl = new ResourceList();
-        ResourceDirectory rd = pe.getResourceDirectory();
+        ResourceDirectory rd = null; // FIXME
         if (rd == null) {
             return rl;
         }

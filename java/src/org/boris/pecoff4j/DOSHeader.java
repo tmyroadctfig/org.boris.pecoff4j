@@ -11,6 +11,8 @@ package org.boris.pecoff4j;
 
 public class DOSHeader
 {
+    public static final int DOS_MAGIC = 0;
+
     private int magic;
     private int usedBytesInLastPage;
     private int fileSizeInPages;
@@ -34,6 +36,10 @@ public class DOSHeader
 
     public int getMagic() {
         return magic;
+    }
+
+    public boolean isValidMagic() {
+        return magic == DOS_MAGIC;
     }
 
     public int getUsedBytesInLastPage() {

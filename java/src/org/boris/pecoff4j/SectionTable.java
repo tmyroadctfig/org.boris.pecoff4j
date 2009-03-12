@@ -18,7 +18,7 @@ public class SectionTable
 {
     private List<SectionHeader> headers = new ArrayList();
     private Map<String, SectionHeader> sectionByName = new HashMap();
-    private Map<String, byte[]> sectionData = new HashMap();
+    private Map<String, SectionData> sectionData = new HashMap();
     private RVAConverter rvaConverter;
 
     public void add(SectionHeader header) {
@@ -42,11 +42,11 @@ public class SectionTable
         return sectionByName.keySet().toArray(new String[0]);
     }
 
-    public byte[] getSectionData(String name) {
+    public SectionData getSectionData(String name) {
         return sectionData.get(name);
     }
 
-    public void putSection(String name, byte[] data) {
+    public void putSection(String name, SectionData data) {
         sectionData.put(name, data);
     }
 

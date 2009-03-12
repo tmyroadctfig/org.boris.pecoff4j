@@ -22,7 +22,6 @@ import org.boris.pecoff4j.COFFHeader;
 import org.boris.pecoff4j.DOSHeader;
 import org.boris.pecoff4j.DOSStub;
 import org.boris.pecoff4j.DebugDirectory;
-import org.boris.pecoff4j.PE;
 import org.boris.pecoff4j.ExportDirectoryTable;
 import org.boris.pecoff4j.ImageDataDirectory;
 import org.boris.pecoff4j.ImportDirectory;
@@ -31,6 +30,7 @@ import org.boris.pecoff4j.ImportDirectoryTable;
 import org.boris.pecoff4j.ImportEntry;
 import org.boris.pecoff4j.LoadConfigDirectory;
 import org.boris.pecoff4j.OptionalHeader;
+import org.boris.pecoff4j.PE;
 import org.boris.pecoff4j.PESignature;
 import org.boris.pecoff4j.RVAConverter;
 import org.boris.pecoff4j.ResourceDataEntry;
@@ -40,6 +40,7 @@ import org.boris.pecoff4j.ResourceLanguageDirectory;
 import org.boris.pecoff4j.ResourceNameDirectory;
 import org.boris.pecoff4j.ResourcePointer;
 import org.boris.pecoff4j.ResourceTypeDirectory;
+import org.boris.pecoff4j.SectionData;
 import org.boris.pecoff4j.SectionHeader;
 import org.boris.pecoff4j.SectionTable;
 
@@ -56,49 +57,25 @@ public class PEParser
     public static PE read(IDataReader dr) throws IOException {
         PE pf = new PE();
         pf.setDosHeader(readDos(dr));
+
+        // Check if we have an old file type
+        if (pf.getDosHeader().getAddressOfNewExeHeader() == 0 ||
+                pf.getDosHeader().getAddressOfNewExeHeader() > 8192) {
+            return pf;
+        }
+
         pf.setStub(readStub(pf.getDosHeader(), dr));
         pf.setSignature(readSignature(dr));
+
+        // Check signature to ensure we have a pe/coff file
+        if (!pf.getSignature().isValid()) {
+            return pf;
+        }
+
         pf.setCoffHeader(readCOFF(dr));
         pf.setOptionalHeader(readOptional(dr));
         pf.setSectionTable(readSections(pf.getCoffHeader()
                 .getNumberOfSections(), dr));
-
-        // Parse resources if present
-        // TODO: ensure the resource table covers the .rsrc section
-        byte[] res = pf.getSectionTable().getSectionData(".rsrc");
-        if (res != null &&
-                pf.getOptionalHeader().getResourceTable().getSize() > 0) {
-            pf
-                    .setResourceDirectory(readResourceDirectory(res, pf
-                            .getOptionalHeader().getResourceTable()
-                            .getVirtualAddress()));
-        }
-
-        // Parse import directory table
-        res = pf.getSectionTable().getSectionData(".rdata");
-        if (res != null) {
-            IDataReader drr = new ByteArrayDataReader(res);
-            int itva = pf.getOptionalHeader().getImportTable()
-                    .getVirtualAddress();
-            int rdva = pf.getSectionTable().getSection(".rdata")
-                    .getVirtualAddress();
-            int offset = itva - rdva;
-            // Sanity check
-            if (offset > 0 && offset < res.length) {
-                drr.jumpTo(itva - rdva);
-                pf.setImportDirectory(readImportDirectory(drr, pf
-                        .getSectionTable().getSection(".rdata")
-                        .getVirtualAddress()));
-            }
-
-            if (pf.getOptionalHeader().getLoadConfigTable().getSize() > 0) {
-                drr.jumpTo(pf.getOptionalHeader().getLoadConfigTable()
-                        .getVirtualAddress() -
-                        pf.getSectionTable().getSection(".rdata")
-                                .getVirtualAddress());
-                pf.setLoadConfigDirectory(readLoadConfigDirectory(drr));
-            }
-        }
 
         return pf;
     }
@@ -278,7 +255,9 @@ public class PEParser
                 dr.jumpTo(sh.getPointerToRawData());
                 byte[] data = new byte[sh.getSizeOfRawData()];
                 dr.read(data);
-                st.putSection(sh.getName(), data);
+                SectionData sd = new SectionData();
+                sd.add(data);
+                st.putSection(sh.getName(), sd);
             }
         }
 
@@ -316,7 +295,7 @@ public class PEParser
             ImportDirectoryTable nt = readImportDirectoryTable(dr, baseAddress);
             dr.jumpTo(e.getImportAddressTableRVA() - baseAddress);
             ImportDirectoryTable at = null; // readImportDirectoryTable(dr,
-                                            // baseAddress);
+            // baseAddress);
             id.add(name, nt, at);
         }
 

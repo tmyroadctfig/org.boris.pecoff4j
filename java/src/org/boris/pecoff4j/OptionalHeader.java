@@ -11,6 +11,10 @@ package org.boris.pecoff4j;
 
 public class OptionalHeader
 {
+    public static final int MAGIC_PE32 = 0x10b;
+    public static final int MAGIC_PE32plus = 0x20b;
+
+    // Basic data structure
     private int magic;
     private int majorLinkerVersion;
     private int minorLinkerVersion;
@@ -62,6 +66,14 @@ public class OptionalHeader
 
     public int getMagic() {
         return magic;
+    }
+
+    public boolean isValid() {
+        return magic == MAGIC_PE32 || magic == MAGIC_PE32plus;
+    }
+
+    public boolean isPE32plus() {
+        return magic == MAGIC_PE32plus;
     }
 
     public int getMajorLinkerVersion() {

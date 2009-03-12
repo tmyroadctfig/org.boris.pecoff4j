@@ -11,14 +11,16 @@ package org.boris.pecoff4j.io;
 
 import java.io.IOException;
 
+import org.boris.pecoff4j.resources.BitmapInfoHeader;
 import org.boris.pecoff4j.resources.FixedFileInfo;
 import org.boris.pecoff4j.resources.IconDirectory;
 import org.boris.pecoff4j.resources.IconDirectoryEntry;
+import org.boris.pecoff4j.resources.IconImage;
 import org.boris.pecoff4j.resources.RGBQuad;
 
 public class ResourceAssembler
 {
-    public static void writeFixedFileInfo(FixedFileInfo info, IDataWriter dw)
+    public static void write(FixedFileInfo info, IDataWriter dw)
             throws IOException {
         dw.writeDoubleWord(info.getSignature());
         dw.writeDoubleWord(info.getStrucVersion());
@@ -42,22 +44,35 @@ public class ResourceAssembler
         dw.writeByte(rgb.getReserved());
     }
 
-/*    
-    public void writeIconImage(IconImage ii, IDataWriter dw) throws IOException {
+    public void write(IconImage ii, IDataWriter dw) throws IOException {
         if (ii.getHeader() != null) {
-            header.write(dw);
+            write(ii.getHeader(), dw);
+            RGBQuad[] colors = ii.getColors();
             if (colors != null) {
                 for (int i = 0; i < colors.length; i++) {
-                    colors[i].write(dw);
+                    write(colors[i], dw);
                 }
             }
-            dw.writeBytes(xorMask);
-            dw.writeBytes(andMask);
+            dw.writeBytes(ii.getXorMask());
+            dw.writeBytes(ii.getAndMask());
         } else {
-            dw.writeBytes(pngData);
+            dw.writeBytes(ii.getPNG());
         }
     }
-    */
+
+    public void write(BitmapInfoHeader bih, IDataWriter dw) throws IOException {
+        dw.writeDoubleWord(bih.getSize());
+        dw.writeDoubleWord(bih.getWidth());
+        dw.writeDoubleWord(bih.getHeight());
+        dw.writeWord(bih.getPlanes());
+        dw.writeWord(bih.getBitCount());
+        dw.writeDoubleWord(bih.getCompression());
+        dw.writeDoubleWord(bih.getSizeImage());
+        dw.writeDoubleWord(bih.getXpelsPerMeter());
+        dw.writeDoubleWord(bih.getYpelsPerMeter());
+        dw.writeDoubleWord(bih.getClrUsed());
+        dw.writeDoubleWord(bih.getClrImportant());
+    }
 
     public static void write(IconDirectoryEntry ide, IDataWriter dw)
             throws IOException {

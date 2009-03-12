@@ -9,9 +9,12 @@
  *******************************************************************************/
 package org.boris.pecoff4j;
 
+import java.util.Arrays;
 
 public class PESignature
 {
+    private static byte[] expected1 = new byte[] { 0x50, 0x45, 0x00, 0x00 };
+    private static byte[] expected2 = new byte[] { 0x50, 0x69, 0x00, 0x00 };
     private byte[] signature;
 
     public byte[] getSignature() {
@@ -20,5 +23,10 @@ public class PESignature
 
     public void setSignature(byte[] signature) {
         this.signature = signature;
+    }
+
+    public boolean isValid() {
+        return Arrays.equals(expected1, signature) ||
+                Arrays.equals(expected2, signature);
     }
 }

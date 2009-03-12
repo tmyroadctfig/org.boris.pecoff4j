@@ -14,7 +14,7 @@ public class TestParseDLLs
         File[] files = IO.findFiles(new File("C:/windows/system32"),
                 new FilenameFilter() {
                     public boolean accept(File dir, String name) {
-                        return name.endsWith(".dll") &&
+                        return (name.endsWith(".dll") || name.endsWith(".exe")) &&
                                 name.indexOf("dllcache") == -1;
                     }
                 });
