@@ -51,10 +51,11 @@ public class PEParser
     }
 
     public static PE parse(File file) throws IOException {
-        return read(new DataReader(new FileInputStream(file)));
+        return read(new DataReader(new FileInputStream(file)), true);
     }
 
-    public static PE read(IDataReader dr) throws IOException {
+    public static PE read(IDataReader dr, boolean parseSections)
+            throws IOException {
         PE pf = new PE();
         pf.setDosHeader(readDos(dr));
 
@@ -76,6 +77,10 @@ public class PEParser
         pf.setOptionalHeader(readOptional(dr));
         pf.setSectionTable(readSections(pf.getCoffHeader()
                 .getNumberOfSections(), dr));
+
+        if (parseSections) {
+            SectionParser.parse(pf);
+        }
 
         return pf;
     }
@@ -156,6 +161,7 @@ public class PEParser
             throws IOException {
         OptionalHeader oh = new OptionalHeader();
         oh.setMagic(dr.readWord());
+        boolean is64 = oh.isPE32plus();
         oh.setMajorLinkerVersion(dr.readByte());
         oh.setMinorLinkerVersion(dr.readByte());
         oh.setSizeOfCode(dr.readDoubleWord());
@@ -163,10 +169,12 @@ public class PEParser
         oh.setSizeOfUninitializedData(dr.readDoubleWord());
         oh.setAddressOfEntryPoint(dr.readDoubleWord());
         oh.setBaseOfCode(dr.readDoubleWord());
-        oh.setBaseOfData(dr.readDoubleWord());
+
+        if (!is64)
+            oh.setBaseOfData(dr.readDoubleWord());
 
         // NT additional fields.
-        oh.setImageBase(dr.readDoubleWord());
+        oh.setImageBase(is64 ? dr.readLong() : dr.readDoubleWord());
         oh.setSectionAlignment(dr.readDoubleWord());
         oh.setFileAlignment(dr.readDoubleWord());
         oh.setMajorOperatingSystemVersion(dr.readWord());
@@ -182,9 +190,9 @@ public class PEParser
         oh.setSubsystem(dr.readWord());
         oh.setDllCharacteristics(dr.readWord());
         oh.setSizeOfStackReserve(dr.readDoubleWord());
-        oh.setSizeOfStackCommit(dr.readDoubleWord());
-        oh.setSizeOfHeapReserve(dr.readDoubleWord());
-        oh.setSizeOfHeapCommit(dr.readDoubleWord());
+        oh.setSizeOfStackCommit(is64 ? dr.readLong() : dr.readDoubleWord());
+        oh.setSizeOfHeapReserve(is64 ? dr.readLong() : dr.readDoubleWord());
+        oh.setSizeOfHeapCommit(is64 ? dr.readLong() : dr.readDoubleWord());
         oh.setLoaderFlags(dr.readDoubleWord());
         oh.setNumberOfRvaAndSizes(dr.readDoubleWord());
 

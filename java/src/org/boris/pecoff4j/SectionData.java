@@ -23,10 +23,7 @@ public class SectionData
     }
 
     public void add(int type, Object value) {
-        SectionDataEntry sde = new SectionDataEntry();
-        sde.setType(type);
-        sde.setValue(value);
-        add(sde);
+        add(new SectionDataEntry(type, value));
     }
 
     public void add(byte[] data) {
@@ -34,7 +31,7 @@ public class SectionData
     }
 
     public void add(ResourceDirectory rd) {
-        add(SectionDataType.RESOURCES, rd);
+        add(SectionDataType.RESOURCE_TABLE, rd);
     }
 
     public int size() {

@@ -24,7 +24,7 @@ public class OptionalHeader
     private int addressOfEntryPoint;
     private int baseOfCode;
     private int baseOfData;
-    private int imageBase;
+    private long imageBase;
     private int sectionAlignment;
     private int fileAlignment;
     private int majorOperatingSystemVersion;
@@ -40,9 +40,9 @@ public class OptionalHeader
     private int subsystem;
     private int dllCharacteristics;
     private int sizeOfStackReserve;
-    private int sizeOfStackCommit;
-    private int sizeOfHeapReserve;
-    private int sizeOfHeapCommit;
+    private long sizeOfStackCommit;
+    private long sizeOfHeapReserve;
+    private long sizeOfHeapCommit;
     private int loaderFlags;
     private int numberOfRvaAndSizes;
 
@@ -108,7 +108,7 @@ public class OptionalHeader
         return baseOfData;
     }
 
-    public int getImageBase() {
+    public long getImageBase() {
         return imageBase;
     }
 
@@ -172,15 +172,15 @@ public class OptionalHeader
         return sizeOfStackReserve;
     }
 
-    public int getSizeOfStackCommit() {
+    public long getSizeOfStackCommit() {
         return sizeOfStackCommit;
     }
 
-    public int getSizeOfHeapReserve() {
+    public long getSizeOfHeapReserve() {
         return sizeOfHeapReserve;
     }
 
-    public int getSizeOfHeapCommit() {
+    public long getSizeOfHeapCommit() {
         return sizeOfHeapCommit;
     }
 
@@ -292,7 +292,7 @@ public class OptionalHeader
         this.baseOfData = baseOfData;
     }
 
-    public void setImageBase(int imageBase) {
+    public void setImageBase(long imageBase) {
         this.imageBase = imageBase;
     }
 
@@ -356,15 +356,15 @@ public class OptionalHeader
         this.sizeOfStackReserve = sizeOfStackReserve;
     }
 
-    public void setSizeOfStackCommit(int sizeOfStackCommit) {
+    public void setSizeOfStackCommit(long sizeOfStackCommit) {
         this.sizeOfStackCommit = sizeOfStackCommit;
     }
 
-    public void setSizeOfHeapReserve(int sizeOfHeapReserve) {
+    public void setSizeOfHeapReserve(long sizeOfHeapReserve) {
         this.sizeOfHeapReserve = sizeOfHeapReserve;
     }
 
-    public void setSizeOfHeapCommit(int sizeOfHeapCommit) {
+    public void setSizeOfHeapCommit(long sizeOfHeapCommit) {
         this.sizeOfHeapCommit = sizeOfHeapCommit;
     }
 

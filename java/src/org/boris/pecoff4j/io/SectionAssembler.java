@@ -7,23 +7,9 @@
  * Contributors:
  *     Peter Smith
  *******************************************************************************/
-package org.boris.pecoff4j;
+package org.boris.pecoff4j.io;
 
-public class SectionDataEntry
+public class SectionAssembler
 {
-    private int type;
-    private Object value;
 
-    public SectionDataEntry(int type, Object value) {
-        this.type = type;
-        this.value = value;
-    }
-
-    public int getType() {
-        return type;
-    }
-
-    public Object getValue() {
-        return value;
-    }
 }

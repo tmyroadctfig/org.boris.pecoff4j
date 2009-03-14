@@ -29,11 +29,15 @@ public class DebugType
     public static final int IMAGE_DEBUG_TYPE_RESERVED10 = 10;
     public static final int IMAGE_DEBUG_TYPE_CLSID = 11;
 
-    public static String toString(int value) throws Exception {
+    public static String toString(int value) {
         Field[] fields = DebugType.class.getFields();
         for (Field f : fields) {
-            if (f.get(null).equals(value)) {
-                return f.getName();
+            try {
+                if (f.get(null).equals(value)) {
+                    return f.getName();
+                }
+            } catch (Exception e) {
+                throw new RuntimeException(e);
             }
         }
         return null;
