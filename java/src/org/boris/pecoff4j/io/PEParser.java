@@ -12,6 +12,7 @@ package org.boris.pecoff4j.io;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -46,6 +47,10 @@ import org.boris.pecoff4j.SectionTable;
 
 public class PEParser
 {
+    public static PE parse(InputStream is) throws IOException {
+        return read(new DataReader(is), true);
+    }
+
     public static PE parse(String filename) throws IOException {
         return parse(new File(filename));
     }
@@ -359,7 +364,7 @@ public class PEParser
         return ie;
     }
 
-    public static ExportDirectoryTable readExportDirectoryTable(DataReader dr)
+    public static ExportDirectoryTable readExportDirectoryTable(IDataReader dr)
             throws IOException {
         ExportDirectoryTable edt = new ExportDirectoryTable();
         edt.setExportFlags(dr.readDoubleWord());

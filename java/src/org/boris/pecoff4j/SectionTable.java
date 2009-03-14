@@ -16,6 +16,13 @@ import java.util.Map;
 
 public class SectionTable
 {
+    // Known section names
+    public static final String RESOURCE_TABLE = ".rsrc";
+    public static final String EXPORT_TABLE = ".edata";
+    public static final String IMPORT_TABLE = ".idata";
+    public static final String LOAD_CONFIG_TABLE = ".rdata";
+
+    // Data
     private List<SectionHeader> headers = new ArrayList();
     private Map<String, SectionHeader> sectionByName = new HashMap();
     private Map<String, SectionData> sectionData = new HashMap();

@@ -31,6 +31,9 @@ public class ResourceType
     public static final int PLUG_N_PLAY = 0x0013;
     public static final int VXD = 0x0014;
     public static final int ANIMATED_CURSOR = 0x0015;
+    public static final int ANIMATED_ICON = 0x0016;
+    public static final int HTML = 0x0017;
+    public static final int MANIFEST = 0x0018;
     public static final int BITMAP_NEW = 0x2002;
     public static final int MENU_NEW = 0x2004;
     public static final int CURSOR_NEW = 0x2005;
