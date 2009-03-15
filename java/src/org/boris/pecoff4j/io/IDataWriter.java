@@ -19,5 +19,7 @@ public interface IDataWriter
 
     void writeDoubleWord(int dw) throws IOException;
 
+    void writeLong(long l) throws IOException;
+
     void writeBytes(byte[] b) throws IOException;
 }

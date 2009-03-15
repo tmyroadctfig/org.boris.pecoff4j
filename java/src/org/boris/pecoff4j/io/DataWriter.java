@@ -48,6 +48,11 @@ public class DataWriter implements IDataWriter
         out.write(w >> 8 & 0xff);
     }
 
+    public void writeLong(long l) throws IOException {
+        writeDoubleWord((int) l);
+        writeDoubleWord((int) (l >> 32));
+    }
+
     public void close() throws IOException {
         out.flush();
         out.close();
