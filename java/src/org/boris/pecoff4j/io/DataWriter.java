@@ -19,6 +19,7 @@ import java.io.OutputStream;
 public class DataWriter implements IDataWriter
 {
     private BufferedOutputStream out;
+    private int position;
 
     public DataWriter(File output) throws FileNotFoundException {
         this(new FileOutputStream(output));
@@ -30,10 +31,19 @@ public class DataWriter implements IDataWriter
 
     public void writeByte(int b) throws IOException {
         out.write(b);
+        position++;
+    }
+
+    public void writeByte(int b, int count) throws IOException {
+        for (int i = 0; i < count; i++) {
+            out.write(b);
+        }
+        position += count;
     }
 
     public void writeBytes(byte[] b) throws IOException {
         out.write(b);
+        position += b.length;
     }
 
     public void writeDoubleWord(int dw) throws IOException {
@@ -41,11 +51,13 @@ public class DataWriter implements IDataWriter
         out.write(dw >> 8 & 0xff);
         out.write(dw >> 16 & 0xff);
         out.write(dw >> 24 & 0xff);
+        position += 4;
     }
 
     public void writeWord(int w) throws IOException {
         out.write(w & 0xff);
         out.write(w >> 8 & 0xff);
+        position += 2;
     }
 
     public void writeLong(long l) throws IOException {
@@ -53,8 +65,27 @@ public class DataWriter implements IDataWriter
         writeDoubleWord((int) (l >> 32));
     }
 
-    public void close() throws IOException {
+    public void flush() throws IOException {
         out.flush();
+    }
+
+    public void close() throws IOException {
         out.close();
+    }
+
+    public int getPosition() {
+        return position;
+    }
+
+    public void writeUtf(String s, int len) throws IOException {
+        byte[] b = s.getBytes(); // todo sort out charset
+        int i = 0;
+        for (; i < b.length && i < len; i++) {
+            out.write(b[i]);
+        }
+        for (; i < len; i++) {
+            out.write(0);
+        }
+        position += len;
     }
 }

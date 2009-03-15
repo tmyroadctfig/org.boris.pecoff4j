@@ -9,10 +9,15 @@
  *******************************************************************************/
 package org.boris.pecoff4j.io;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 import org.boris.pecoff4j.COFFHeader;
 import org.boris.pecoff4j.DOSHeader;
@@ -21,10 +26,18 @@ import org.boris.pecoff4j.ImageDataDirectory;
 import org.boris.pecoff4j.OptionalHeader;
 import org.boris.pecoff4j.PE;
 import org.boris.pecoff4j.PESignature;
+import org.boris.pecoff4j.SectionData;
+import org.boris.pecoff4j.SectionHeader;
 import org.boris.pecoff4j.SectionTable;
 
 public class PEAssembler
 {
+    public static byte[] toBytes(PE pe) throws IOException {
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        write(pe, bos);
+        return bos.toByteArray();
+    }
+
     public static void write(PE pe, String filename) throws IOException {
         write(pe, new FileOutputStream(filename));
     }
@@ -34,7 +47,9 @@ public class PEAssembler
     }
 
     public static void write(PE pe, OutputStream os) throws IOException {
-        write(pe, new DataWriter(os));
+        DataWriter dw = new DataWriter(os);
+        write(pe, dw);
+        dw.flush();
     }
 
     public static void write(PE pe, IDataWriter dw) throws IOException {
@@ -46,7 +61,46 @@ public class PEAssembler
         write(pe.getSectionTable(), dw);
     }
 
-    private static void write(SectionTable st, IDataWriter dw) {
+    private static void write(SectionTable st, IDataWriter dw)
+            throws IOException {
+        List<SectionHeader> sections = new ArrayList();
+        int ns = st.getNumberOfSections();
+        for (int i = 0; i < ns; i++) {
+            SectionHeader sh = st.getHeader(i);
+            write(sh, dw);
+            sections.add(sh);
+        }
+
+        // Now sort on section address
+        Collections.sort(sections, new Comparator<SectionHeader>() {
+            public int compare(SectionHeader o1, SectionHeader o2) {
+                return o1.getPointerToRawData() - o2.getPointerToRawData();
+            }
+        });
+
+        for (int i = 0; i < ns; i++) {
+            SectionHeader sh = sections.get(i);
+            int pr = sh.getPointerToRawData();
+            int pc = dw.getPosition();
+            dw.writeByte(0, pr - pc);
+            SectionData sd = st.getData(sh.getName());
+            byte[] b = (byte[]) sd.getEntry(0).getValue();
+            dw.writeBytes(b);
+        }
+    }
+
+    private static void write(SectionHeader sh, IDataWriter dw)
+            throws IOException {
+        dw.writeUtf(sh.getName(), 8);
+        dw.writeDoubleWord(sh.getVirtualSize());
+        dw.writeDoubleWord(sh.getVirtualAddress());
+        dw.writeDoubleWord(sh.getSizeOfRawData());
+        dw.writeDoubleWord(sh.getPointerToRawData());
+        dw.writeDoubleWord(sh.getPointerToRelocations());
+        dw.writeDoubleWord(sh.getPointerToLineNumbers());
+        dw.writeWord(sh.getNumberOfRelocations());
+        dw.writeWord(sh.getNumberOfLineNumbers());
+        dw.writeDoubleWord(sh.getCharacteristics());
     }
 
     private static void write(OptionalHeader oh, IDataWriter dw)
@@ -153,8 +207,8 @@ public class PEAssembler
         dw.writeWord(dh.getChecksum());
         dw.writeWord(dh.getInitialIP());
         dw.writeWord(dh.getInitialRelativeCS());
+        dw.writeWord(dh.getAddressOfRelocationTable());
         dw.writeWord(dh.getOverlayNumber());
-        dw.writeWord(dh.getInitialSS());
         int[] res = dh.getReserved();
         for (int i = 0; i < res.length; i++) {
             dw.writeWord(res[i]);

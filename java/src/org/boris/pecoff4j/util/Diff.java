@@ -22,4 +22,19 @@ public class Diff
     public static boolean equals(byte[] b1, byte[] b2) {
         return Arrays.equals(b1, b2);
     }
+
+    public static void findDiff(byte[] b1, byte[] b2) {
+        for (int i = 0; i < b1.length; i++) {
+            if (b1[i] != b2[i]) {
+                int p = i - 30;
+                if (p < 0)
+                    p = 0;
+                System.out.println("Diff at " + i);
+                HexDump.dump(b1, p, 100);
+                System.out.println("-----");
+                HexDump.dump(b2, p, 100);
+                break;
+            }
+        }
+    }
 }

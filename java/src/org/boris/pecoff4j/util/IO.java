@@ -9,10 +9,15 @@
  *******************************************************************************/
 package org.boris.pecoff4j.util;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FilenameFilter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.Reader;
+import java.io.Writer;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -23,6 +28,12 @@ public class IO
         FileInputStream fis = new FileInputStream(f);
         fis.read(b);
         return b;
+    }
+
+    public static byte[] toBytes(InputStream is) throws IOException {
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        copy(is, bos, true);
+        return bos.toByteArray();
     }
 
     public static void findFiles(File dir, FilenameFilter filter,
@@ -53,6 +64,32 @@ public class IO
                 if (filter.accept(ff.getParentFile(), ff.getName()))
                     files.add(ff);
             }
+        }
+    }
+
+    public static void copy(Reader r, Writer w, boolean close)
+            throws IOException {
+        char[] buf = new char[4096];
+        int len = 0;
+        while ((len = r.read(buf)) > 0) {
+            w.write(buf, 0, len);
+        }
+        if (close) {
+            r.close();
+            w.close();
+        }
+    }
+
+    public static void copy(InputStream r, OutputStream w, boolean close)
+            throws IOException {
+        byte[] buf = new byte[4096];
+        int len = 0;
+        while ((len = r.read(buf)) > 0) {
+            w.write(buf, 0, len);
+        }
+        if (close) {
+            r.close();
+            w.close();
         }
     }
 }

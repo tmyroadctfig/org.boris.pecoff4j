@@ -48,7 +48,7 @@ import org.boris.pecoff4j.SectionTable;
 public class PEParser
 {
     public static PE parse(InputStream is) throws IOException {
-        return read(new DataReader(is), true);
+        return read(new DataReader(is), false);
     }
 
     public static PE parse(String filename) throws IOException {
@@ -56,7 +56,7 @@ public class PEParser
     }
 
     public static PE parse(File file) throws IOException {
-        return read(new DataReader(new FileInputStream(file)), true);
+        return read(new DataReader(new FileInputStream(file)), false);
     }
 
     public static PE read(IDataReader dr, boolean parseSections)
