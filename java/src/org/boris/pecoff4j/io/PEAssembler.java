@@ -54,11 +54,17 @@ public class PEAssembler
 
     public static void write(PE pe, IDataWriter dw) throws IOException {
         write(pe.getDosHeader(), dw);
+        // System.out.println(dw.getPosition());
         write(pe.getStub(), dw);
+        // System.out.println(dw.getPosition());
         write(pe.getSignature(), dw);
+        // System.out.println(dw.getPosition());
         write(pe.getCoffHeader(), dw);
+        // System.out.println(dw.getPosition());
         write(pe.getOptionalHeader(), dw);
+        // System.out.println(dw.getPosition());
         write(pe.getSectionTable(), dw);
+        // System.out.println(dw.getPosition());
     }
 
     private static void write(SectionTable st, IDataWriter dw)
@@ -84,8 +90,12 @@ public class PEAssembler
             int pc = dw.getPosition();
             dw.writeByte(0, pr - pc);
             SectionData sd = st.getData(sh.getName());
-            byte[] b = (byte[]) sd.getEntry(0).getValue();
-            dw.writeBytes(b);
+            if (sd != null) {
+                byte[] b = (byte[]) sd.getEntry(0).getValue();
+                dw.writeBytes(b);
+            } else {
+                System.out.println("Missing section data: " + sh.getName());
+            }
         }
     }
 

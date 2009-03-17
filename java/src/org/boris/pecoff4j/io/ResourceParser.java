@@ -28,7 +28,7 @@ import org.boris.pecoff4j.resources.VersionInfo;
 
 public class ResourceParser
 {
-    public static Bitmap readBitmap(DataReader dr) throws IOException {
+    public static Bitmap readBitmap(IDataReader dr) throws IOException {
         Bitmap bm = new Bitmap();
         bm.setFileHeader(readBitmapFileHeader(dr));
         bm.setInfoHeader(readBitmapInfoHeader(dr));
@@ -36,7 +36,7 @@ public class ResourceParser
         return bm;
     }
 
-    public static BitmapFileHeader readBitmapFileHeader(DataReader dr)
+    public static BitmapFileHeader readBitmapFileHeader(IDataReader dr)
             throws IOException {
         BitmapFileHeader bfh = new BitmapFileHeader();
         bfh.setType(dr.readWord());
@@ -198,10 +198,6 @@ public class ResourceParser
         return sp;
     }
 
-    public static Manifest read(byte[] data) throws IOException {
-        return readManifest(new ByteArrayDataReader(data), data.length);
-    }
-
     public static Manifest readManifest(IDataReader dr, int length)
             throws IOException {
         Manifest mf = new Manifest();
@@ -238,11 +234,6 @@ public class ResourceParser
         ge.setOffset(dr.readDoubleWord());
 
         return ge;
-    }
-
-    public static IconDirectory readIconDirectory(byte[] data)
-            throws IOException {
-        return readIconDirectory(new ByteArrayDataReader(data));
     }
 
     public static IconDirectory readIconDirectory(IDataReader dr)

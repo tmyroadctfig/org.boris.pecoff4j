@@ -16,6 +16,7 @@ public class PE
     private PESignature signature;
     private COFFHeader coffHeader;
     private OptionalHeader optionalHeader;
+    private BoundImportDirectoryTable boundImports;
     private SectionTable sectionTable;
 
     public DOSHeader getDosHeader() {
@@ -36,6 +37,10 @@ public class PE
 
     public OptionalHeader getOptionalHeader() {
         return optionalHeader;
+    }
+
+    public BoundImportDirectoryTable getBoundImports() {
+        return boundImports;
     }
 
     public SectionTable getSectionTable() {
@@ -60,6 +65,10 @@ public class PE
 
     public void setOptionalHeader(OptionalHeader optionalHeader) {
         this.optionalHeader = optionalHeader;
+    }
+
+    public void setBoundImports(BoundImportDirectoryTable boundImports) {
+        this.boundImports = boundImports;
     }
 
     public void setSectionTable(SectionTable sectionTable) {

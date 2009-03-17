@@ -11,6 +11,15 @@ public class TestParseDLLs
 {
 
     public static void main(String[] args) throws Exception {
+        File[] files = findPEs();
+        for (int i = 0; i < files.length; i++) {
+            System.out.println(files[i]);
+            PE pe = PEParser.parse(files[i]);
+            System.out.println(Reflection.toString(pe));
+        }
+    }
+
+    public static File[] findPEs() {
         File[] files = IO.findFiles(new File("C:/windows/system32"),
                 new FilenameFilter() {
                     public boolean accept(File dir, String name) {
@@ -18,11 +27,8 @@ public class TestParseDLLs
                                 name.indexOf("dllcache") == -1;
                     }
                 });
-        for (int i = 0; i < files.length; i++) {
-            System.out.println(files[i]);
-            PE pe = PEParser.parse(files[i]);
-            System.out.println(Reflection.toString(pe));
-        }
+
+        return files;
     }
 
 }

@@ -19,6 +19,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import org.boris.pecoff4j.BoundImportDirectoryTable;
 import org.boris.pecoff4j.COFFHeader;
 import org.boris.pecoff4j.DOSHeader;
 import org.boris.pecoff4j.DOSStub;
@@ -61,33 +62,32 @@ public class PEParser
 
     public static PE read(IDataReader dr, boolean parseSections)
             throws IOException {
-        PE pf = new PE();
-        pf.setDosHeader(readDos(dr));
+        PE pe = new PE();
+        pe.setDosHeader(readDos(dr));
 
         // Check if we have an old file type
-        if (pf.getDosHeader().getAddressOfNewExeHeader() == 0 ||
-                pf.getDosHeader().getAddressOfNewExeHeader() > 8192) {
-            return pf;
+        if (pe.getDosHeader().getAddressOfNewExeHeader() == 0 ||
+                pe.getDosHeader().getAddressOfNewExeHeader() > 8192) {
+            return pe;
         }
 
-        pf.setStub(readStub(pf.getDosHeader(), dr));
-        pf.setSignature(readSignature(dr));
+        pe.setStub(readStub(pe.getDosHeader(), dr));
+        pe.setSignature(readSignature(dr));
 
         // Check signature to ensure we have a pe/coff file
-        if (!pf.getSignature().isValid()) {
-            return pf;
+        if (!pe.getSignature().isValid()) {
+            return pe;
         }
 
-        pf.setCoffHeader(readCOFF(dr));
-        pf.setOptionalHeader(readOptional(dr));
-        pf.setSectionTable(readSections(pf.getCoffHeader()
-                .getNumberOfSections(), dr));
+        pe.setCoffHeader(readCOFF(dr));
+        pe.setOptionalHeader(readOptional(dr));
+        pe.setSectionTable(readSections(pe, dr));
 
         if (parseSections) {
-            SectionParser.parse(pf);
+            SectionParser.parse(pe);
         }
 
-        return pf;
+        return pe;
     }
 
     public static COFFHeader readCOFF(IDataReader dr) throws IOException {
@@ -246,11 +246,11 @@ public class PEParser
         return idd;
     }
 
-    public static SectionTable readSections(int numberOfSections, IDataReader dr)
+    public static SectionTable readSections(PE pe, IDataReader dr)
             throws IOException {
         SectionTable st = new SectionTable();
         List<SectionHeader> sections = new ArrayList();
-        for (int i = 0; i < numberOfSections; i++) {
+        for (int i = 0; i < pe.getCoffHeader().getNumberOfSections(); i++) {
             SectionHeader sh = readSectionHeader(dr);
             st.add(sh);
             sections.add(sh);
@@ -262,6 +262,18 @@ public class PEParser
                 return o1.getPointerToRawData() - o2.getPointerToRawData();
             }
         });
+
+        // Check for bound imports
+        ImageDataDirectory bi = pe.getOptionalHeader().getBoundImport();
+        if (bi.getSize() > 0) {
+            SectionHeader sh1 = sections.get(0);
+            if (sh1 == null ||
+                    sh1.getPointerToRawData() > bi.getVirtualAddress()) {
+                // Need to read the bound imports directly
+                dr.jumpTo(bi.getVirtualAddress());
+                pe.setBoundImports(readBoundImportDirectoryTable(dr));
+            }
+        }
 
         for (SectionHeader sh : sections) {
             if (sh.getPointerToRawData() != 0) {
@@ -290,6 +302,11 @@ public class PEParser
 
         st.setRvaConverter(new RVAConverter(virtualAddress, pointerToRawData));
         return st;
+    }
+
+    private static BoundImportDirectoryTable readBoundImportDirectoryTable(
+            IDataReader dr) {
+        return null;
     }
 
     public static ImportDirectory readImportDirectory(IDataReader dr,

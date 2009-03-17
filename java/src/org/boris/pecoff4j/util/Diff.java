@@ -24,7 +24,10 @@ public class Diff
     }
 
     public static void findDiff(byte[] b1, byte[] b2) {
-        for (int i = 0; i < b1.length; i++) {
+        if (b1.length != b2.length)
+            System.out.println("Different lengths: " + b1.length + ", " +
+                    b2.length);
+        for (int i = 0; i < b1.length && i < b2.length; i++) {
             if (b1[i] != b2[i]) {
                 int p = i - 30;
                 if (p < 0)
