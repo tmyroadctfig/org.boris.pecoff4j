@@ -19,6 +19,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import org.boris.pecoff4j.BoundImport;
 import org.boris.pecoff4j.BoundImportDirectoryTable;
 import org.boris.pecoff4j.COFFHeader;
 import org.boris.pecoff4j.DOSHeader;
@@ -271,7 +272,10 @@ public class PEParser
                     sh1.getPointerToRawData() > bi.getVirtualAddress()) {
                 // Need to read the bound imports directly
                 dr.jumpTo(bi.getVirtualAddress());
-                pe.setBoundImports(readBoundImportDirectoryTable(dr));
+                byte[] bib = new byte[bi.getSize()];
+                dr.read(bib);
+                IDataReader bidr = new ByteArrayDataReader(bib);
+                pe.setBoundImports(readBoundImportDirectoryTable(bidr));
             }
         }
 
@@ -305,8 +309,32 @@ public class PEParser
     }
 
     private static BoundImportDirectoryTable readBoundImportDirectoryTable(
-            IDataReader dr) {
-        return null;
+            IDataReader dr) throws IOException {
+        int pos = dr.getPosition();
+        BoundImportDirectoryTable bidt = new BoundImportDirectoryTable();
+        BoundImport bi = null;
+        while ((bi = readBoundImport(dr)) != null) {
+            bidt.add(bi);
+        }
+        for (int i = 0; i < bidt.size(); i++) {
+            bi = bidt.get(i);
+            dr.jumpTo(pos + bi.getOffsetToModuleName());
+            bi.setModuleName(dr.readUtf());
+        }
+        return bidt;
+    }
+
+    private static BoundImport readBoundImport(IDataReader dr)
+            throws IOException {
+        BoundImport bi = new BoundImport();
+        bi.setTimestamp(dr.readDoubleWord());
+        bi.setOffsetToModuleName(dr.readWord());
+        bi.setNumberOfModuleForwarderRefs(dr.readWord());
+
+        if (bi.getTimestamp() == 0)
+            return null;
+
+        return bi;
     }
 
     public static ImportDirectory readImportDirectory(IDataReader dr,

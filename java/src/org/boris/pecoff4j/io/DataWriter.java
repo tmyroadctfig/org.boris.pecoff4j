@@ -88,4 +88,11 @@ public class DataWriter implements IDataWriter
         }
         position += len;
     }
+
+    public void writeUtf(String s) throws IOException {
+        byte[] b = s.getBytes();
+        out.write(b);
+        out.write(0);
+        position += b.length + 1;
+    }
 }

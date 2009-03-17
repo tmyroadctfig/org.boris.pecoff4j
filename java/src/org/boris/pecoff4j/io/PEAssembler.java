@@ -19,6 +19,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import org.boris.pecoff4j.BoundImport;
+import org.boris.pecoff4j.BoundImportDirectoryTable;
 import org.boris.pecoff4j.COFFHeader;
 import org.boris.pecoff4j.DOSHeader;
 import org.boris.pecoff4j.DOSStub;
@@ -63,11 +65,11 @@ public class PEAssembler
         // System.out.println(dw.getPosition());
         write(pe.getOptionalHeader(), dw);
         // System.out.println(dw.getPosition());
-        write(pe.getSectionTable(), dw);
+        write(pe, pe.getSectionTable(), dw);
         // System.out.println(dw.getPosition());
     }
 
-    private static void write(SectionTable st, IDataWriter dw)
+    private static void write(PE pe, SectionTable st, IDataWriter dw)
             throws IOException {
         List<SectionHeader> sections = new ArrayList();
         int ns = st.getNumberOfSections();
@@ -76,6 +78,10 @@ public class PEAssembler
             write(sh, dw);
             sections.add(sh);
         }
+
+        // Write out bound import table if present
+        if (pe.getBoundImports() != null)
+            write(pe.getBoundImports(), dw);
 
         // Now sort on section address
         Collections.sort(sections, new Comparator<SectionHeader>() {
@@ -96,6 +102,26 @@ public class PEAssembler
             } else {
                 System.out.println("Missing section data: " + sh.getName());
             }
+        }
+    }
+
+    private static void write(BoundImportDirectoryTable bidt, IDataWriter dw)
+            throws IOException {
+        for (int i = 0; i < bidt.size(); i++) {
+            BoundImport bi = bidt.get(i);
+            dw.writeDoubleWord((int) bi.getTimestamp());
+            dw.writeWord(bi.getOffsetToModuleName());
+            dw.writeWord(bi.getNumberOfModuleForwarderRefs());
+        }
+
+        // Now write out empty block
+        dw.writeDoubleWord(0);
+        dw.writeDoubleWord(0);
+
+        // Now write out module names
+        for (int i = 0; i < bidt.size(); i++) {
+            String s = bidt.get(i).getModuleName();
+            dw.writeUtf(s);
         }
     }
 

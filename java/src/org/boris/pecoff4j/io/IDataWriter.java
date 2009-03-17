@@ -25,6 +25,8 @@ public interface IDataWriter
 
     void writeBytes(byte[] b) throws IOException;
 
+    void writeUtf(String s) throws IOException;
+
     void writeUtf(String s, int len) throws IOException;
 
     public abstract int getPosition();

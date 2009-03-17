@@ -9,7 +9,22 @@
  *******************************************************************************/
 package org.boris.pecoff4j;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class BoundImportDirectoryTable
 {
+    private List<BoundImport> imports = new ArrayList();
 
+    public void add(BoundImport bi) {
+        imports.add(bi);
+    }
+
+    public int size() {
+        return imports.size();
+    }
+
+    public BoundImport get(int index) {
+        return imports.get(index);
+    }
 }
