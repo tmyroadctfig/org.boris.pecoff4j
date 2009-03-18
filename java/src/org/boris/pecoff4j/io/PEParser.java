@@ -254,7 +254,8 @@ public class PEParser
         for (int i = 0; i < pe.getCoffHeader().getNumberOfSections(); i++) {
             SectionHeader sh = readSectionHeader(dr);
             st.add(sh);
-            sections.add(sh);
+            if (sh.getPointerToRawData() != 0)
+                sections.add(sh);
         }
 
         // Now sort on section address and load
@@ -274,6 +275,18 @@ public class PEParser
             IDataReader bidr = new ByteArrayDataReader(bib);
             pe.setBoundImports(readBoundImportDirectoryTable(bidr));
         }
+
+        // Now read in padding data (which may have some stuff)
+        SectionHeader sh1 = sections.get(0);
+        int pr = sh1.getPointerToRawData();
+        int pc = dr.getPosition();
+        if (pr > pc) {
+            byte[] padding = new byte[pr - pc];
+            dr.read(padding);
+            pe.setHeaderPadding(padding);
+        }
+
+        // TODO Check for other image data directory entries in this spot
 
         for (SectionHeader sh : sections) {
             if (sh.getPointerToRawData() != 0) {
@@ -327,7 +340,8 @@ public class PEParser
         bi.setOffsetToModuleName(dr.readWord());
         bi.setNumberOfModuleForwarderRefs(dr.readWord());
 
-        if (bi.getTimestamp() == 0)
+        if (bi.getTimestamp() == 0 && bi.getOffsetToModuleName() == 0 &&
+                bi.getNumberOfModuleForwarderRefs() == 0)
             return null;
 
         return bi;

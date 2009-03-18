@@ -78,7 +78,7 @@ public class DataWriter implements IDataWriter
     }
 
     public void writeUtf(String s, int len) throws IOException {
-        byte[] b = s.getBytes(); // todo sort out charset
+        byte[] b = s.getBytes(); // FIXME sort out charset
         int i = 0;
         for (; i < b.length && i < len; i++) {
             out.write(b[i]);
@@ -90,7 +90,7 @@ public class DataWriter implements IDataWriter
     }
 
     public void writeUtf(String s) throws IOException {
-        byte[] b = s.getBytes();
+        byte[] b = s.getBytes(); // FIXME sort out charset
         out.write(b);
         out.write(0);
         position += b.length + 1;

@@ -20,9 +20,13 @@ public class TestPAProblems
 {
     static String P1 = "C:\\windows\\system32\\makecab.exe";
     static String P2 = "C:\\windows\\system32\\ds32gt.dll";
+    static String P3 = "C:\\windows\\system32\\usrrtosa.dll";
+    static String P4 = "C:\\windows\\system32\\xvidcore.dll";
+    static String P5 = "C:\\windows\\system32\\narrator.exe";
+    static String P6 = "C:\\windows\\system32\\Setup\\msmqocm.dll";
 
     public static void main(String[] args) throws Exception {
-        test(P2);
+        test(P6);
     }
 
     public static void test(String s) throws Exception {
@@ -31,6 +35,6 @@ public class TestPAProblems
         byte[] b1 = IO.toBytes(f);
         PE pe = PEParser.parse(f);
         byte[] b2 = PEAssembler.toBytes(pe);
-        Diff.findDiff(b1, b2);
+        Diff.findDiff(b1, b2, false);
     }
 }

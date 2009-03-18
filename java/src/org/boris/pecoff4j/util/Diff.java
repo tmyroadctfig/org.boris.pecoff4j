@@ -23,16 +23,30 @@ public class Diff
         return Arrays.equals(b1, b2);
     }
 
-    public static void findDiff(byte[] b1, byte[] b2) {
-        if (b1.length != b2.length)
-            System.out.println("Different lengths: " + b1.length + ", " +
-                    b2.length);
+    public static boolean equals(byte[] b1, byte[] b2, boolean ignoreLength) {
+        if (ignoreLength) {
+            for (int i = 0; i < b1.length && i < b2.length; i++) {
+                if (b1[i] != b2[i]) {
+                    return false;
+                }
+            }
+            return true;
+        } else {
+            return Arrays.equals(b1, b2);
+        }
+    }
+
+    public static void findDiff(byte[] b1, byte[] b2, boolean ignoreLength) {
+        if (b1.length != b2.length && !ignoreLength)
+            System.out.println("Different lengths: " +
+                    Integer.toHexString(b1.length) + ", " +
+                    Integer.toHexString(b2.length));
         for (int i = 0; i < b1.length && i < b2.length; i++) {
             if (b1[i] != b2[i]) {
                 int p = i - 30;
                 if (p < 0)
                     p = 0;
-                System.out.println("Diff at " + i);
+                System.out.println("Diff at " + Integer.toHexString(i));
                 HexDump.dump(b1, p, 100);
                 System.out.println("-----");
                 HexDump.dump(b2, p, 100);

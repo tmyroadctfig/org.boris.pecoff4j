@@ -17,6 +17,7 @@ public class PE
     private COFFHeader coffHeader;
     private OptionalHeader optionalHeader;
     private BoundImportDirectoryTable boundImports;
+    private byte[] headerPadding; // TODO find out what this is
     private SectionTable sectionTable;
 
     public DOSHeader getDosHeader() {
@@ -73,5 +74,13 @@ public class PE
 
     public void setSectionTable(SectionTable sectionTable) {
         this.sectionTable = sectionTable;
+    }
+
+    public byte[] getHeaderPadding() {
+        return headerPadding;
+    }
+
+    public void setHeaderPadding(byte[] headerPadding) {
+        this.headerPadding = headerPadding;
     }
 }

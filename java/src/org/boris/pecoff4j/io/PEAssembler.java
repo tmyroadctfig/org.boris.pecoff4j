@@ -58,17 +58,11 @@ public class PEAssembler
 
     public static void write(PE pe, IDataWriter dw) throws IOException {
         write(pe.getDosHeader(), dw);
-        // System.out.println(dw.getPosition());
         write(pe.getStub(), dw);
-        // System.out.println(dw.getPosition());
         write(pe.getSignature(), dw);
-        // System.out.println(dw.getPosition());
         write(pe.getCoffHeader(), dw);
-        // System.out.println(dw.getPosition());
         write(pe.getOptionalHeader(), dw);
-        // System.out.println(dw.getPosition());
         write(pe, pe.getSectionTable(), dw);
-        // System.out.println(dw.getPosition());
     }
 
     private static void write(PE pe, SectionTable st, IDataWriter dw)
@@ -82,8 +76,15 @@ public class PEAssembler
         }
 
         // Write out bound import table if present
-        if (pe.getBoundImports() != null)
+        if (pe.getBoundImports() != null) {
             write(pe.getBoundImports(), dw);
+        }
+
+        // Write out header padding if present - TODO replace with real structs
+        byte[] padding = pe.getHeaderPadding();
+        if (padding != null) {
+            dw.writeBytes(padding);
+        }
 
         // Now sort on section address
         Collections.sort(sections, new Comparator<SectionHeader>() {
@@ -96,7 +97,9 @@ public class PEAssembler
             SectionHeader sh = sections.get(i);
             int pr = sh.getPointerToRawData();
             int pc = dw.getPosition();
-            dw.writeByte(0, pr - pc);
+            if (pr > pc) {
+                dw.writeByte(0, pr - pc);
+            }
             SectionData sd = st.getData(sh.getName());
             if (sd != null) {
                 byte[] b = (byte[]) sd.getEntry(0).getValue();
@@ -107,7 +110,6 @@ public class PEAssembler
 
     private static void write(BoundImportDirectoryTable bidt, IDataWriter dw)
             throws IOException {
-
         List<BoundImport> bil = new ArrayList();
 
         for (int i = 0; i < bidt.size(); i++) {
