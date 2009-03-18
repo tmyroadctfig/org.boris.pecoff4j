@@ -11,6 +11,7 @@ package org.boris.pecoff4j;
 
 import java.io.File;
 
+import org.boris.pecoff4j.PE;
 import org.boris.pecoff4j.io.PEAssembler;
 import org.boris.pecoff4j.io.PEParser;
 import org.boris.pecoff4j.util.Diff;

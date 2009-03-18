@@ -3,6 +3,7 @@ package org.boris.pecoff4j;
 import java.io.File;
 import java.io.FilenameFilter;
 
+import org.boris.pecoff4j.PE;
 import org.boris.pecoff4j.io.PEParser;
 import org.boris.pecoff4j.util.IO;
 import org.boris.pecoff4j.util.Reflection;
