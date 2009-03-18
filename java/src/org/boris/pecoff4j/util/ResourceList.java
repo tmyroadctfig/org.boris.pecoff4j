@@ -17,7 +17,6 @@ import org.boris.pecoff4j.ResourceDirectory;
 import org.boris.pecoff4j.ResourceLanguageDirectory;
 import org.boris.pecoff4j.ResourceNameDirectory;
 import org.boris.pecoff4j.ResourceTypeDirectory;
-import org.boris.pecoff4j.constant.ResourceType;
 
 public class ResourceList
 {
@@ -29,14 +28,15 @@ public class ResourceList
     public static ResourceList extract(PE pe) {
         ResourceList rl = new ResourceList();
         ResourceDirectory rd = (ResourceDirectory) pe.getSectionTable()
-                .getData(".rsrc").getEntry(0).getValue();
+                .findSection(".rsrc").getEntry(0).getValue();
         if (rd == null) {
             return rl;
         }
 
         for (int i = 0; i < rd.size(); i++) {
             int tni = rd.getEntryName(i);
-            String tn = ResourceType.toString(tni);
+            // FIXME - not all integers etc..
+            String tn = null; // ResourceType.toString(tni);
             if (tn == null)
                 tn = Integer.toString(tni);
             ResourceTypeDirectory rtd = rd.getType(i);

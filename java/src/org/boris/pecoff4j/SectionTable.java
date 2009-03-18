@@ -10,9 +10,9 @@
 package org.boris.pecoff4j;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
 
 public class SectionTable
 {
@@ -24,13 +24,11 @@ public class SectionTable
 
     // Data
     private List<SectionHeader> headers = new ArrayList();
-    private Map<String, SectionHeader> sectionByName = new HashMap();
-    private Map<String, SectionData> sectionData = new HashMap();
+    private List<SectionData> sections = new ArrayList();
     private RVAConverter rvaConverter;
 
     public void add(SectionHeader header) {
         headers.add(header);
-        sectionByName.put(header.getName(), header);
     }
 
     public int getNumberOfSections() {
@@ -41,20 +39,12 @@ public class SectionTable
         return headers.get(index);
     }
 
-    public SectionHeader getHeader(String name) {
-        return sectionByName.get(name);
+    public SectionData getSection(int index) {
+        return sections.get(index);
     }
 
-    public String[] getSectionNames() {
-        return sectionByName.keySet().toArray(new String[0]);
-    }
-
-    public SectionData getData(String name) {
-        return sectionData.get(name);
-    }
-
-    public void putData(String name, SectionData data) {
-        sectionData.put(name, data);
+    public void add(SectionData data) {
+        sections.add(data);
     }
 
     public RVAConverter getRVAConverter() {
@@ -64,4 +54,60 @@ public class SectionTable
     public void setRvaConverter(RVAConverter rvaConverter) {
         this.rvaConverter = rvaConverter;
     }
+
+    public int getFirstSectionRawDataPointer() {
+        int pointer = 0;
+        for (int i = 0; i < headers.size(); i++) {
+            SectionHeader sh = headers.get(i);
+            if (sh.getVirtualSize() > 0 &&
+                    (pointer == 0 || sh.getPointerToRawData() < pointer)) {
+                pointer = sh.getPointerToRawData();
+            }
+        }
+
+        return pointer;
+    }
+
+    public SectionHeader getLastSectionRawPointerSorted() {
+        SectionHeader[] headers = getHeadersPointerSorted();
+        if (headers == null || headers.length == 0)
+            return null;
+        return headers[headers.length - 1];
+    }
+
+    public SectionHeader[] getHeadersPointerSorted() {
+        List<SectionHeader> headers = new ArrayList();
+        for (int i = 0; i < getNumberOfSections(); i++) {
+            headers.add(getHeader(i));
+        }
+
+        SectionHeader[] sorted = headers.toArray(new SectionHeader[0]);
+        Arrays.sort(sorted, new Comparator<SectionHeader>() {
+            public int compare(SectionHeader o1, SectionHeader o2) {
+                return o1.getVirtualAddress() - o2.getVirtualAddress();
+            }
+        });
+
+        return sorted;
+    }
+
+    public SectionHeader findHeader(String name) {
+        for (SectionHeader sh : headers) {
+            if (sh.getName().equals(name))
+                return sh;
+        }
+
+        return null;
+    }
+
+    public SectionData findSection(String name) {
+        for (int i = 0; i < headers.size(); i++) {
+            SectionHeader sh = headers.get(i);
+            if (sh.getName().equals(name))
+                return sections.get(i);
+        }
+
+        return null;
+    }
+
 }

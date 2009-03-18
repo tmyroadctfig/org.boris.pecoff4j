@@ -9,12 +9,11 @@
  *******************************************************************************/
 package org.boris.pecoff4j.constant;
 
-import java.lang.reflect.Field;
 
 /**
  * The constants for characteristics.
  */
-public class Characteristics
+public interface Characteristics
 {
     public static final int IMAGE_FILE_RELOCS_STRIPPED = 0x0001;
     public static final int IMAGE_FILE_EXECUTABLE_IMAGE = 0x0002;
@@ -32,14 +31,4 @@ public class Characteristics
     public static final int IMAGE_FILE_DLL = 0x2000;
     public static final int IMAGE_FILE_UP_SYSTEM_ONLY = 0x4000;
     public static final int IMAGE_FILE_BYTES_REVERSED_HI = 0x8000;
-
-    public static String toString(int value) throws Exception {
-        Field[] fields = Characteristics.class.getFields();
-        for (Field f : fields) {
-            if (f.get(null).equals(value)) {
-                return f.getName();
-            }
-        }
-        return null;
-    }
 }

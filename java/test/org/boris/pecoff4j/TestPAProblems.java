@@ -24,9 +24,12 @@ public class TestPAProblems
     static String P4 = "C:\\windows\\system32\\xvidcore.dll";
     static String P5 = "C:\\windows\\system32\\narrator.exe";
     static String P6 = "C:\\windows\\system32\\Setup\\msmqocm.dll";
+    static String P7 = "C:\\windows\\system32\\esentprf.dll";
+    static String P8 = "C:\\windows\\system32\\MRT.exe";
+    static String P9 = "C:\\windows\\system32\\dgsetup.dll";
 
     public static void main(String[] args) throws Exception {
-        test(P6);
+        test(P9);
     }
 
     public static void test(String s) throws Exception {

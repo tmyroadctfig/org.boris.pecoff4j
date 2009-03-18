@@ -20,7 +20,7 @@ public class TestParseAssemble
 {
     public static void main(String[] args) throws Exception {
         File[] files = TestParseDLLs.findPEs();
-        int diffc = 5;
+        int diffc = 500;
         for (int i = 0; i < files.length; i++) {
             // System.out.println(files[i]);
             byte[] b1 = IO.toBytes(files[i]);
@@ -29,7 +29,7 @@ public class TestParseAssemble
                 if (pe.getOptionalHeader() == null)
                     continue;
                 byte[] b2 = PEAssembler.toBytes(pe);
-                if (!Diff.equals(b1, b2, true)) {
+                if (!Diff.equals(b1, b2, false)) {
                     System.out.println(files[i]);
                     if (diffc > 0) {
                         Diff.findDiff(b1, b2, false);
@@ -38,6 +38,7 @@ public class TestParseAssemble
                 }
             } catch (Throwable e) {
                 System.out.println(files[i]);
+                e.printStackTrace();
             }
         }
     }

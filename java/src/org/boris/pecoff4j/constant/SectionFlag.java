@@ -9,22 +9,20 @@
  *******************************************************************************/
 package org.boris.pecoff4j.constant;
 
-import java.lang.reflect.Field;
-
-public class SectionFlag
+public interface SectionFlag
 {
-    public static final int RESERVED_1 = 0x00000000;
-    public static final int RESERVED_2 = 0x00000001;
-    public static final int RESERVED_3 = 0x00000002;
-    public static final int RESERVED_4 = 0x00000004;
+    public static final int IMAGE_SCN_RESERVED_1 = 0x00000000;
+    public static final int IMAGE_SCN_RESERVED_2 = 0x00000001;
+    public static final int IMAGE_SCN_RESERVED_3 = 0x00000002;
+    public static final int IMAGE_SCN_RESERVED_4 = 0x00000004;
     public static final int IMAGE_SCN_TYPE_NO_PAD = 0x00000008;
-    public static final int RESERVED_5 = 0x00000010;
+    public static final int IMAGE_SCN_RESERVED_5 = 0x00000010;
     public static final int IMAGE_SCN_CNT_CODE = 0x00000020;
     public static final int IMAGE_SCN_CNT_INITIALIZED_DATA = 0x00000040;
     public static final int IMAGE_SCN_CNT_UNINITIALIZED_DATA = 0x00000080;
     public static final int IMAGE_SCN_LNK_OTHER = 0x00000100;
     public static final int IMAGE_SCN_LNK_INFO = 0x00000200;
-    public static final int RESERVED_6 = 0x00000400;
+    public static final int IMAGE_SCN_RESERVED_6 = 0x00000400;
     public static final int IMAGE_SCN_LNK_REMOVE = 0x00000800;
     public static final int IMAGE_SCN_LNK_COMDAT = 0x00001000;
     public static final int IMAGE_SCN_GPREL = 0x00008000;
@@ -54,14 +52,4 @@ public class SectionFlag
     public static final int IMAGE_SCN_MEM_EXECUTE = 0x20000000;
     public static final int IMAGE_SCN_MEM_READ = 0x40000000;
     public static final int IMAGE_SCN_MEM_WRITE = 0x80000000;
-
-    public static String toString(int value) throws Exception {
-        Field[] fields = SectionFlag.class.getFields();
-        for (Field f : fields) {
-            if (f.get(null).equals(value)) {
-                return f.getName();
-            }
-        }
-        return null;
-    }
 }

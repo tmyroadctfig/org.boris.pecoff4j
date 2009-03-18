@@ -13,11 +13,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
 
 import org.boris.pecoff4j.BoundImport;
 import org.boris.pecoff4j.BoundImportDirectoryTable;
@@ -26,6 +21,7 @@ import org.boris.pecoff4j.DOSHeader;
 import org.boris.pecoff4j.DOSStub;
 import org.boris.pecoff4j.DebugDirectory;
 import org.boris.pecoff4j.ExportDirectoryTable;
+import org.boris.pecoff4j.ImageData;
 import org.boris.pecoff4j.ImageDataDirectory;
 import org.boris.pecoff4j.ImportDirectory;
 import org.boris.pecoff4j.ImportDirectoryEntry;
@@ -46,6 +42,7 @@ import org.boris.pecoff4j.ResourceTypeDirectory;
 import org.boris.pecoff4j.SectionData;
 import org.boris.pecoff4j.SectionHeader;
 import org.boris.pecoff4j.SectionTable;
+import org.boris.pecoff4j.constant.ImageDataDirectoryType;
 
 public class PEParser
 {
@@ -82,11 +79,10 @@ public class PEParser
 
         pe.setCoffHeader(readCOFF(dr));
         pe.setOptionalHeader(readOptional(dr));
-        pe.setSectionTable(readSections(pe, dr));
-
-        if (parseSections) {
-            SectionParser.parse(pe);
-        }
+        pe.setSectionTable(readSectionHeaders(pe, dr));
+        readImageDataPreSections(pe, dr);
+        readSections(pe, dr);
+        readImageDataPostSections(pe, dr);
 
         return pe;
     }
@@ -203,24 +199,33 @@ public class PEParser
         oh.setNumberOfRvaAndSizes(dr.readDoubleWord());
 
         // Data directories
-        oh.setExportTable(readImageDD(dr));
-        oh.setImportTable(readImageDD(dr));
-        oh.setResourceTable(readImageDD(dr));
-        oh.setExceptionTable(readImageDD(dr));
-        oh.setCertificateTable(readImageDD(dr));
-        oh.setBaseRolocationTable(readImageDD(dr));
-        oh.setDebug(readImageDD(dr));
-        oh.setArchitecture(readImageDD(dr));
-        oh.setGlobalPtr(readImageDD(dr));
-        oh.setTlsTable(readImageDD(dr));
-        oh.setLoadConfigTable(readImageDD(dr));
-        oh.setBoundImport(readImageDD(dr));
-        oh.setIat(readImageDD(dr));
-        oh.setDelayImportDescriptor(readImageDD(dr));
-        oh.setClrRuntimeHeader(readImageDD(dr));
-        oh.setReserved(readImageDD(dr));
+        ImageDataDirectory[] dds = new ImageDataDirectory[16];
+        for (int i = 0; i < dds.length; i++) {
+            dds[i] = readImageDD(dr);
+        }
+        oh.setDataDirectories(dds);
 
         return oh;
+    }
+
+    public static SectionTable readSectionHeaders(PE pe, IDataReader dr)
+            throws IOException {
+        SectionTable st = new SectionTable();
+        int ns = pe.getCoffHeader().getNumberOfSections();
+        for (int i = 0; i < ns; i++) {
+            st.add(readSectionHeader(dr));
+        }
+
+        SectionHeader[] sorted = st.getHeadersPointerSorted();
+        int[] virtualAddress = new int[sorted.length];
+        int[] pointerToRawData = new int[sorted.length];
+        for (int i = 0; i < sorted.length; i++) {
+            virtualAddress[i] = sorted[i].getVirtualAddress();
+            pointerToRawData[i] = sorted[i].getPointerToRawData();
+        }
+
+        st.setRvaConverter(new RVAConverter(virtualAddress, pointerToRawData));
+        return st;
     }
 
     public static SectionHeader readSectionHeader(IDataReader dr)
@@ -239,82 +244,102 @@ public class PEParser
         return sh;
     }
 
-    public static ImageDataDirectory readImageDD(IDataReader dr)
+    private static void readImageDataPreSections(PE pe, IDataReader dr)
             throws IOException {
-        ImageDataDirectory idd = new ImageDataDirectory();
-        idd.setVirtualAddress(dr.readDoubleWord());
-        idd.setSize(dr.readDoubleWord());
-        return idd;
-    }
-
-    public static SectionTable readSections(PE pe, IDataReader dr)
-            throws IOException {
-        SectionTable st = new SectionTable();
-        List<SectionHeader> sections = new ArrayList();
-        for (int i = 0; i < pe.getCoffHeader().getNumberOfSections(); i++) {
-            SectionHeader sh = readSectionHeader(dr);
-            st.add(sh);
-            if (sh.getPointerToRawData() != 0)
-                sections.add(sh);
-        }
-
-        // Now sort on section address and load
-        Collections.sort(sections, new Comparator<SectionHeader>() {
-            public int compare(SectionHeader o1, SectionHeader o2) {
-                return o1.getPointerToRawData() - o2.getPointerToRawData();
-            }
-        });
-
         // Check for bound imports
-        ImageDataDirectory bi = pe.getOptionalHeader().getBoundImport();
+        ImageData id = new ImageData();
+        pe.setImageData(id);
+        ImageDataDirectory bi = pe.getOptionalHeader().getDataDirectory(
+                ImageDataDirectoryType.BOUND_IMPORT);
         if (bi.getSize() > 0) {
             // Need to read the bound imports directly
             dr.jumpTo(bi.getVirtualAddress());
             byte[] bib = new byte[bi.getSize()];
             dr.read(bib);
             IDataReader bidr = new ByteArrayDataReader(bib);
-            pe.setBoundImports(readBoundImportDirectoryTable(bidr));
+            id.setBoundImports(readBoundImportDirectoryTable(bidr));
         }
 
         // Now read in padding data (which may have some stuff)
-        SectionHeader sh1 = sections.get(0);
+        SectionTable st = pe.getSectionTable();
+        SectionHeader[] sorted = st.getHeadersPointerSorted();
+        SectionHeader sh1 = null;
+        for (int i = 0; i < sorted.length; i++) {
+            sh1 = sorted[i];
+            if (sh1.getVirtualSize() > 0)
+                break;
+        }
         int pr = sh1.getPointerToRawData();
         int pc = dr.getPosition();
         if (pr > pc) {
             byte[] padding = new byte[pr - pc];
             dr.read(padding);
-            pe.setHeaderPadding(padding);
+            id.setHeaderPadding(padding);
         }
+    }
 
-        // TODO Check for other image data directory entries in this spot
+    private static void readSections(PE pe, IDataReader dr) throws IOException {
+        SectionTable st = pe.getSectionTable();
+        SectionHeader[] headers = st.getHeadersPointerSorted();
 
-        for (SectionHeader sh : sections) {
-            if (sh.getPointerToRawData() != 0) {
+        for (SectionHeader sh : headers) {
+            if (sh.getPointerToRawData() > 0 && sh.getVirtualSize() > 0) {
                 dr.jumpTo(sh.getPointerToRawData());
                 byte[] data = new byte[sh.getSizeOfRawData()];
                 dr.read(data);
                 SectionData sd = new SectionData();
                 sd.add(data);
-                st.putData(sh.getName(), sd);
+                st.add(sd);
+            } else {
+                st.add(new SectionData());
             }
         }
 
-        // Store sorted sections based on virtual address
-        SectionHeader[] sorted = sections.toArray(new SectionHeader[0]);
-        Arrays.sort(sorted, new Comparator<SectionHeader>() {
-            public int compare(SectionHeader o1, SectionHeader o2) {
-                return o1.getVirtualAddress() - o2.getVirtualAddress();
+    }
+
+    private static void readImageDataPostSections(PE pe, IDataReader dr)
+            throws IOException {
+        ImageData id = pe.getImageData();
+
+        int firstSectionAddress = 0;
+        int lastSectionExtent = 0;
+        SectionHeader[] headers = pe.getSectionTable()
+                .getHeadersPointerSorted();
+        for (int i = 0; i < headers.length; i++) {
+            SectionHeader sh = headers[i];
+            if (firstSectionAddress == 0 && sh.getVirtualSize() > 0 &&
+                    sh.getPointerToRawData() > 0) {
+                firstSectionAddress = sh.getPointerToRawData();
             }
-        });
-        int[] virtualAddress = new int[sorted.length];
-        int[] pointerToRawData = new int[sorted.length];
-        for (int i = 0; i < sorted.length; i++) {
-            virtualAddress[i] = sorted[i].getVirtualAddress();
-            pointerToRawData[i] = sorted[i].getPointerToRawData();
+
+            if (sh.getVirtualSize() > 0) {
+                lastSectionExtent = sh.getPointerToRawData() +
+                        sh.getVirtualSize();
+            }
         }
 
-        st.setRvaConverter(new RVAConverter(virtualAddress, pointerToRawData));
-        return st;
+        // Check for debug section
+        ImageDataDirectory ddd = pe.getOptionalHeader().getDebug();
+        if (ddd.getSize() > 0) {
+        }
+
+        ImageDataDirectory cdd = pe.getOptionalHeader().getCertificateTable();
+        if (cdd.getSize() > 0) {
+            if (cdd.getVirtualAddress() >= lastSectionExtent) {
+                dr.jumpTo(cdd.getVirtualAddress());
+                byte[] cb = new byte[cdd.getSize()];
+                dr.read(cb);
+                id.setCertificateTable(cb);
+            }
+        }
+    }
+
+    public static ImageDataDirectory readImageDD(IDataReader dr)
+            throws IOException {
+        ImageDataDirectory idd = new ImageDataDirectory();
+        idd.setVirtualAddress(dr.readDoubleWord());
+        idd.setSize(dr.readDoubleWord());
+        return idd;
     }
 
     private static BoundImportDirectoryTable readBoundImportDirectoryTable(

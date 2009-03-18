@@ -9,9 +9,7 @@
  *******************************************************************************/
 package org.boris.pecoff4j.constant;
 
-import java.lang.reflect.Field;
-
-public class ResourceType
+public interface ResourceType
 {
     public static final int CURSOR = 0x0001;
     public static final int BITMAP = 0x0002;
@@ -37,18 +35,4 @@ public class ResourceType
     public static final int BITMAP_NEW = 0x2002;
     public static final int MENU_NEW = 0x2004;
     public static final int CURSOR_NEW = 0x2005;
-
-    public static String toString(int value) {
-        Field[] fields = ResourceType.class.getFields();
-        for (Field f : fields) {
-            try {
-                if (f.get(null).equals(value)) {
-                    return f.getName();
-                }
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        }
-        return null;
-    }
 }

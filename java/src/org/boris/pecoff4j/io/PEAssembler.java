@@ -26,6 +26,7 @@ import org.boris.pecoff4j.BoundImportDirectoryTable;
 import org.boris.pecoff4j.COFFHeader;
 import org.boris.pecoff4j.DOSHeader;
 import org.boris.pecoff4j.DOSStub;
+import org.boris.pecoff4j.ImageData;
 import org.boris.pecoff4j.ImageDataDirectory;
 import org.boris.pecoff4j.OptionalHeader;
 import org.boris.pecoff4j.PE;
@@ -62,54 +63,76 @@ public class PEAssembler
         write(pe.getSignature(), dw);
         write(pe.getCoffHeader(), dw);
         write(pe.getOptionalHeader(), dw);
-        write(pe, pe.getSectionTable(), dw);
+        writeSectionHeaders(pe, dw);
+        writeImageDataPreSections(pe, dw);
+        writeSections(pe, dw);
+        writeImageDataPostSections(pe, dw);
     }
 
-    private static void write(PE pe, SectionTable st, IDataWriter dw)
+    private static void writeSectionHeaders(PE pe, IDataWriter dw)
             throws IOException {
-        List<SectionHeader> sections = new ArrayList();
+        SectionTable st = pe.getSectionTable();
         int ns = st.getNumberOfSections();
         for (int i = 0; i < ns; i++) {
             SectionHeader sh = st.getHeader(i);
             write(sh, dw);
-            sections.add(sh);
         }
+    }
 
+    private static void writeImageDataPreSections(PE pe, IDataWriter dw)
+            throws IOException {
         // Write out bound import table if present
-        if (pe.getBoundImports() != null) {
-            write(pe.getBoundImports(), dw);
+        ImageData id = pe.getImageData();
+        if (id.getBoundImports() != null) {
+            // System.out.println(Integer.toHexString(dw.getPosition()));
+            write(pe, id.getBoundImports(), dw);
+            // System.out.println(Integer.toHexString(dw.getPosition()));
         }
 
         // Write out header padding if present - TODO replace with real structs
-        byte[] padding = pe.getHeaderPadding();
+        byte[] padding = id.getHeaderPadding();
         if (padding != null) {
             dw.writeBytes(padding);
+            // System.out.println(Integer.toHexString(dw.getPosition()));
         }
+    }
 
-        // Now sort on section address
-        Collections.sort(sections, new Comparator<SectionHeader>() {
-            public int compare(SectionHeader o1, SectionHeader o2) {
-                return o1.getPointerToRawData() - o2.getPointerToRawData();
-            }
-        });
+    private static void writeSections(PE pe, IDataWriter dw) throws IOException {
+        SectionTable st = pe.getSectionTable();
+        SectionHeader[] headers = st.getHeadersPointerSorted();
 
-        for (int i = 0; i < ns; i++) {
-            SectionHeader sh = sections.get(i);
+        for (int i = 0; i < headers.length; i++) {
+            SectionHeader sh = headers[i];
             int pr = sh.getPointerToRawData();
             int pc = dw.getPosition();
             if (pr > pc) {
                 dw.writeByte(0, pr - pc);
             }
-            SectionData sd = st.getData(sh.getName());
-            if (sd != null) {
+            SectionData sd = st.getSection(i);
+            if (sd != null && sd.size() > 0) {
                 byte[] b = (byte[]) sd.getEntry(0).getValue();
                 dw.writeBytes(b);
             }
         }
     }
 
-    private static void write(BoundImportDirectoryTable bidt, IDataWriter dw)
-            throws IOException {
+    private static void writeImageDataPostSections(PE pe, IDataWriter dw) {
+        ImageData id = pe.getImageData();
+        byte[] certificateData = id.getCertificateTable();
+        ImageDataDirectory cdd = pe.getOptionalHeader().getCertificateTable();
+        if (certificateData != null && cdd != null && cdd.getSize() > 0) {
+            SectionHeader lsh = pe.getSectionTable()
+                    .getLastSectionRawPointerSorted();
+            int offset = lsh.getPointerToRawData() + lsh.getVirtualSize();
+            if (cdd.getVirtualAddress() >= offset) {
+
+            }
+        }
+    }
+
+    private static void write(PE pe, BoundImportDirectoryTable bidt,
+            IDataWriter dw) throws IOException {
+        int pos = dw.getPosition();
         List<BoundImport> bil = new ArrayList();
 
         for (int i = 0; i < bidt.size(); i++) {
@@ -137,6 +160,13 @@ public class PEAssembler
             if (!names.contains(s))
                 dw.writeUtf(s);
             names.add(s);
+        }
+
+        // Check for empty block at end - padding for alignment
+        int dpos = dw.getPosition() - pos;
+        int bis = pe.getOptionalHeader().getBoundImports().getSize();
+        if (bis > dpos) {
+            dw.writeByte(0, bis - dpos);
         }
     }
 
@@ -214,7 +244,7 @@ public class PEAssembler
         write(oh.getGlobalPtr(), dw);
         write(oh.getTlsTable(), dw);
         write(oh.getLoadConfigTable(), dw);
-        write(oh.getBoundImport(), dw);
+        write(oh.getBoundImports(), dw);
         write(oh.getIat(), dw);
         write(oh.getDelayImportDescriptor(), dw);
         write(oh.getClrRuntimeHeader(), dw);

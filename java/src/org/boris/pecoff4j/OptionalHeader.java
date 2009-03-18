@@ -46,23 +46,8 @@ public class OptionalHeader
     private int loaderFlags;
     private int numberOfRvaAndSizes;
 
-    // Data directories
-    private ImageDataDirectory exportTable;
-    private ImageDataDirectory importTable;
-    private ImageDataDirectory resourceTable;
-    private ImageDataDirectory exceptionTable;
-    private ImageDataDirectory certificateTable;
-    private ImageDataDirectory baseRelocationTable;
-    private ImageDataDirectory debug;
-    private ImageDataDirectory architecture;
-    private ImageDataDirectory globalPtr;
-    private ImageDataDirectory tlsTable;
-    private ImageDataDirectory loadConfigTable;
-    private ImageDataDirectory boundImport;
-    private ImageDataDirectory iat;
-    private ImageDataDirectory delayImportDescriptor;
-    private ImageDataDirectory clrRuntimeHeader;
-    private ImageDataDirectory reserved;
+    // The data directories
+    private ImageDataDirectory[] dataDirectories;
 
     public int getMagic() {
         return magic;
@@ -192,70 +177,6 @@ public class OptionalHeader
         return numberOfRvaAndSizes;
     }
 
-    public ImageDataDirectory getExportTable() {
-        return exportTable;
-    }
-
-    public ImageDataDirectory getImportTable() {
-        return importTable;
-    }
-
-    public ImageDataDirectory getResourceTable() {
-        return resourceTable;
-    }
-
-    public ImageDataDirectory getExceptionTable() {
-        return exceptionTable;
-    }
-
-    public ImageDataDirectory getCertificateTable() {
-        return certificateTable;
-    }
-
-    public ImageDataDirectory getBaseRolocationTable() {
-        return baseRelocationTable;
-    }
-
-    public ImageDataDirectory getDebug() {
-        return debug;
-    }
-
-    public ImageDataDirectory getArchitecture() {
-        return architecture;
-    }
-
-    public ImageDataDirectory getGlobalPtr() {
-        return globalPtr;
-    }
-
-    public ImageDataDirectory getTlsTable() {
-        return tlsTable;
-    }
-
-    public ImageDataDirectory getLoadConfigTable() {
-        return loadConfigTable;
-    }
-
-    public ImageDataDirectory getBoundImport() {
-        return boundImport;
-    }
-
-    public ImageDataDirectory getIat() {
-        return iat;
-    }
-
-    public ImageDataDirectory getDelayImportDescriptor() {
-        return delayImportDescriptor;
-    }
-
-    public ImageDataDirectory getClrRuntimeHeader() {
-        return clrRuntimeHeader;
-    }
-
-    public ImageDataDirectory getReserved() {
-        return reserved;
-    }
-
     public void setMagic(int magic) {
         this.magic = magic;
     }
@@ -376,68 +297,15 @@ public class OptionalHeader
         this.numberOfRvaAndSizes = numberOfRvaAndSizes;
     }
 
-    public void setExportTable(ImageDataDirectory exportTable) {
-        this.exportTable = exportTable;
+    public ImageDataDirectory[] getDataDirectories() {
+        return dataDirectories;
     }
 
-    public void setImportTable(ImageDataDirectory importTable) {
-        this.importTable = importTable;
+    public ImageDataDirectory getDataDirectory(int index) {
+        return dataDirectories[index];
     }
 
-    public void setResourceTable(ImageDataDirectory resourceTable) {
-        this.resourceTable = resourceTable;
-    }
-
-    public void setExceptionTable(ImageDataDirectory exceptionTable) {
-        this.exceptionTable = exceptionTable;
-    }
-
-    public void setCertificateTable(ImageDataDirectory certificateTable) {
-        this.certificateTable = certificateTable;
-    }
-
-    public void setBaseRolocationTable(ImageDataDirectory baseRolocationTable) {
-        this.baseRelocationTable = baseRolocationTable;
-    }
-
-    public void setDebug(ImageDataDirectory debug) {
-        this.debug = debug;
-    }
-
-    public void setArchitecture(ImageDataDirectory architecture) {
-        this.architecture = architecture;
-    }
-
-    public void setGlobalPtr(ImageDataDirectory globalPtr) {
-        this.globalPtr = globalPtr;
-    }
-
-    public void setTlsTable(ImageDataDirectory tlsTable) {
-        this.tlsTable = tlsTable;
-    }
-
-    public void setLoadConfigTable(ImageDataDirectory loadConfigTable) {
-        this.loadConfigTable = loadConfigTable;
-    }
-
-    public void setBoundImport(ImageDataDirectory boundImport) {
-        this.boundImport = boundImport;
-    }
-
-    public void setIat(ImageDataDirectory iat) {
-        this.iat = iat;
-    }
-
-    public void setDelayImportDescriptor(
-            ImageDataDirectory delayImportDescriptor) {
-        this.delayImportDescriptor = delayImportDescriptor;
-    }
-
-    public void setClrRuntimeHeader(ImageDataDirectory clrRuntimeHeader) {
-        this.clrRuntimeHeader = clrRuntimeHeader;
-    }
-
-    public void setReserved(ImageDataDirectory reserved) {
-        this.reserved = reserved;
+    public void setDataDirectories(ImageDataDirectory[] dataDirectories) {
+        this.dataDirectories = dataDirectories;
     }
 }

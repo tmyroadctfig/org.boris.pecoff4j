@@ -16,8 +16,7 @@ public class PE
     private PESignature signature;
     private COFFHeader coffHeader;
     private OptionalHeader optionalHeader;
-    private BoundImportDirectoryTable boundImports;
-    private byte[] headerPadding; // TODO find out what this is
+    private ImageData imageData;
     private SectionTable sectionTable;
 
     public DOSHeader getDosHeader() {
@@ -38,10 +37,6 @@ public class PE
 
     public OptionalHeader getOptionalHeader() {
         return optionalHeader;
-    }
-
-    public BoundImportDirectoryTable getBoundImports() {
-        return boundImports;
     }
 
     public SectionTable getSectionTable() {
@@ -68,19 +63,15 @@ public class PE
         this.optionalHeader = optionalHeader;
     }
 
-    public void setBoundImports(BoundImportDirectoryTable boundImports) {
-        this.boundImports = boundImports;
-    }
-
     public void setSectionTable(SectionTable sectionTable) {
         this.sectionTable = sectionTable;
     }
 
-    public byte[] getHeaderPadding() {
-        return headerPadding;
+    public ImageData getImageData() {
+        return imageData;
     }
 
-    public void setHeaderPadding(byte[] headerPadding) {
-        this.headerPadding = headerPadding;
+    public void setImageData(ImageData imageData) {
+        this.imageData = imageData;
     }
 }

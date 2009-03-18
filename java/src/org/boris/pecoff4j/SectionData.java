@@ -12,7 +12,7 @@ package org.boris.pecoff4j;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.boris.pecoff4j.constant.SectionDataType;
+import org.boris.pecoff4j.constant.ImageDataDirectoryType;
 
 public class SectionData
 {
@@ -22,16 +22,20 @@ public class SectionData
         entries.add(entry);
     }
 
+    public void clear() {
+        entries.clear();
+    }
+
     public void add(int type, Object value) {
         add(new SectionDataEntry(type, value));
     }
 
     public void add(byte[] data) {
-        add(SectionDataType.RAW, data);
+        add(ImageDataDirectoryType.RAW, data);
     }
 
     public void add(ResourceDirectory rd) {
-        add(SectionDataType.RESOURCE_TABLE, rd);
+        add(ImageDataDirectoryType.RESOURCE_TABLE, rd);
     }
 
     public int size() {
