@@ -17,7 +17,9 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.boris.pecoff4j.BoundImport;
 import org.boris.pecoff4j.BoundImportDirectoryTable;
@@ -99,29 +101,40 @@ public class PEAssembler
             if (sd != null) {
                 byte[] b = (byte[]) sd.getEntry(0).getValue();
                 dw.writeBytes(b);
-            } else {
-                System.out.println("Missing section data: " + sh.getName());
             }
         }
     }
 
     private static void write(BoundImportDirectoryTable bidt, IDataWriter dw)
             throws IOException {
+
+        List<BoundImport> bil = new ArrayList();
+
         for (int i = 0; i < bidt.size(); i++) {
             BoundImport bi = bidt.get(i);
+            bil.add(bi);
             dw.writeDoubleWord((int) bi.getTimestamp());
             dw.writeWord(bi.getOffsetToModuleName());
             dw.writeWord(bi.getNumberOfModuleForwarderRefs());
         }
+
+        Collections.sort(bil, new Comparator<BoundImport>() {
+            public int compare(BoundImport o1, BoundImport o2) {
+                return o1.getOffsetToModuleName() - o2.getOffsetToModuleName();
+            }
+        });
 
         // Now write out empty block
         dw.writeDoubleWord(0);
         dw.writeDoubleWord(0);
 
         // Now write out module names
-        for (int i = 0; i < bidt.size(); i++) {
-            String s = bidt.get(i).getModuleName();
-            dw.writeUtf(s);
+        Set names = new HashSet();
+        for (int i = 0; i < bil.size(); i++) {
+            String s = bil.get(i).getModuleName();
+            if (!names.contains(s))
+                dw.writeUtf(s);
+            names.add(s);
         }
     }
 

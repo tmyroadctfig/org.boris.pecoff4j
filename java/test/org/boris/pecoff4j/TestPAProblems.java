@@ -19,12 +19,14 @@ import org.boris.pecoff4j.util.IO;
 public class TestPAProblems
 {
     static String P1 = "C:\\windows\\system32\\makecab.exe";
+    static String P2 = "C:\\windows\\system32\\ds32gt.dll";
 
     public static void main(String[] args) throws Exception {
-        test(new File(P1));
+        test(P2);
     }
 
-    public static void test(File f) throws Exception {
+    public static void test(String s) throws Exception {
+        File f = new File(s);
         System.out.println(f);
         byte[] b1 = IO.toBytes(f);
         PE pe = PEParser.parse(f);

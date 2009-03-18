@@ -23,11 +23,16 @@ public class TestParseAssemble
         for (int i = 0; i < files.length; i++) {
             // System.out.println(files[i]);
             byte[] b1 = IO.toBytes(files[i]);
-            PE pe = PEParser.parse(files[i]);
-            byte[] b2 = PEAssembler.toBytes(pe);
-            // Diff.findDiff(b1, b2);
-            if (!Diff.equals(b1, b2))
+            try {
+                PE pe = PEParser.parse(files[i]);
+                byte[] b2 = PEAssembler.toBytes(pe);
+                if (!Diff.equals(b1, b2)) {
+                    System.out.println(files[i]);
+                    // Diff.findDiff(b1, b2);
+                }
+            } catch (Throwable e) {
                 System.out.println(files[i]);
+            }
         }
     }
 }

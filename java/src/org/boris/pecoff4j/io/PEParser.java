@@ -267,16 +267,12 @@ public class PEParser
         // Check for bound imports
         ImageDataDirectory bi = pe.getOptionalHeader().getBoundImport();
         if (bi.getSize() > 0) {
-            SectionHeader sh1 = sections.get(0);
-            if (sh1 == null ||
-                    sh1.getPointerToRawData() > bi.getVirtualAddress()) {
-                // Need to read the bound imports directly
-                dr.jumpTo(bi.getVirtualAddress());
-                byte[] bib = new byte[bi.getSize()];
-                dr.read(bib);
-                IDataReader bidr = new ByteArrayDataReader(bib);
-                pe.setBoundImports(readBoundImportDirectoryTable(bidr));
-            }
+            // Need to read the bound imports directly
+            dr.jumpTo(bi.getVirtualAddress());
+            byte[] bib = new byte[bi.getSize()];
+            dr.read(bib);
+            IDataReader bidr = new ByteArrayDataReader(bib);
+            pe.setBoundImports(readBoundImportDirectoryTable(bidr));
         }
 
         for (SectionHeader sh : sections) {
