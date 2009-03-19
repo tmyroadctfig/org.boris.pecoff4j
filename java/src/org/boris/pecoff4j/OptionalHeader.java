@@ -297,6 +297,10 @@ public class OptionalHeader
         this.numberOfRvaAndSizes = numberOfRvaAndSizes;
     }
 
+    public int getDataDirectoryCount() {
+        return dataDirectories.length;
+    }
+
     public ImageDataDirectory[] getDataDirectories() {
         return dataDirectories;
     }

@@ -26,7 +26,7 @@ public class RVAConverter
                     return this.pointerToRawData[i - 1] + virtualAddress -
                             this.virtualAddress[i - 1];
                 } else {
-                    return -1;
+                    return virtualAddress;
                 }
             }
         }
