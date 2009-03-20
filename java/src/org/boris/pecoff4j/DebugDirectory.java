@@ -9,11 +9,13 @@
  *******************************************************************************/
 package org.boris.pecoff4j;
 
+import org.boris.pecoff4j.util.DataObject;
+
 /**
  * Encapsulates the Debug Directory (Image Only). Section 6.1.1 of the PE/COFF
  * spec v8.
  */
-public class DebugDirectory
+public class DebugDirectory extends DataObject
 {
     private int characteristics;
     private int timeDateStamp;

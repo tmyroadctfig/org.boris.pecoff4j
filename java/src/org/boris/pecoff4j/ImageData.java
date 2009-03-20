@@ -12,12 +12,12 @@ package org.boris.pecoff4j;
 public class ImageData
 {
     private byte[] headerPadding; // TODO find out what this is
-    private ExportDirectoryTable exportTable;
-    private ImportDirectoryTable importTable;
+    private ExportDirectory exportTable;
+    private ImportDirectory importTable;
     private ResourceDirectory resourceTable;
-    private ExceptionTable exceptionTable;
+    private byte[] exceptionTable;
     private byte[] certificateTable;
-    private BaseRelocationTable baseRelocationTable;
+    private byte[] baseRelocationTable;
     private DebugDirectory debug;
     private byte[] architecture;
     private byte[] globalPtr;
@@ -30,7 +30,7 @@ public class ImageData
     private byte[] reserved;
 
     // Debug type-specific data
-    private byte[] debugCodeView;
+    private byte[] debugRawData;
 
     public byte[] getHeaderPadding() {
         return headerPadding;
@@ -40,19 +40,19 @@ public class ImageData
         this.headerPadding = headerPadding;
     }
 
-    public ExportDirectoryTable getExportTable() {
+    public ExportDirectory getExportTable() {
         return exportTable;
     }
 
-    public void setExportTable(ExportDirectoryTable exportTable) {
+    public void setExportTable(ExportDirectory exportTable) {
         this.exportTable = exportTable;
     }
 
-    public ImportDirectoryTable getImportTable() {
+    public ImportDirectory getImportTable() {
         return importTable;
     }
 
-    public void setImportTable(ImportDirectoryTable importTable) {
+    public void setImportTable(ImportDirectory importTable) {
         this.importTable = importTable;
     }
 
@@ -64,11 +64,11 @@ public class ImageData
         this.resourceTable = resourceTable;
     }
 
-    public ExceptionTable getExceptionTable() {
+    public byte[] getExceptionTable() {
         return exceptionTable;
     }
 
-    public void setExceptionTable(ExceptionTable exceptionTable) {
+    public void setExceptionTable(byte[] exceptionTable) {
         this.exceptionTable = exceptionTable;
     }
 
@@ -80,11 +80,11 @@ public class ImageData
         this.certificateTable = certificateTable;
     }
 
-    public BaseRelocationTable getBaseRelocationTable() {
+    public byte[] getBaseRelocationTable() {
         return baseRelocationTable;
     }
 
-    public void setBaseRelocationTable(BaseRelocationTable baseRelocationTable) {
+    public void setBaseRelocationTable(byte[] baseRelocationTable) {
         this.baseRelocationTable = baseRelocationTable;
     }
 
@@ -168,11 +168,11 @@ public class ImageData
         this.reserved = reserved;
     }
 
-    public byte[] getDebugCodeView() {
-        return debugCodeView;
+    public byte[] getDebugRawData() {
+        return debugRawData;
     }
 
-    public void setDebugCodeView(byte[] debugCodeView) {
-        this.debugCodeView = debugCodeView;
+    public void setDebugRawData(byte[] debugRawData) {
+        this.debugRawData = debugRawData;
     }
 }

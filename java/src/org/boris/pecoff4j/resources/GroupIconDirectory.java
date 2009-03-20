@@ -11,7 +11,7 @@ package org.boris.pecoff4j.resources;
 
 import java.io.IOException;
 
-import org.boris.pecoff4j.io.ByteArrayDataReader;
+import org.boris.pecoff4j.io.DataReader;
 import org.boris.pecoff4j.io.IDataReader;
 import org.boris.pecoff4j.util.Reflection;
 
@@ -43,7 +43,7 @@ public class GroupIconDirectory
     }
 
     public static GroupIconDirectory read(byte[] data) throws IOException {
-        return read(new ByteArrayDataReader(data));
+        return read(new DataReader(data));
     }
 
     public static GroupIconDirectory read(IDataReader dr) throws IOException {

@@ -23,8 +23,9 @@ public class RVAConverter
         for (int i = 0; i < this.virtualAddress.length; i++) {
             if (virtualAddress < this.virtualAddress[i]) {
                 if (i > 0) {
-                    return this.pointerToRawData[i - 1] + virtualAddress -
-                            this.virtualAddress[i - 1];
+                    int prd = pointerToRawData[i - 1];
+                    int vad = this.virtualAddress[i - 1];
+                    return prd + virtualAddress - vad;
                 } else {
                     return virtualAddress;
                 }
@@ -32,9 +33,8 @@ public class RVAConverter
         }
 
         // Hit the last item
-        return this.pointerToRawData[this.virtualAddress.length - 1] +
-                virtualAddress -
-                this.virtualAddress[this.virtualAddress.length - 1];
-
+        int prd = this.pointerToRawData[this.virtualAddress.length - 1];
+        int vad = this.virtualAddress[this.virtualAddress.length - 1];
+        return prd + virtualAddress - vad;
     }
 }

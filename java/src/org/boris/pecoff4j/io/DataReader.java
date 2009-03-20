@@ -10,13 +10,20 @@
 package org.boris.pecoff4j.io;
 
 import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class DataReader implements IDataReader {
+public class DataReader implements IDataReader
+{
     private DataInputStream dis;
     private int position = 0;
+
+    public DataReader(byte[] buffer) {
+        this.dis = new DataInputStream(new BufferedInputStream(
+                new ByteArrayInputStream(buffer)));
+    }
 
     public DataReader(InputStream is) {
         this.dis = new DataInputStream(new BufferedInputStream(is));
@@ -38,7 +45,8 @@ public class DataReader implements IDataReader {
 
     public int readDoubleWord() throws IOException {
         position += 4;
-        return dis.read() | dis.read() << 8 | dis.read() << 16 | dis.read() << 24;
+        return dis.read() | dis.read() << 8 | dis.read() << 16 |
+                dis.read() << 24;
     }
 
     public int getPosition() {
@@ -47,9 +55,11 @@ public class DataReader implements IDataReader {
 
     public void jumpTo(int location) throws IOException {
         if (location < position)
-            throw new IOException("DataReader does not support scanning backwards (" + location
-                    + ")");
-        skipBytes(location - position);
+            throw new IOException(
+                    "DataReader does not support scanning backwards (" +
+                            location + ")");
+        if (location > position)
+            skipBytes(location - position);
     }
 
     public void skipBytes(int numBytes) throws IOException {

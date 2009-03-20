@@ -10,6 +10,7 @@
 package org.boris.pecoff4j.util;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 
 public class Reflection
 {
@@ -64,5 +65,22 @@ public class Reflection
             sb.append("\n");
         }
         return sb.toString();
+    }
+
+    public static String getConstantName(Class clazz, int value)
+            throws Exception {
+        Field[] fields = clazz.getDeclaredFields();
+        Integer valObj = new Integer(value);
+        for (int i = 0; i < fields.length; i++) {
+            Field f = fields[i];
+            if (Modifier.isStatic(f.getModifiers()) &&
+                    Modifier.isPublic(f.getModifiers())) {
+                if (f.get(null).equals(valObj)) {
+                    return f.getName();
+                }
+            }
+        }
+
+        return null;
     }
 }

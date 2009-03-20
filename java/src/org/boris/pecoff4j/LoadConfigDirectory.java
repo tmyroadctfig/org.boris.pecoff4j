@@ -9,7 +9,9 @@
  *******************************************************************************/
 package org.boris.pecoff4j;
 
-public class LoadConfigDirectory
+import org.boris.pecoff4j.util.DataObject;
+
+public class LoadConfigDirectory extends DataObject
 {
     private int characteristics;
     private int timeDateStamp;

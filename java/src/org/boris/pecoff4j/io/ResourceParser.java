@@ -132,7 +132,7 @@ public class ResourceParser
     }
 
     public static VersionInfo readVersionInfo(byte[] data) throws IOException {
-        return readVersionInfo(new ByteArrayDataReader(data));
+        return readVersionInfo(new DataReader(data));
     }
 
     public static VersionInfo readVersionInfo(IDataReader dr)

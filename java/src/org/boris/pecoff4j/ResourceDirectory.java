@@ -12,7 +12,9 @@ package org.boris.pecoff4j;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ResourceDirectory
+import org.boris.pecoff4j.util.DataObject;
+
+public class ResourceDirectory extends DataObject
 {
     private ResourceDirectoryEntry entry;
     private List<ResourceTypeDirectory> types = new ArrayList();

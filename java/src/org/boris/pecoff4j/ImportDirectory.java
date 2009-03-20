@@ -12,7 +12,9 @@ package org.boris.pecoff4j;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ImportDirectory
+import org.boris.pecoff4j.util.DataObject;
+
+public class ImportDirectory extends DataObject
 {
     private List<ImportDirectoryEntry> entries = new ArrayList();
     private List<String> names = new ArrayList();

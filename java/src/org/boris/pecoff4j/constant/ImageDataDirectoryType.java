@@ -26,6 +26,6 @@ public interface ImageDataDirectoryType
     public static final int BOUND_IMPORT = 11;
     public static final int IAT = 12;
     public static final int DELAY_IMPORT_DESCRIPTOR = 13;
-    public static final int CLR_RUNTIME_HEADER = 45;
+    public static final int CLR_RUNTIME_HEADER = 14;
     public static final int RESERVED = 15;
 }

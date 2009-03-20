@@ -148,3 +148,23 @@ private static void readImageDataPreSections(PE pe, IDataReader dr)
         sd.clear();
         sd.add(ImageDataDirectoryType.EXPORT_TABLE, id);
     }
+    
+        private static void writeSections(PE pe, IDataWriter dw) throws IOException {
+        SectionTable st = pe.getSectionTable();
+        SectionHeader[] headers = st.getHeadersPointerSorted();
+
+        for (int i = 0; i < headers.length; i++) {
+            SectionHeader sh = headers[i];
+            int pr = sh.getPointerToRawData();
+            int pc = dw.getPosition();
+            if (pr > pc) {
+                dw.writeByte(0, pr - pc);
+            }
+            SectionData sd = st.getSection(i);
+            if (sd != null && sd.size() > 0) {
+                byte[] b = (byte[]) sd.getEntry(0).getValue();
+                dw.writeBytes(b);
+            }
+        }
+    }
+    

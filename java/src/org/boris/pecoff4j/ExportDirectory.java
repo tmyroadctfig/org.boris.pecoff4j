@@ -9,13 +9,14 @@
  *******************************************************************************/
 package org.boris.pecoff4j;
 
+import org.boris.pecoff4j.util.DataObject;
 import org.boris.pecoff4j.util.Reflection;
 
 /**
  * The export directory table. See section 6.3.1 of the PE/COFF specification
  * v8.
  */
-public class ExportDirectoryTable
+public class ExportDirectory extends DataObject
 {
     private long exportFlags;
     private long timeDateStamp;

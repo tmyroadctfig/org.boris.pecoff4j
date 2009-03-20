@@ -14,6 +14,8 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
+import org.boris.pecoff4j.util.IntMap;
+
 public class SectionTable
 {
     // Known section names
@@ -24,7 +26,7 @@ public class SectionTable
 
     // Data
     private List<SectionHeader> headers = new ArrayList();
-    private List<SectionData> sections = new ArrayList();
+    private IntMap sections = new IntMap();
     private RVAConverter rvaConverter;
 
     public void add(SectionHeader header) {
@@ -40,11 +42,11 @@ public class SectionTable
     }
 
     public SectionData getSection(int index) {
-        return sections.get(index);
+        return (SectionData) sections.get(index);
     }
 
-    public void add(SectionData data) {
-        sections.add(data);
+    public void put(int index, SectionData data) {
+        sections.put(index, data);
     }
 
     public RVAConverter getRVAConverter() {
@@ -104,7 +106,7 @@ public class SectionTable
         for (int i = 0; i < headers.size(); i++) {
             SectionHeader sh = headers.get(i);
             if (sh.getName().equals(name))
-                return sections.get(i);
+                return (SectionData) sections.get(i);
         }
 
         return null;

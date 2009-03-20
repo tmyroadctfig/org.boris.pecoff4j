@@ -17,7 +17,7 @@ import org.boris.pecoff4j.PE;
 import org.boris.pecoff4j.ResourceDirectory;
 import org.boris.pecoff4j.ResourceEntry;
 import org.boris.pecoff4j.constant.ResourceType;
-import org.boris.pecoff4j.io.ByteArrayDataReader;
+import org.boris.pecoff4j.io.DataReader;
 import org.boris.pecoff4j.io.DataWriter;
 import org.boris.pecoff4j.io.PEParser;
 import org.boris.pecoff4j.io.ResourceParser;
@@ -63,8 +63,8 @@ public class IconExtractor
                     IconImage ii = ResourceParser.readPNG(d);
                     images[j] = ii;
                 } else {
-                    IconImage ii = ResourceParser.readIconImage(
-                            new ByteArrayDataReader(d), gide.getBytesInRes());
+                    IconImage ii = ResourceParser.readIconImage(new DataReader(
+                            d), gide.getBytesInRes());
                     images[j] = ii;
                 }
             }
