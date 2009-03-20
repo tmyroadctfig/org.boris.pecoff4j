@@ -68,6 +68,8 @@ public class PE
     }
 
     public ImageData getImageData() {
+        if (imageData == null)
+            imageData = new ImageData();
         return imageData;
     }
 

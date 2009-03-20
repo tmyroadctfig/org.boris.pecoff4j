@@ -9,6 +9,7 @@
  *******************************************************************************/
 package org.boris.pecoff4j.io;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -95,6 +96,17 @@ public class PEParser
             } else {
                 readImageData(pe, entry, dr);
             }
+        }
+
+        // Read any trailing data
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        int read = -1;
+        while ((read = dr.readByte()) != -1) {
+            bos.write(read);
+        }
+        byte[] tb = bos.toByteArray();
+        if (tb.length > 0) {
+            pe.getImageData().setTrailingData(tb);
         }
 
         return pe;
@@ -286,8 +298,13 @@ public class PEParser
         for (int i = 0; i < dc; i++) {
             ImageDataDirectory idd = pe.getOptionalHeader().getDataDirectory(i);
             if (idd.getSize() > 0) {
-                int prd = rvc.convertVirtualAddressToRawDataPointer(idd
-                        .getVirtualAddress());
+                int prd = idd.getVirtualAddress();
+                // Assume certificate live outside section ?
+                if (i != ImageDataDirectoryType.CERTIFICATE_TABLE &&
+                        isInsideSection(pe, idd)) {
+                    prd = rvc.convertVirtualAddressToRawDataPointer(idd
+                            .getVirtualAddress());
+                }
                 if (prd >= pos && (de.pointer == 0 || prd < de.pointer)) {
                     de.pointer = prd;
                     de.index = i;
@@ -317,15 +334,33 @@ public class PEParser
         return de;
     }
 
+    private static boolean isInsideSection(PE pe, ImageDataDirectory idd) {
+        int prd = idd.getVirtualAddress();
+        int pex = prd + idd.getSize();
+        SectionTable st = pe.getSectionTable();
+        int ns = st.getNumberOfSections();
+        for (int i = 0; i < ns; i++) {
+            SectionHeader sh = st.getHeader(i);
+            int vad = sh.getVirtualAddress();
+            int vex = vad + sh.getVirtualSize();
+            if (prd >= vad && prd < vex && pex <= vex)
+                return true;
+        }
+        return false;
+    }
+
     private static void readImageData(PE pe, DataEntry entry, IDataReader dr)
             throws IOException {
-        dr.jumpTo(entry.pointer);
+
+        // Read any preamble data
+        ImageData id = pe.getImageData();
+        byte[] pa = readPreambleData(entry.pointer, dr);
+        if (pa != null)
+            id.put(entry.index, pa);
+
+        // Read the image data
         ImageDataDirectory idd = pe.getOptionalHeader().getDataDirectory(
                 entry.index);
-        ImageData id = pe.getImageData();
-        if (id == null) {
-            pe.setImageData(id = new ImageData());
-        }
         byte[] b = new byte[idd.getSize()];
         dr.read(b);
 
@@ -381,10 +416,32 @@ public class PEParser
         }
     }
 
+    private static byte[] readPreambleData(int pointer, IDataReader dr)
+            throws IOException {
+        if (pointer > dr.getPosition()) {
+            byte[] pa = new byte[pointer - dr.getPosition()];
+            dr.read(pa);
+            boolean zeroes = true;
+            for (int i = 0; i < pa.length; i++) {
+                if (pa[i] != 0) {
+                    zeroes = false;
+                    break;
+                }
+            }
+            if (!zeroes)
+                return pa;
+        }
+
+        return null;
+    }
+
     private static void readDebugRawData(PE pe, DataEntry entry, IDataReader dr)
             throws IOException {
-        dr.jumpTo(entry.pointer);
+        // Read any preamble data
         ImageData id = pe.getImageData();
+        byte[] pa = readPreambleData(entry.pointer, dr);
+        if (pa != null)
+            id.setDebugRawDataPreamble(pa);
         DebugDirectory dd = id.getDebug();
         byte[] b = new byte[dd.getSizeOfData()];
         dr.read(b);
@@ -395,10 +452,17 @@ public class PEParser
             throws IOException {
         SectionTable st = pe.getSectionTable();
         SectionHeader sh = st.getHeader(entry.index);
+        SectionData sd = new SectionData();
+
+        // Read any preamble - store if non-zero
+        byte[] pa = readPreambleData(sh.getPointerToRawData(), dr);
+        if (pa != null)
+            sd.setPreamble(pa);
+
+        // Read in the raw data block
         dr.jumpTo(sh.getPointerToRawData());
         byte[] b = new byte[sh.getSizeOfRawData()];
         dr.read(b);
-        SectionData sd = new SectionData();
         sd.add(b);
         st.put(entry.index, sd);
 

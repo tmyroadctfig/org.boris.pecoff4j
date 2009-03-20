@@ -9,9 +9,13 @@
  *******************************************************************************/
 package org.boris.pecoff4j;
 
+import org.boris.pecoff4j.util.IntMap;
+
 public class ImageData
 {
     private byte[] headerPadding; // TODO find out what this is
+
+    // Data members that correspond to image data directories
     private ExportDirectory exportTable;
     private ImportDirectory importTable;
     private ResourceDirectory resourceTable;
@@ -30,7 +34,14 @@ public class ImageData
     private byte[] reserved;
 
     // Debug type-specific data
+    private byte[] debugRawDataPreamble;
     private byte[] debugRawData;
+
+    // Any image data preambes
+    private IntMap preambles = new IntMap();
+
+    // Any trailing data
+    private byte[] trailingData;
 
     public byte[] getHeaderPadding() {
         return headerPadding;
@@ -38,6 +49,14 @@ public class ImageData
 
     public void setHeaderPadding(byte[] headerPadding) {
         this.headerPadding = headerPadding;
+    }
+
+    public byte[] getPreamble(int directory) {
+        return (byte[]) preambles.get(directory);
+    }
+
+    public void put(int directory, byte[] preamble) {
+        preambles.put(directory, preamble);
     }
 
     public ExportDirectory getExportTable() {
@@ -174,5 +193,21 @@ public class ImageData
 
     public void setDebugRawData(byte[] debugRawData) {
         this.debugRawData = debugRawData;
+    }
+
+    public byte[] getTrailingData() {
+        return trailingData;
+    }
+
+    public void setTrailingData(byte[] trailingData) {
+        this.trailingData = trailingData;
+    }
+
+    public byte[] getDebugRawDataPreamble() {
+        return debugRawDataPreamble;
+    }
+
+    public void setDebugRawDataPreamble(byte[] debugRawDataPreamble) {
+        this.debugRawDataPreamble = debugRawDataPreamble;
     }
 }

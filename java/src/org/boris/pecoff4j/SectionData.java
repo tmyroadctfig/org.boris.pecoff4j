@@ -17,6 +17,7 @@ import org.boris.pecoff4j.constant.ImageDataDirectoryType;
 public class SectionData
 {
     private List<SectionDataEntry> entries = new ArrayList();
+    private byte[] preamble;
 
     public void add(SectionDataEntry entry) {
         entries.add(entry);
@@ -44,5 +45,13 @@ public class SectionData
 
     public SectionDataEntry getEntry(int index) {
         return entries.get(index);
+    }
+
+    public byte[] getPreamble() {
+        return preamble;
+    }
+
+    public void setPreamble(byte[] preamble) {
+        this.preamble = preamble;
     }
 }

@@ -78,6 +78,11 @@ public class PEAssembler
                 writeImageData(pe, entry, dw);
             }
         }
+
+        // Dump out any trailing data - TODO find out what this is
+        byte[] tb = pe.getImageData().getTrailingData();
+        if (tb != null)
+            dw.writeBytes(tb);
     }
 
     private static void write(DOSHeader dh, IDataWriter dw) throws IOException {
@@ -216,10 +221,16 @@ public class PEAssembler
         ImageDataDirectory idd = pe.getOptionalHeader().getDataDirectory(
                 entry.index);
         RVAConverter rvc = pe.getSectionTable().getRVAConverter();
-        int prd = rvc.convertVirtualAddressToRawDataPointer(idd
-                .getVirtualAddress());
+        int prd = idd.getVirtualAddress();
+        if (entry.index != ImageDataDirectoryType.CERTIFICATE_TABLE)
+            prd = rvc.convertVirtualAddressToRawDataPointer(idd
+                    .getVirtualAddress());
         if (prd > dw.getPosition()) {
-            dw.writeByte(0, prd - dw.getPosition());
+            byte[] pa = pe.getImageData().getPreamble(entry.index);
+            if (pa != null)
+                dw.writeBytes(pa);
+            else
+                dw.writeByte(0, prd - dw.getPosition());
         }
 
         ImageData id = pe.getImageData();
@@ -277,8 +288,13 @@ public class PEAssembler
 
     private static void writeDebugRawData(PE pe, DataEntry entry, IDataWriter dw)
             throws IOException {
-        if (entry.pointer > dw.getPosition())
-            dw.writeByte(0, entry.pointer - dw.getPosition());
+        if (entry.pointer > dw.getPosition()) {
+            byte[] pa = pe.getImageData().getDebugRawDataPreamble();
+            if (pa != null)
+                dw.writeBytes(pa);
+            else
+                dw.writeByte(0, entry.pointer - dw.getPosition());
+        }
         dw.writeBytes(pe.getImageData().getDebugRawData());
     }
 
@@ -289,7 +305,12 @@ public class PEAssembler
         SectionData sd = st.getSection(entry.index);
         int prd = sh.getPointerToRawData();
         if (prd > dw.getPosition()) {
-            dw.writeByte(0, prd - dw.getPosition());
+            byte[] pa = sd.getPreamble();
+            if (pa != null) {
+                dw.writeBytes(pa);
+            } else {
+                dw.writeByte(0, prd - dw.getPosition());
+            }
         }
 
         byte[] b = (byte[]) sd.getEntry(0).getValue();

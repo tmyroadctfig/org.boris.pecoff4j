@@ -20,6 +20,7 @@ import org.boris.pecoff4j.util.Reflection;
 
 public class TestPAProblems
 {
+    // Solved
     static String P1 = "C:\\windows\\system32\\makecab.exe";
     static String P2 = "C:\\windows\\system32\\ds32gt.dll";
     static String P3 = "C:\\windows\\system32\\usrrtosa.dll";
@@ -32,10 +33,20 @@ public class TestPAProblems
     static String PA = "C:\\windows\\system32\\fde.dll";
     static String PB = "C:\\windows\\system32\\usrrtosa.dll";
     static String PC = "C:\\windows\\system32\\SoftwareDistribution\\Setup\\ServiceStartup\\wups2.dll\\7.2.6001.784\\wups2.dll";
+    static String PD = "C:\\windows\\system32\\SoftwareDistribution\\Setup\\ServiceStartup\\wups.dll\\7.0.6000.381\\wups.dll";
+    static String PE = "C:\\windows\\system32\\wuapi.dll";
+    static String PF = "C:\\windows\\system32\\sqlunirl.dll";
+    static String PI = "C:\\windows\\system32\\msjetoledb40.dll";
+
+    // Outstanding
+    static String PG = "C:\\windows\\system32\\Macromed\\Flash\\uninstall_plugin.exe";
+
+    // 64-bit
+    static String PJ = "C:\\Program Files\\WinRAR\\RarExt64.dll";
 
     public static void main(String[] args) throws Exception {
-        // test(PC);
-        dumpVA(PC);
+        test(PG);
+        dumpVA(PG);
     }
 
     public static void test(String s) throws Exception {
@@ -50,6 +61,7 @@ public class TestPAProblems
     public static void dumpVA(String s) throws Exception {
         File f = new File(s);
         System.out.println(f);
+        System.out.println();
         PE pe = PEParser.parse(f);
         SectionTable st = pe.getSectionTable();
         System.out.println("name\tprd \tdex \tvad  \tvex");

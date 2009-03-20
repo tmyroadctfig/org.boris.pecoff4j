@@ -43,7 +43,7 @@ public class Diff
                     Integer.toHexString(b2.length));
         for (int i = 0; i < b1.length && i < b2.length; i++) {
             if (b1[i] != b2[i]) {
-                int p = i - 30;
+                int p = i;
                 if (p < 0)
                     p = 0;
                 System.out.println("Diff at " + Integer.toHexString(i));
