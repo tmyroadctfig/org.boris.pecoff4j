@@ -477,7 +477,8 @@ public class PEParser
                 int dad = idd.getVirtualAddress();
                 if (dad >= vad && dad < vex) {
                     int off = dad - vad;
-                    DataReader idr = new DataReader(b, off, idd.getSize());
+                    IDataReader idr = new ByteArrayDataReader(b, off, idd
+                            .getSize());
                     DataEntry de = new DataEntry(i, 0);
                     de.baseAddress = sh.getVirtualAddress();
                     readImageData(pe, de, idr);
@@ -655,11 +656,7 @@ public class PEParser
     public static ResourceDirectory readResourceDirectory(byte[] data,
             int baseAddress) throws IOException {
         ResourceDirectory rd = new ResourceDirectory();
-        // FIXME
-        if (true)
-            return rd;
-
-        IDataReader dr = new DataReader(data);
+        IDataReader dr = new ByteArrayDataReader(data);
         rd.setEntry(readResourceDirectoryEntry(dr));
 
         ResourcePointer[] pointers = rd.getEntry().getEntries();

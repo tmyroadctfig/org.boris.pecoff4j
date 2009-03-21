@@ -54,8 +54,8 @@ public class TestPAProblems
     static String PQ = "F:\\Program Files\\Last.fm\\VistaLib64.dll";
 
     public static void main(String[] args) throws Exception {
-        // testAll();
-        test(PN);
+        testAll();
+        // test(PN);
     }
 
     public static void testAll() throws Exception {
