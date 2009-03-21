@@ -168,3 +168,21 @@ private static void readImageDataPreSections(PE pe, IDataReader dr)
         }
     }
     
+            // Check for debug directory within the bounds of this section
+        ImageDataDirectory debug = pe.getOptionalHeader().getDataDirectory(
+                ImageDataDirectoryType.DEBUG);
+        if (debug.getSize() > 0) {
+            int vad = sh.getVirtualAddress();
+            int vex = vad + sh.getVirtualSize();
+            int dad = debug.getVirtualAddress();
+            if (dad >= vad && dad < vex) {
+                DataReader ddr = new DataReader(b);
+                ddr.skipBytes(dad - vad);
+                ImageData id = pe.getImageData();
+                if (id == null)
+                    pe.setImageData(id = new ImageData());
+                id.setDebug(readDebugDirectory(null, ddr));
+            }
+        }
+    
+    

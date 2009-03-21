@@ -10,6 +10,8 @@
 package org.boris.pecoff4j;
 
 import java.io.File;
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 
 import org.boris.pecoff4j.constant.ImageDataDirectoryType;
 import org.boris.pecoff4j.io.PEAssembler;
@@ -40,27 +42,47 @@ public class TestPAProblems
 
     // Outstanding
     static String PG = "C:\\windows\\system32\\Macromed\\Flash\\uninstall_plugin.exe";
+    static String PL = "F:\\Program Files\\FlashGet\\uninst.exe";
+    static String PM = "F:\\Program Files\\Jeskola Buzz\\Dev\\Mdk\\dsplib.dll";
+    static String PN = "F:\\Program Files\\Jeskola Buzz\\Gear\\Generators\\MarC mp3loader.dll";
 
     // 64-bit
     static String PJ = "C:\\Program Files\\WinRAR\\RarExt64.dll";
+    static String PK = "F:\\Program Files\\Microsoft Platform SDK\\NoRedist\\Win64\\msvcrtd.dll";
+    static String PO = "F:\\Program Files\\FileZilla FTP Client\\fzshellext_64.dll";
+    static String PP = "F:\\Program Files\\Microsoft Platform SDK\\NoRedist\\Win64\\msvcirtd.dll";
+    static String PQ = "F:\\Program Files\\Last.fm\\VistaLib64.dll";
 
     public static void main(String[] args) throws Exception {
-        test(PG);
-        dumpVA(PG);
+        // testAll();
+        test(PN);
     }
 
-    public static void test(String s) throws Exception {
+    public static void testAll() throws Exception {
+        Field[] fields = TestPAProblems.class.getDeclaredFields();
+        for (int i = 0; i < fields.length; i++) {
+            Field f = fields[i];
+            if (!Modifier.isStatic(f.getModifiers()))
+                continue;
+            String filename = (String) f.get(null);
+            if (test(filename))
+                dumpVA(filename);
+        }
+    }
+
+    public static boolean test(String s) throws Exception {
         File f = new File(s);
         System.out.println(f);
         byte[] b1 = IO.toBytes(f);
         PE pe = PEParser.parse(f);
         byte[] b2 = PEAssembler.toBytes(pe);
-        Diff.findDiff(b1, b2, false);
+        return Diff.findDiff(b1, b2, false);
     }
 
     public static void dumpVA(String s) throws Exception {
         File f = new File(s);
-        System.out.println(f);
+        // System.out.println();
+        // System.out.println(f);
         System.out.println();
         PE pe = PEParser.parse(f);
         SectionTable st = pe.getSectionTable();
@@ -95,6 +117,7 @@ public class TestPAProblems
                                 idd.getSize()));
             }
         }
+        System.out.println();
     }
 
     private static String make4(String s) {

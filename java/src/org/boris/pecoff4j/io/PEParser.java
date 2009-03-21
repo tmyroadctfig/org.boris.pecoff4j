@@ -216,7 +216,7 @@ public class PEParser
         oh.setCheckSum(dr.readDoubleWord());
         oh.setSubsystem(dr.readWord());
         oh.setDllCharacteristics(dr.readWord());
-        oh.setSizeOfStackReserve(dr.readDoubleWord());
+        oh.setSizeOfStackReserve(is64 ? dr.readLong() : dr.readDoubleWord());
         oh.setSizeOfStackCommit(is64 ? dr.readLong() : dr.readDoubleWord());
         oh.setSizeOfHeapReserve(is64 ? dr.readLong() : dr.readDoubleWord());
         oh.setSizeOfHeapCommit(is64 ? dr.readLong() : dr.readDoubleWord());
@@ -325,6 +325,7 @@ public class PEParser
                 de.index = -1;
                 de.isDebugRawData = true;
                 de.isSection = false;
+                de.baseAddress = prd;
             }
         }
 
@@ -369,7 +370,7 @@ public class PEParser
             id.setExportTable(readExportDirectory(b));
             break;
         case ImageDataDirectoryType.IMPORT_TABLE:
-            id.setImportTable(readImportDirectory(b, entry.pointer));
+            id.setImportTable(readImportDirectory(b, entry.baseAddress));
             break;
         case ImageDataDirectoryType.RESOURCE_TABLE:
             id.setResourceTable(readResourceDirectory(b, entry.pointer));
@@ -466,20 +467,21 @@ public class PEParser
         sd.add(b);
         st.put(entry.index, sd);
 
-        // Check for debug directory within the bounds of this section
-        ImageDataDirectory debug = pe.getOptionalHeader().getDataDirectory(
-                ImageDataDirectoryType.DEBUG);
-        if (debug.getSize() > 0) {
-            int vad = sh.getVirtualAddress();
-            int vex = vad + sh.getVirtualSize();
-            int dad = debug.getVirtualAddress();
-            if (dad >= vad && dad < vex) {
-                DataReader ddr = new DataReader(b);
-                ddr.skipBytes(dad - vad);
-                ImageData id = pe.getImageData();
-                if (id == null)
-                    pe.setImageData(id = new ImageData());
-                id.setDebug(readDebugDirectory(null, ddr));
+        // Check for an image directory within this section
+        int ddc = pe.getOptionalHeader().getDataDirectoryCount();
+        for (int i = 0; i < ddc; i++) {
+            ImageDataDirectory idd = pe.getOptionalHeader().getDataDirectory(i);
+            if (idd.getSize() > 0) {
+                int vad = sh.getVirtualAddress();
+                int vex = vad + sh.getVirtualSize();
+                int dad = idd.getVirtualAddress();
+                if (dad >= vad && dad < vex) {
+                    int off = dad - vad;
+                    DataReader idr = new DataReader(b, off, idd.getSize());
+                    DataEntry de = new DataEntry(i, 0);
+                    de.baseAddress = sh.getVirtualAddress();
+                    readImageData(pe, de, idr);
+                }
             }
         }
     }
@@ -537,6 +539,7 @@ public class PEParser
             id.add(ide);
         }
 
+        /* FIXME - name table refer to data outside image directory
         for (int i = 0; i < id.size(); i++) {
             ImportDirectoryEntry e = id.getEntry(i);
             dr.jumpTo(e.getNameRVA() - baseAddress);
@@ -547,7 +550,7 @@ public class PEParser
             ImportDirectoryTable at = null; // readImportDirectoryTable(dr,
             // baseAddress);
             id.add(name, nt, at);
-        }
+        }*/
 
         return id;
     }
@@ -652,6 +655,10 @@ public class PEParser
     public static ResourceDirectory readResourceDirectory(byte[] data,
             int baseAddress) throws IOException {
         ResourceDirectory rd = new ResourceDirectory();
+        // FIXME
+        if (true)
+            return rd;
+
         IDataReader dr = new DataReader(data);
         rd.setEntry(readResourceDirectoryEntry(dr));
 

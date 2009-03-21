@@ -151,6 +151,7 @@ public class PEAssembler
             dw.writeLong(oh.getImageBase());
         else
             dw.writeDoubleWord((int) oh.getImageBase());
+
         dw.writeDoubleWord(oh.getSectionAlignment());
         dw.writeDoubleWord(oh.getFileAlignment());
         dw.writeWord(oh.getMajorOperatingSystemVersion());
@@ -165,12 +166,13 @@ public class PEAssembler
         dw.writeDoubleWord(oh.getCheckSum());
         dw.writeWord(oh.getSubsystem());
         dw.writeWord(oh.getDllCharacteristics());
-        dw.writeDoubleWord(oh.getSizeOfStackReserve());
         if (is64) {
+            dw.writeLong(oh.getSizeOfStackReserve());
             dw.writeLong(oh.getSizeOfStackCommit());
             dw.writeLong(oh.getSizeOfHeapReserve());
             dw.writeLong(oh.getSizeOfHeapCommit());
         } else {
+            dw.writeDoubleWord((int) oh.getSizeOfStackReserve());
             dw.writeDoubleWord((int) oh.getSizeOfStackCommit());
             dw.writeDoubleWord((int) oh.getSizeOfHeapReserve());
             dw.writeDoubleWord((int) oh.getSizeOfHeapCommit());

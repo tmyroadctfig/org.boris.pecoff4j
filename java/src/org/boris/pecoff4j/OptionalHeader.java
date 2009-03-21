@@ -39,7 +39,7 @@ public class OptionalHeader
     private int checkSum;
     private int subsystem;
     private int dllCharacteristics;
-    private int sizeOfStackReserve;
+    private long sizeOfStackReserve;
     private long sizeOfStackCommit;
     private long sizeOfHeapReserve;
     private long sizeOfHeapCommit;
@@ -153,7 +153,7 @@ public class OptionalHeader
         return dllCharacteristics;
     }
 
-    public int getSizeOfStackReserve() {
+    public long getSizeOfStackReserve() {
         return sizeOfStackReserve;
     }
 
@@ -273,7 +273,7 @@ public class OptionalHeader
         this.dllCharacteristics = dllCharacteristics;
     }
 
-    public void setSizeOfStackReserve(int sizeOfStackReserve) {
+    public void setSizeOfStackReserve(long sizeOfStackReserve) {
         this.sizeOfStackReserve = sizeOfStackReserve;
     }
 

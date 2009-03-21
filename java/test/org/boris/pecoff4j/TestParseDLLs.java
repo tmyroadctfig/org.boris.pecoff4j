@@ -26,7 +26,8 @@ public class TestParseDLLs
                         name.indexOf("dllcache") == -1;
             }
         };
-        File[] files = IO.findFiles(new File("C:/Program Files/"), ff);
+        File[] files = IO.findFiles(new File("F:/Program Files/"), ff);
+        // File[] files = IO.findFiles(new File("C:/Program Files/"), ff);
         // File[] files = IO.findFiles(new File("C:/windows/system32"), ff);
 
         return files;

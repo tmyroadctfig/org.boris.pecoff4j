@@ -36,11 +36,14 @@ public class Diff
         }
     }
 
-    public static void findDiff(byte[] b1, byte[] b2, boolean ignoreLength) {
-        if (b1.length != b2.length && !ignoreLength)
+    public static boolean findDiff(byte[] b1, byte[] b2, boolean ignoreLength) {
+        boolean diff = false;
+        if (b1.length != b2.length && !ignoreLength) {
             System.out.println("Different lengths: " +
                     Integer.toHexString(b1.length) + ", " +
                     Integer.toHexString(b2.length));
+            diff = true;
+        }
         for (int i = 0; i < b1.length && i < b2.length; i++) {
             if (b1[i] != b2[i]) {
                 int p = i;
@@ -50,8 +53,10 @@ public class Diff
                 HexDump.dump(b1, p, 100);
                 System.out.println("-----");
                 HexDump.dump(b2, p, 100);
-                break;
+                return true;
             }
         }
+
+        return diff;
     }
 }
