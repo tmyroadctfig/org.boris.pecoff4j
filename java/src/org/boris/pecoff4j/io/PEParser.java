@@ -373,7 +373,7 @@ public class PEParser
             id.setImportTable(readImportDirectory(b, entry.baseAddress));
             break;
         case ImageDataDirectoryType.RESOURCE_TABLE:
-            id.setResourceTable(readResourceDirectory(b, entry.pointer));
+            id.setResourceTable(readResourceDirectory(b, entry.baseAddress));
             break;
         case ImageDataDirectoryType.EXCEPTION_TABLE:
             id.setExceptionTable(b);
@@ -470,6 +470,8 @@ public class PEParser
         // Check for an image directory within this section
         int ddc = pe.getOptionalHeader().getDataDirectoryCount();
         for (int i = 0; i < ddc; i++) {
+            if (i == ImageDataDirectoryType.CERTIFICATE_TABLE)
+                continue;
             ImageDataDirectory idd = pe.getOptionalHeader().getDataDirectory(i);
             if (idd.getSize() > 0) {
                 int vad = sh.getVirtualAddress();
@@ -703,7 +705,9 @@ public class PEParser
         ResourcePointer rp = new ResourcePointer();
         rp.setName(dr.readDoubleWord());
         // high bit indicates a directory
-        rp.setOffsetToData(dr.readDoubleWord() & 0x7fffffff);
+        int val = dr.readDoubleWord();
+        rp.setOffsetToData(val & 0x7fffffff);
+        rp.setDirectory((val & 0x80000000) != 0);
         return rp;
     }
 

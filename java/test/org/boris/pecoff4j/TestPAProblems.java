@@ -53,9 +53,14 @@ public class TestPAProblems
     static String PP = "F:\\Program Files\\Microsoft Platform SDK\\NoRedist\\Win64\\msvcirtd.dll";
     static String PQ = "F:\\Program Files\\Last.fm\\VistaLib64.dll";
 
+    // Image data parsing
+    static String I1 = "C:\\windows\\system32\\mswstr10.dll";
+    static String T2 = "C:\\windows\\system32\\divx.dll";
+    static String T3 = "C:\\windows\\system32\\msvbvm60.dll";
+
     public static void main(String[] args) throws Exception {
-        testAll();
-        // test(PN);
+        // testAll();
+        test(I1);
     }
 
     public static void testAll() throws Exception {

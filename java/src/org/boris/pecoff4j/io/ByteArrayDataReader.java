@@ -41,8 +41,9 @@ public class ByteArrayDataReader implements IDataReader
 
     public void read(byte[] b) throws IOException {
         for (int i = 0; i < b.length; i++) {
-            b[i] = data[offset + position++];
+            b[i] = data[offset + position + i];
         }
+        position += b.length;
     }
 
     public int readByte() throws IOException {

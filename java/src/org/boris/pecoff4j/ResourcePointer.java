@@ -13,6 +13,7 @@ public class ResourcePointer
 {
     private int name;
     private int offsetToData;
+    private boolean isDirectory;
 
     public int getName() {
         return name;
@@ -28,5 +29,13 @@ public class ResourcePointer
 
     public void setOffsetToData(int offsetToData) {
         this.offsetToData = offsetToData;
+    }
+
+    public boolean isDirectory() {
+        return isDirectory;
+    }
+
+    public void setDirectory(boolean isDirectory) {
+        this.isDirectory = isDirectory;
     }
 }
