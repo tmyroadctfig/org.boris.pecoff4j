@@ -315,7 +315,7 @@ public class PEAssembler
             }
         }
 
-        byte[] b = (byte[]) sd.getEntry(0).getValue();
+        byte[] b = sd.getData();
         dw.writeBytes(b);
     }
 

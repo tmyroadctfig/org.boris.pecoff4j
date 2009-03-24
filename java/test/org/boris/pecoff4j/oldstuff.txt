@@ -184,5 +184,100 @@ private static void readImageDataPreSections(PE pe, IDataReader dr)
                 id.setDebug(readDebugDirectory(null, ddr));
             }
         }
+        
+        
+            public static ResourceDirectory readResourceDirectory(byte[] data,
+            int baseAddress) throws IOException {
+        ResourceDirectory rd = new ResourceDirectory();
+        IDataReader dr = new ByteArrayDataReader(data);
+        rd.setEntry(readResourceDirectoryEntry(dr));
+
+        ResourcePointer[] pointers = rd.getEntry().getEntries();
+        for (int i = 0; i < pointers.length; i++) {
+            dr.jumpTo(pointers[i].getOffsetToData());
+            rd.add(readResourceTypeDirectory(dr, baseAddress));
+        }
+
+        return rd;
+    }
+
+    public static ResourceDirectoryEntry readResourceDirectoryEntry(
+            IDataReader dr) throws IOException {
+        ResourceDirectoryEntry rd = new ResourceDirectoryEntry();
+        rd.setCharacteristics(dr.readDoubleWord());
+        rd.setTimeDateStamp(dr.readDoubleWord());
+        rd.setMajorVersion(dr.readWord());
+        rd.setMinorVersion(dr.readWord());
+        rd.setNumNamedEntries(dr.readWord());
+        rd.setNumIdEntries(dr.readWord());
+        ResourcePointer[] rp = new ResourcePointer[rd.getNumIdEntries()];
+        for (int i = 0; i < rp.length; i++) {
+            rp[i] = readResourcePointer(dr);
+        }
+        rd.setEntries(rp);
+
+        return rd;
+    }
+
+    public static ResourceNameDirectory readResourceNameDirectory(
+            IDataReader dr, int baseAddress) throws IOException {
+        ResourceNameDirectory rn = new ResourceNameDirectory();
+        rn.setEntry(readResourceDirectoryEntry(dr));
+        ResourcePointer[] pointers = rn.getEntry().getEntries();
+        for (int i = 0; i < pointers.length; i++) {
+            dr.jumpTo(pointers[i].getOffsetToData());
+            rn.add(readResourceLanguageDirectory(dr, baseAddress));
+        }
+        return rn;
+    }
+
+    public static ResourcePointer readResourcePointer(IDataReader dr)
+            throws IOException {
+        ResourcePointer rp = new ResourcePointer();
+        rp.setName(dr.readDoubleWord());
+        // high bit indicates a directory
+        int val = dr.readDoubleWord();
+        rp.setOffsetToData(val & 0x7fffffff);
+        rp.setDirectory((val & 0x80000000) != 0);
+        return rp;
+    }
+
+    public static ResourceTypeDirectory readResourceTypeDirectory(
+            IDataReader dr, int baseAddress) throws IOException {
+        ResourceTypeDirectory rt = new ResourceTypeDirectory();
+        rt.setEntry(readResourceDirectoryEntry(dr));
+        ResourcePointer[] pointers = rt.getEntry().getEntries();
+        for (int i = 0; i < pointers.length; i++) {
+            dr.jumpTo(pointers[i].getOffsetToData());
+            rt.add(readResourceNameDirectory(dr, baseAddress));
+        }
+        return rt;
+
+    }
+
+    public static ResourceLanguageDirectory readResourceLanguageDirectory(
+            IDataReader dr, int baseAddress) throws IOException {
+        ResourceLanguageDirectory rl = new ResourceLanguageDirectory();
+        rl.setEntry(readResourceDataEntry(dr));
+        int offset = rl.getEntry().getOffsetToData();
+        int size = rl.getEntry().getSize();
+        if (offset != 0 && size != 0) {
+            byte[] data = new byte[size];
+            dr.jumpTo(offset - baseAddress);
+            dr.read(data);
+            rl.setData(data);
+        }
+        return rl;
+    }
+
+    public static ResourceDataEntry readResourceDataEntry(IDataReader dr)
+            throws IOException {
+        ResourceDataEntry rde = new ResourceDataEntry();
+        rde.setOffsetToData(dr.readDoubleWord());
+        rde.setSize(dr.readDoubleWord());
+        rde.setCodePage(dr.readDoubleWord());
+        rde.setReserved(dr.readDoubleWord());
+        return rde;
+    }
     
     

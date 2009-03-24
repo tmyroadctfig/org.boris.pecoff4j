@@ -11,37 +11,58 @@ package org.boris.pecoff4j;
 
 public class ResourceEntry
 {
+    private int id;
+    private String name;
     private byte[] data;
-    private int name;
-    private int language;
+    private ResourceDirectory directory;
+    private int codePage;
+    private int reserved;
 
-    public ResourceEntry(byte[] data, int name, int language) {
-        this.data = data;
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
         this.name = name;
-        this.language = language;
     }
 
     public byte[] getData() {
         return data;
     }
 
-    public int getName() {
-        return name;
-    }
-
-    public int getLanguage() {
-        return language;
-    }
-
     public void setData(byte[] data) {
         this.data = data;
     }
 
-    public void setName(int name) {
-        this.name = name;
+    public ResourceDirectory getDirectory() {
+        return directory;
     }
 
-    public void setLanguage(int language) {
-        this.language = language;
+    public void setDirectory(ResourceDirectory directory) {
+        this.directory = directory;
+    }
+
+    public int getCodePage() {
+        return codePage;
+    }
+
+    public void setCodePage(int codePage) {
+        this.codePage = codePage;
+    }
+
+    public int getReserved() {
+        return reserved;
+    }
+
+    public void setReserved(int reserved) {
+        this.reserved = reserved;
     }
 }

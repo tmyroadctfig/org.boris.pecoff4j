@@ -16,57 +16,26 @@ import org.boris.pecoff4j.util.DataObject;
 
 public class ResourceDirectory extends DataObject
 {
-    private ResourceDirectoryEntry entry;
-    private List<ResourceTypeDirectory> types = new ArrayList();
+    private ResourceDirectoryTable table;
+    private List<ResourceEntry> entries = new ArrayList();
 
-    public void setEntry(ResourceDirectoryEntry entry) {
-        this.entry = entry;
+    public ResourceDirectoryTable getTable() {
+        return table;
     }
 
-    public ResourceDirectoryEntry getEntry() {
-        return entry;
+    public void setTable(ResourceDirectoryTable table) {
+        this.table = table;
     }
 
-    public void add(ResourceTypeDirectory type) {
-        types.add(type);
+    public void add(ResourceEntry entry) {
+        this.entries.add(entry);
     }
 
-    public ResourceEntry[] findResources(int type) {
-        return findResources(type, -1);
-    }
-
-    public ResourceEntry[] findResources(int type, int name) {
-        List<ResourceEntry> entries = new ArrayList();
-        for (int i = 0; i < types.size(); i++) {
-            if (getEntryName(i) == type) {
-                for (int j = 0; j < types.get(i).size(); j++) {
-                    ResourceNameDirectory rn = types.get(i).getName(j);
-                    int nameId = types.get(i).getEntryName(j);
-                    if (name == -1 || name == nameId) {
-                        for (int k = 0; k < rn.size(); k++) {
-                            int language = types.get(i).getName(j)
-                                    .getEntryName(k);
-                            byte[] data = rn.getLanguage(k).getData();
-                            entries.add(new ResourceEntry(data, nameId,
-                                    language));
-                        }
-                    }
-                }
-            }
-        }
-
-        return entries.toArray(new ResourceEntry[0]);
+    public ResourceEntry get(int index) {
+        return entries.get(index);
     }
 
     public int size() {
-        return types.size();
-    }
-
-    public ResourceTypeDirectory getType(int index) {
-        return types.get(index);
-    }
-
-    public int getEntryName(int index) {
-        return entry.getEntries()[index].getName();
+        return entries.size();
     }
 }

@@ -57,10 +57,15 @@ public class TestPAProblems
     static String I1 = "C:\\windows\\system32\\mswstr10.dll";
     static String T2 = "C:\\windows\\system32\\divx.dll";
     static String T3 = "C:\\windows\\system32\\msvbvm60.dll";
+    static String T4 = "C:\\Program Files\\Image-Line\\Downloader\\FLDownload.dll";
+    static String T5 = "C:\\Program Files\\Image-Line\\PoiZone\\PoiZone.dll";
+    static String T6 = "C:\\Program Files\\Image-Line\\Toxic Biohazard\\Toxic Biohazard.dll";
+    static String T7 = "F:\\Program Files\\IrfanView\\i_view32.exe";
+    static String T8 = "F:\\Program Files\\Jeskola Buzz\\Buzz.exe";
 
     public static void main(String[] args) throws Exception {
         // testAll();
-        test(I1);
+        test(T8);
     }
 
     public static void testAll() throws Exception {
