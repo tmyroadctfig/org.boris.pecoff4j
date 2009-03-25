@@ -64,8 +64,8 @@ public class TestPAProblems
     static String T8 = "F:\\Program Files\\Jeskola Buzz\\Buzz.exe";
 
     public static void main(String[] args) throws Exception {
-        // testAll();
-        test(T8);
+        testAll();
+        // test(T8);
     }
 
     public static void testAll() throws Exception {
