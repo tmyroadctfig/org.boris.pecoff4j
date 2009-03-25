@@ -7,12 +7,14 @@
  * Contributors:
  *     Peter Smith
  *******************************************************************************/
-package org.boris.pecoff4j;
+package org.boris.pecoff4j.util;
 
+import java.io.File;
 import java.io.IOException;
 
+import org.boris.pecoff4j.PE;
+import org.boris.pecoff4j.ResourceDirectory;
 import org.boris.pecoff4j.io.PEParser;
-import org.boris.pecoff4j.util.IconFile;
 
 public class RCEdit
 {
@@ -27,12 +29,34 @@ public class RCEdit
         if ("/I".equals(option)) {
             assertArgCount(args, 3, 3);
             addIcon(args[1], args[2]);
+        } else if ("/N".equals(option)) {
+            assertArgCount(args, 3, 3);
+            setIni(args[1], args[2]);
+        } else if ("/S".equals(option)) {
+            assertArgCount(args, 3, 3);
+            setSplash(args[1], args[2]);
         }
     }
 
     private static void addIcon(String exe, String icon) throws IOException {
         PE pe = PEParser.parse(exe);
         IconFile ic = IconFile.parse(icon);
+    }
+
+    private static void setIni(String exe, String ini) throws IOException {
+        PE pe = PEParser.parse(exe);
+        byte[] inib = IO.toBytes(new File(ini));
+        ResourceDirectory rd = pe.getImageData().getResourceTable();
+        if (rd != null) {
+
+        }
+    }
+
+    private static void setSplash(String exe, String splash) throws IOException {
+        PE pe = PEParser.parse(exe);
+        byte[] spb = IO.toBytes(new File(splash));
+        ResourceDirectory rd = pe.getImageData().getResourceTable();
+
     }
 
     private static void assertArgCount(String[] args, int min, int max) {
