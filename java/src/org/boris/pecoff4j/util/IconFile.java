@@ -26,6 +26,10 @@ public class IconFile
     private IconDirectory directory;
     private IconImage[] images;
 
+    public static IconFile parse(String filename) throws IOException {
+        return read(new DataReader(new FileInputStream(filename)));
+    }
+
     public static IconFile parse(File file) throws IOException {
         return read(new DataReader(new FileInputStream(file)));
     }

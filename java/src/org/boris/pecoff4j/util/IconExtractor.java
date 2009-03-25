@@ -16,6 +16,7 @@ import java.io.IOException;
 import org.boris.pecoff4j.PE;
 import org.boris.pecoff4j.ResourceDirectory;
 import org.boris.pecoff4j.ResourceEntry;
+import org.boris.pecoff4j.constant.ResourceType;
 import org.boris.pecoff4j.io.DataReader;
 import org.boris.pecoff4j.io.DataWriter;
 import org.boris.pecoff4j.io.PEParser;
@@ -30,10 +31,10 @@ public class IconExtractor
 {
     public static void extract(File pecoff, File outputDir) throws IOException {
         PE pe = PEParser.parse(pecoff);
-        ResourceDirectory rd = null; // FIXME
+        ResourceDirectory rd = pe.getImageData().getResourceTable();
         if (rd == null)
             return;
-        ResourceEntry[] entries = null; // rd.findResources(ResourceType.GROUP_ICON);
+        ResourceEntry[] entries = rd.findResources(ResourceType.GROUP_ICON);
         for (int i = 0; i < entries.length; i++) {
             GroupIconDirectory gid = GroupIconDirectory.read(entries[i]
                     .getData());
@@ -50,9 +51,8 @@ public class IconExtractor
                 IconDirectoryEntry ide = new IconDirectoryEntry();
                 ide.copyFrom(gide);
                 icd.add(ide);
-                ResourceEntry[] icos = null; // rd.findResources(ResourceType.ICON,
-                                             // gide
-                // .getId());
+                ResourceEntry[] icos = rd.findResources(ResourceType.ICON, gide
+                        .getId());
                 if (icos == null || icos.length != 1) {
                     throw new IOException("Unexpected icons in resource file");
                 }
