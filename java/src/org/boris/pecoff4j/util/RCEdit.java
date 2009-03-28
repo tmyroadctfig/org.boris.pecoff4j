@@ -19,6 +19,7 @@ import org.boris.pecoff4j.io.PEParser;
 public class RCEdit
 {
     public static void main(String[] args) throws Exception {
+        launch(new String[0]);
         launch(new String[] { "/I", "test/WinRun4J.exe", "test/eclipse.ico" });
     }
 
