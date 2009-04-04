@@ -7,7 +7,6 @@ import org.boris.pecoff4j.util.IO;
 
 public class FindExe
 {
-
     public static void main(String[] args) throws Exception {
         File[] files = IO.findFiles(new File("C:/windows/system32"),
                 new FilenameFilter() {
@@ -24,5 +23,4 @@ public class FindExe
         }
         System.out.println("};");
     }
-
 }

@@ -44,7 +44,7 @@ public class ResourceAssembler
         dw.writeByte(rgb.getReserved());
     }
 
-    public void write(IconImage ii, IDataWriter dw) throws IOException {
+    public static void write(IconImage ii, IDataWriter dw) throws IOException {
         if (ii.getHeader() != null) {
             write(ii.getHeader(), dw);
             RGBQuad[] colors = ii.getColors();
@@ -60,7 +60,8 @@ public class ResourceAssembler
         }
     }
 
-    public void write(BitmapInfoHeader bih, IDataWriter dw) throws IOException {
+    public static void write(BitmapInfoHeader bih, IDataWriter dw)
+            throws IOException {
         dw.writeDoubleWord(bih.getSize());
         dw.writeDoubleWord(bih.getWidth());
         dw.writeDoubleWord(bih.getHeight());

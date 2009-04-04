@@ -34,7 +34,8 @@ public class IconExtractor
         ResourceDirectory rd = pe.getImageData().getResourceTable();
         if (rd == null)
             return;
-        ResourceEntry[] entries = rd.findResources(ResourceType.GROUP_ICON);
+        ResourceEntry[] entries = ResourceHelper.findResources(rd,
+                ResourceType.GROUP_ICON);
         for (int i = 0; i < entries.length; i++) {
             GroupIconDirectory gid = GroupIconDirectory.read(entries[i]
                     .getData());
@@ -51,8 +52,8 @@ public class IconExtractor
                 IconDirectoryEntry ide = new IconDirectoryEntry();
                 ide.copyFrom(gide);
                 icd.add(ide);
-                ResourceEntry[] icos = rd.findResources(ResourceType.ICON, gide
-                        .getId());
+                ResourceEntry[] icos = ResourceHelper.findResources(rd,
+                        ResourceType.ICON, gide.getId());
                 if (icos == null || icos.length != 1) {
                     throw new IOException("Unexpected icons in resource file");
                 }

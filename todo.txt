@@ -1,0 +1,2 @@
+
+- resource assembler needs to write out resource directory from scratch

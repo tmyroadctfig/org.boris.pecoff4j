@@ -1,4 +1,4 @@
-package org.boris.pecoff4j.buftest;
+package org.boris.pecoff4j;
 
 import java.io.File;
 

@@ -38,45 +38,4 @@ public class ResourceDirectory extends DataObject
     public int size() {
         return entries.size();
     }
-
-    public ResourceEntry[] findResources(int type) {
-        return findResources(type, -1 - 1);
-    }
-
-    public ResourceEntry[] findResources(int type, int name) {
-        return findResources(type, name, -1);
-    }
-
-    public ResourceEntry[] findResources(int type, int name, int lang) {
-        List<ResourceEntry> entries = new ArrayList();
-        findResources(type, name, lang, entries);
-        return entries.toArray(new ResourceEntry[0]);
-    }
-
-    private void findResources(int type, int name, int language,
-            List<ResourceEntry> entries) {
-        int id = type;
-        if (id == -1)
-            id = name;
-        if (id == -1)
-            id = language;
-        for (ResourceEntry e : this.entries) {
-            if (id == -1 || id == e.getId()) {
-                if (e.getData() != null)
-                    entries.add(e);
-                else {
-                    ResourceDirectory rd = e.getDirectory();
-                    if (rd != null) {
-                        if (type != -1)
-                            type = -1;
-                        else if (name != -1)
-                            name = -1;
-                        else
-                            language = -1;
-                        rd.findResources(type, name, language, entries);
-                    }
-                }
-            }
-        }
-    }
 }

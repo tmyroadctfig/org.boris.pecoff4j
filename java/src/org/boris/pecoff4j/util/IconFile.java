@@ -54,8 +54,7 @@ public class IconFile
         }
         ResourceAssembler.write(directory, dw);
         for (int i = 0; i < images.length; i++) {
-            // FIXME
-            // ResourceAssembler.images[i].write(dw);
+            ResourceAssembler.write(images[i], dw);
         }
     }
 

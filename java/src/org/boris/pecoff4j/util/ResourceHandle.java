@@ -7,9 +7,12 @@
  * Contributors:
  *     Peter Smith
  *******************************************************************************/
-package org.boris.pecoff4j.buftest;
+package org.boris.pecoff4j.util;
 
-public class PrintBasicStructure
+// Questions:
+//   - how to handle named and id entries
+//   - or the general case of a resource directory vs the
+//     specific type,name,lang structure that is prevalent.
+public class ResourceHandle
 {
-
 }
