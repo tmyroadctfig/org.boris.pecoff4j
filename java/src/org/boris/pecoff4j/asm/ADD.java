@@ -9,26 +9,29 @@
  *******************************************************************************/
 package org.boris.pecoff4j.asm;
 
-public class PUSH extends AbstractInstruction
+public class ADD extends AbstractInstruction
 {
-    private int register;
+    private ModRM modrm;
     private byte imm8;
+    private int imm32;
 
-    public PUSH(int register) {
-        this.register = register;
-        this.code = toCode(0x50 | register);
+    public ADD(ModRM modrm, byte imm8) {
+        this.modrm = modrm;
+        this.imm8 = imm8;
+        this.code = toCode(0x83, modrm, imm8);
     }
 
-    public PUSH(byte imm8) {
-        this.imm8 = imm8;
-        this.code = toCode(0x6a, imm8);
+    public ADD(int opcode, ModRM modrm, int imm32) {
+        this.modrm = modrm;
+        this.imm32 = imm32;
+        this.code = toCode(opcode, modrm, imm32);
     }
 
     public String toIntelAssembly() {
         switch (getOpCode()) {
-        case 0x6a:
-            return "push " + toHexString(imm8, false);
+        case 0x03:
+            return "add  " + modrm.toIntelAssembly(imm32);
         }
-        return "push " + Register.to32(register);
+        return "add  " + Register.to32(modrm.reg1) + ", " + toHexString(imm8, false);
     }
 }

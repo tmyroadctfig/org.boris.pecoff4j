@@ -9,26 +9,18 @@
  *******************************************************************************/
 package org.boris.pecoff4j.asm;
 
-public class PUSH extends AbstractInstruction
+public class CMP extends AbstractInstruction
 {
-    private int register;
+    private ModRM modrm;
     private byte imm8;
 
-    public PUSH(int register) {
-        this.register = register;
-        this.code = toCode(0x50 | register);
-    }
-
-    public PUSH(byte imm8) {
+    public CMP(ModRM modrm, byte imm8) {
+        this.modrm = modrm;
         this.imm8 = imm8;
-        this.code = toCode(0x6a, imm8);
+        this.code = toCode(0x3b, modrm, imm8);
     }
 
     public String toIntelAssembly() {
-        switch (getOpCode()) {
-        case 0x6a:
-            return "push " + toHexString(imm8, false);
-        }
-        return "push " + Register.to32(register);
+        return "cmp  " + Register.to32(modrm.reg2) + ", [" + Register.to32(modrm.reg1) + toHexString(imm8, true) + "]";
     }
 }

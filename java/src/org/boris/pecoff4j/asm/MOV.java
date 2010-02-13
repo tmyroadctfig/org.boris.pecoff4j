@@ -33,6 +33,24 @@ public class MOV extends AbstractInstruction
         this.code = toCode(0xc7, modrm, disp32, imm32);
     }
 
+    public MOV(ModRM modrm, int imm32) {
+        this.modrm = modrm;
+        this.imm32 = imm32;
+        this.code = toCode(0x89, modrm, imm32);
+    }
+
+    public MOV(int opcode, ModRM modrm, byte imm8) {
+        this.modrm = modrm;
+        this.imm32 = imm8;
+        this.code = toCode(opcode, modrm, imm8);
+    }
+
+    public MOV(int opcode, ModRM modrm, int imm32) {
+        this.modrm = modrm;
+        this.imm32 = imm32;
+        this.code = toCode(opcode, modrm, imm32);
+    }
+
     public String toIntelAssembly() {
         switch (((int) code[0]) & 0xff) {
         case 0x8b:
@@ -42,7 +60,18 @@ public class MOV extends AbstractInstruction
             case 1:
                 return "mov  " + Register.to32(modrm.reg2) + ", [" + Register.to32(modrm.reg1)
                         + toHexString((byte) imm32, true) + "]";
+            case 2:
+                return "mov  " + Register.to32(modrm.reg2) + ", [" + Register.to32(modrm.reg1)
+                        + toHexString(imm32, true) + "]";
             }
+        case 0x89:
+            switch (modrm.mod) {
+            case 0:
+
+            }
+            return "mov  [" + Register.to32(modrm.reg1) + toHexString(imm32, true) + "], " + Register.to32(modrm.reg2);
+        case 0xc6:
+            return "mov  byte ptr [" + Register.to32(modrm.reg1) + "], " + toHexString((byte) imm32, false);
         case 0xc7:
             return "mov  dword ptr [" + Register.to32(modrm.reg1) + toHexString(disp32, true) + "], "
                     + toHexString(imm32, false);

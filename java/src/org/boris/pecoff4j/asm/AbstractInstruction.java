@@ -23,6 +23,10 @@ public abstract class AbstractInstruction implements Instruction
         return code;
     }
 
+    public int getOpCode() {
+        return code[0] & 0xff;
+    }
+
     public void setOffset(int offset) {
         this.offset = offset;
     }
@@ -45,6 +49,14 @@ public abstract class AbstractInstruction implements Instruction
 
     protected byte[] toCode(int opcode, ModRM modrm) {
         return new byte[] { (byte) opcode, (byte) modrm.encode() };
+    }
+
+    protected byte[] toCode(int opcode, byte imm8) {
+        return new byte[] { (byte) opcode, imm8 };
+    }
+
+    protected byte[] toCode(int opcode, int imm32) {
+        return new byte[] { (byte) opcode, b1(imm32), b2(imm32), b3(imm32), b4(imm32) };
     }
 
     protected byte[] toCode(int opcode, ModRM modrm, byte imm8) {

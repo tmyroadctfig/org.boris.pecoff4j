@@ -38,10 +38,19 @@ public class AssemblyParser
         switch (highop) {
         case 0x0:
             switch (opcode) {
-            case 0x0f:
+            case 0x03:
                 modrm = new ModRM(is.read());
                 imm32 = readDoubleWord(is);
-                return new JNZ(modrm, imm32);
+                return new ADD(opcode, modrm, imm32);
+            case 0x0f:
+                return new JumpIfInstruction(is.read(), readDoubleWord(is));
+            }
+        case 0x30:
+            switch (opcode) {
+            case 0x3b:
+                modrm = new ModRM(is.read());
+                imm32 = is.read();
+                return new CMP(modrm, (byte) imm32);
             }
         case 0x50:
             if (opcode < 0x58) {
@@ -49,19 +58,41 @@ public class AssemblyParser
             } else {
                 return new POP(opcode & 0xf);
             }
+        case 0x60:
+            switch (opcode) {
+            case 0x6A:
+                return new PUSH((byte) is.read());
+            }
         case 0x80:
             modrm = new ModRM(is.read());
             switch (opcode) {
             case 0x8b:
                 switch (modrm.mod) {
+                case 0:
                 case 1:
                     imm32 = is.read();
                     return new MOV(modrm, (byte) imm32);
+                case 2:
+                    imm32 = readDoubleWord(is);
+                    return new MOV(opcode, modrm, imm32);
                 }
                 return new MOV(modrm);
             case 0x81:
                 imm32 = readDoubleWord(is);
                 return new SUB(modrm, imm32);
+            case 0x83:
+                imm32 = is.read();
+                return new ADD(modrm, (byte) imm32);
+            case 0x89:
+                switch (modrm.mod) {
+                case 0:
+                case 1:
+                    imm32 = is.read();
+                    return new MOV(opcode, modrm, (byte) imm32);
+                case 2:
+                    imm32 = readDoubleWord(is);
+                    return new MOV(modrm, imm32);
+                }
             case 0x85:
                 return new TEST(modrm);
             case 0x8d:
@@ -71,11 +102,26 @@ public class AssemblyParser
             print(modrm);
         case 0xc0:
             switch (opcode) {
+            case 0xc1:
+                modrm = new ModRM(is.read());
+                imm32 = is.read();
+                return new SHL(modrm, (byte) imm32);
+            case 0xc6:
+                modrm = new ModRM(is.read());
+                imm32 = is.read();
+                return new MOV(opcode, modrm, (byte) imm32);
             case 0xc7:
                 modrm = new ModRM(is.read());
                 disp32 = readDoubleWord(is);
                 imm32 = readDoubleWord(is);
                 return new MOV(modrm, disp32, imm32);
+            }
+        case 0xe0:
+            switch (opcode) {
+            case 0xe9:
+                return new JMP(readDoubleWord(is));
+            case 0xeb:
+                return new JMP((byte) is.read());
             }
         case 0xf0:
             switch (opcode) {
