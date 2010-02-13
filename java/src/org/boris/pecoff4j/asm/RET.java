@@ -9,16 +9,13 @@
  *******************************************************************************/
 package org.boris.pecoff4j.asm;
 
-public class POP extends AbstractInstruction
+public class RET extends AbstractInstruction
 {
-    private int register;
-
-    public POP(int register) {
-        this.register = register;
-        this.code = toCode(0x58 | register);
+    public RET() {
+        this.code = toCode(0xc3);
     }
 
     public String toIntelAssembly() {
-        return "pop  " + Register.to32(register);
+        return "ret";
     }
 }

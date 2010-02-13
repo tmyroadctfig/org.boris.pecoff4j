@@ -25,7 +25,7 @@ public class AssemblyParserTest
         SectionHeader sh = pe.getSectionTable().findHeader(".text");
         SectionData sd = pe.getSectionTable().findSection(".text");
         ByteArrayInputStream bis = new ByteArrayInputStream(sd.getData());
-        AbstractInstruction[] inst = AssemblyParser.parseAll(sh.getVirtualAddress(), bis);
+        AbstractInstruction[] inst = AssemblyParser.parseAll(0x400000 + sh.getVirtualAddress(), bis);
         AssemblyFormatter.format(inst, System.out);
     }
 }

@@ -33,6 +33,13 @@ public class MOV extends AbstractInstruction
         this.code = toCode(0xc7, modrm, disp32, imm32);
     }
 
+    public MOV(ModRM modrm, byte disp8, int imm32) {
+        this.modrm = modrm;
+        this.disp32 = disp8;
+        this.imm32 = imm32;
+        this.code = toCode(0xc7, modrm, disp8, imm32);
+    }
+
     public MOV(ModRM modrm, int imm32) {
         this.modrm = modrm;
         this.imm32 = imm32;
@@ -51,18 +58,25 @@ public class MOV extends AbstractInstruction
         this.code = toCode(opcode, modrm, imm32);
     }
 
+    public MOV(int opcode, int imm32) {
+        this.imm32 = imm32;
+        this.code = toCode(opcode, imm32);
+    }
+
     public String toIntelAssembly() {
         switch (((int) code[0]) & 0xff) {
         case 0x8b:
             switch (modrm.mod) {
             case 0:
-                return "mov  " + Register.to32(modrm.reg2) + ", " + Register.to32(modrm.reg1);
+                return "mov  [" + Register.to32(modrm.reg2) + "], " + Register.to32(modrm.reg1);
             case 1:
                 return "mov  " + Register.to32(modrm.reg2) + ", [" + Register.to32(modrm.reg1)
                         + toHexString((byte) imm32, true) + "]";
             case 2:
                 return "mov  " + Register.to32(modrm.reg2) + ", [" + Register.to32(modrm.reg1)
                         + toHexString(imm32, true) + "]";
+            case 3:
+                return "mov  " + Register.to32(modrm.reg2) + ", " + Register.to32(modrm.reg1);
             }
         case 0x89:
             switch (modrm.mod) {
@@ -73,8 +87,18 @@ public class MOV extends AbstractInstruction
         case 0xc6:
             return "mov  byte ptr [" + Register.to32(modrm.reg1) + "], " + toHexString((byte) imm32, false);
         case 0xc7:
-            return "mov  dword ptr [" + Register.to32(modrm.reg1) + toHexString(disp32, true) + "], "
-                    + toHexString(imm32, false);
+            switch (modrm.mod) {
+            case 1:
+                return "mov  dword ptr [" + Register.to32(modrm.reg1) + toHexString((byte) disp32, true) + "], "
+                        + toHexString(imm32, false);
+            case 2:
+                return "mov  dword ptr [" + Register.to32(modrm.reg1) + toHexString(disp32, true) + "], "
+                        + toHexString(imm32, false);
+            }
+        case 0xa1:
+            return "mov  eax, [" + toHexString(imm32, false) + "]";
+        case 0xa3:
+            return "mov  [" + toHexString(imm32, false) + "], eax";
         }
 
         return "MOV: UNKNOWN";

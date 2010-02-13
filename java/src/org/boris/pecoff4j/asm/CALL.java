@@ -18,7 +18,16 @@ public class CALL extends AbstractInstruction
         this.code = toCode(0xff, modrm, imm32);
     }
 
+    public CALL(int opcode, int imm32) {
+        this.imm32 = imm32;
+        this.code = toCode(opcode, imm32);
+    }
+
     public String toIntelAssembly() {
+        switch (getOpCode()) {
+        case 0xe8:
+            return "call " + toHexString(imm32, false) + " (" + toHexString(offset + imm32 + size(), false) + ")";
+        }
         return "call " + toHexString(imm32, false);
     }
 }
