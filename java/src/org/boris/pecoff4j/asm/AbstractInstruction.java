@@ -67,6 +67,15 @@ public abstract class AbstractInstruction implements Instruction
         return new byte[] { (byte) opcode, (byte) modrm.encode(), b1(imm32), b2(imm32), b3(imm32), b4(imm32) };
     }
 
+    protected byte[] toCode(int opcode, ModRM modrm, SIB sib, byte imm8) {
+        return new byte[] { (byte) opcode, (byte) modrm.encode(), (byte) sib.encode(), imm8 };
+    }
+
+    protected byte[] toCode(int opcode, ModRM modrm, SIB sib, int imm32) {
+        return new byte[] { (byte) opcode, (byte) modrm.encode(), (byte) sib.encode(), b1(imm32), b2(imm32), b3(imm32),
+                b4(imm32) };
+    }
+
     protected byte[] toCode(int opcode, ModRM modrm, int disp32, int imm32) {
         return new byte[] { (byte) opcode, (byte) modrm.encode(), b1(disp32), b2(disp32), b3(disp32), b4(disp32),
                 b1(imm32), b2(imm32), b3(imm32), b4(imm32) };

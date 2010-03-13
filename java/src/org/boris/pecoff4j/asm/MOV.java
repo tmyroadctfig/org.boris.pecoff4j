@@ -12,6 +12,7 @@ package org.boris.pecoff4j.asm;
 public class MOV extends AbstractInstruction
 {
     private ModRM modrm;
+    private SIB sib;
     private int disp32;
     private int imm32;
 
@@ -63,6 +64,20 @@ public class MOV extends AbstractInstruction
         this.code = toCode(opcode, imm32);
     }
 
+    public MOV(ModRM modrm, SIB sib, byte imm8) {
+        this.modrm = modrm;
+        this.sib = sib;
+        this.imm32 = imm8;
+        this.code = toCode(0x89, modrm, sib, imm8);
+    }
+
+    public MOV(int opcode, ModRM modrm, SIB sib, int imm32) {
+        this.modrm = modrm;
+        this.sib = sib;
+        this.imm32 = imm32;
+        this.code = toCode(opcode, modrm, sib, imm32);
+    }
+
     public String toIntelAssembly() {
         switch (((int) code[0]) & 0xff) {
         case 0x8b:
@@ -70,11 +85,11 @@ public class MOV extends AbstractInstruction
             case 0:
                 return "mov  [" + Register.to32(modrm.reg2) + "], " + Register.to32(modrm.reg1);
             case 1:
-                return "mov  " + Register.to32(modrm.reg2) + ", [" + Register.to32(modrm.reg1)
-                        + toHexString((byte) imm32, true) + "]";
+                return "mov  " + Register.to32(modrm.reg2) + ", [" + Register.to32(modrm.reg1) +
+                        toHexString((byte) imm32, true) + "]";
             case 2:
-                return "mov  " + Register.to32(modrm.reg2) + ", [" + Register.to32(modrm.reg1)
-                        + toHexString(imm32, true) + "]";
+                return "mov  " + Register.to32(modrm.reg2) + ", [" + Register.to32(modrm.reg1) +
+                        toHexString(imm32, true) + "]";
             case 3:
                 return "mov  " + Register.to32(modrm.reg2) + ", " + Register.to32(modrm.reg1);
             }
@@ -89,11 +104,11 @@ public class MOV extends AbstractInstruction
         case 0xc7:
             switch (modrm.mod) {
             case 1:
-                return "mov  dword ptr [" + Register.to32(modrm.reg1) + toHexString((byte) disp32, true) + "], "
-                        + toHexString(imm32, false);
+                return "mov  dword ptr [" + Register.to32(modrm.reg1) + toHexString((byte) disp32, true) + "], " +
+                        toHexString(imm32, false);
             case 2:
-                return "mov  dword ptr [" + Register.to32(modrm.reg1) + toHexString(disp32, true) + "], "
-                        + toHexString(imm32, false);
+                return "mov  dword ptr [" + Register.to32(modrm.reg1) + toHexString(disp32, true) + "], " +
+                        toHexString(imm32, false);
             }
         case 0xa1:
             return "mov  eax, [" + toHexString(imm32, false) + "]";

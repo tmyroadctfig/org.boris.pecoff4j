@@ -35,6 +35,7 @@ public class AssemblyParser
         int imm32;
         int disp32;
         ModRM modrm = null;
+        SIB sib = null;
         switch (highop) {
         case 0x0:
             switch (opcode) {
@@ -78,14 +79,22 @@ public class AssemblyParser
             modrm = new ModRM(is.read());
             switch (opcode) {
             case 0x8b:
+                if (modrm.mod < 3 && modrm.reg1 == 0x4)
+                    sib = new SIB(is.read());
                 switch (modrm.mod) {
                 case 0:
                 case 1:
                     imm32 = is.read();
-                    return new MOV(modrm, (byte) imm32);
+                    if (sib != null)
+                        return new MOV(modrm, sib, (byte) imm32);
+                    else
+                        return new MOV(modrm, (byte) imm32);
                 case 2:
                     imm32 = readDoubleWord(is);
-                    return new MOV(opcode, modrm, imm32);
+                    if (sib != null)
+                        return new MOV(opcode, modrm, sib, imm32);
+                    else
+                        return new MOV(opcode, modrm, imm32);
                 }
                 return new MOV(modrm);
             case 0x81:
@@ -107,6 +116,11 @@ public class AssemblyParser
             case 0x85:
                 return new TEST(modrm);
             case 0x8d:
+                if (modrm.mod < 3 && modrm.reg1 == 0x4) {
+                    sib = new SIB(is.read());
+                    imm32 = readDoubleWord(is);
+                    return new LEA(modrm, sib, imm32);
+                }
                 imm32 = readDoubleWord(is);
                 return new LEA(modrm, imm32);
             }
