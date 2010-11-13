@@ -102,7 +102,7 @@ public abstract class AbstractInstruction implements Instruction
     }
 
     public static String toHexString(int value, boolean showSign) {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         if (showSign) {
             if (value < 0) {
                 value *= -1;
@@ -120,7 +120,7 @@ public abstract class AbstractInstruction implements Instruction
     }
 
     public static String toHexString(byte value, boolean showSign) {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         if (showSign) {
             if (value < 0) {
                 value *= -1;

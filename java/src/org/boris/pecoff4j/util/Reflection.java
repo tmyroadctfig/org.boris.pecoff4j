@@ -83,4 +83,8 @@ public class Reflection
 
         return null;
     }
+
+    public static void println(Object o) {
+        System.out.println(toString(o));
+    }
 }

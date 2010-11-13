@@ -24,7 +24,7 @@ public class AssemblyFormatter
     }
 
     public static String toHexString(byte[] bytes, int pad) {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         for (byte b : bytes) {
             sb.append(toHexString(b));
         }
