@@ -39,5 +39,12 @@ public interface IDataReader
 
     String readUnicode() throws IOException;
 
-    String readUnicode(int size) throws IOException;
+    /**
+     * Reads in a UTF16-LE string up to the given maximum length.
+     *
+     * @param maxLength the maximum number of (two-byte) characters to read in.
+     * @return the string.
+     * @throws IOException if an error occurs reading in the data.
+     */
+    String readUnicode(int maxLength) throws IOException;
 }

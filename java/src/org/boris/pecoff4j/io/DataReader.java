@@ -143,10 +143,16 @@ public class DataReader implements IDataReader
         return sb.toString();
     }
 
-    public String readUnicode(int size) throws IOException {
+    public String readUnicode(int maxLength) throws IOException {
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < size; i++) {
-            sb.append((char) readWord());
+        for (int i = 0; i < maxLength; i++) {
+            char c = (char) readWord();
+
+            if (c == 0) {
+                break;
+            }
+
+            sb.append(c);
         }
         return sb.toString();
     }
