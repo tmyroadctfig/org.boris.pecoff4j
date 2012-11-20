@@ -9,42 +9,15 @@
  *******************************************************************************/
 package org.boris.pecoff4j.io;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import org.boris.pecoff4j.*;
+import org.boris.pecoff4j.constant.ImageDataDirectoryType;
+import org.boris.pecoff4j.util.IntMap;
+
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-
-import org.boris.pecoff4j.BoundImport;
-import org.boris.pecoff4j.BoundImportDirectoryTable;
-import org.boris.pecoff4j.COFFHeader;
-import org.boris.pecoff4j.DOSHeader;
-import org.boris.pecoff4j.DOSStub;
-import org.boris.pecoff4j.DebugDirectory;
-import org.boris.pecoff4j.ExportDirectory;
-import org.boris.pecoff4j.ImageData;
-import org.boris.pecoff4j.ImageDataDirectory;
-import org.boris.pecoff4j.ImportDirectory;
-import org.boris.pecoff4j.ImportDirectoryEntry;
-import org.boris.pecoff4j.ImportDirectoryTable;
-import org.boris.pecoff4j.ImportEntry;
-import org.boris.pecoff4j.LoadConfigDirectory;
-import org.boris.pecoff4j.OptionalHeader;
-import org.boris.pecoff4j.PE;
-import org.boris.pecoff4j.PESignature;
-import org.boris.pecoff4j.RVAConverter;
-import org.boris.pecoff4j.ResourceDirectory;
-import org.boris.pecoff4j.ResourceDirectoryTable;
-import org.boris.pecoff4j.ResourceEntry;
-import org.boris.pecoff4j.SectionData;
-import org.boris.pecoff4j.SectionHeader;
-import org.boris.pecoff4j.SectionTable;
-import org.boris.pecoff4j.constant.ImageDataDirectoryType;
-import org.boris.pecoff4j.util.IntMap;
 
 public class PEParser
 {
@@ -83,7 +56,7 @@ public class PEParser
         pe.setSectionTable(readSectionHeaders(pe, dr));
 
         // Now read the rest of the file
-        DataEntry entry = null;
+        DataEntry entry;
         while ((entry = findNextEntry(pe, dr.getPosition())) != null) {
             if (entry.isSection) {
                 readSection(pe, entry, dr);
@@ -96,7 +69,7 @@ public class PEParser
 
         // Read any trailing data
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        int read = -1;
+        int read;
         while ((read = dr.readByte()) != -1) {
             bos.write(read);
         }
@@ -489,8 +462,8 @@ public class PEParser
             byte[] b) throws IOException {
         DataReader dr = new DataReader(b);
         BoundImportDirectoryTable bidt = new BoundImportDirectoryTable();
-        List<BoundImport> imports = new ArrayList();
-        BoundImport bi = null;
+        List<BoundImport> imports = new ArrayList<BoundImport>();
+        BoundImport bi;
         while ((bi = readBoundImport(dr)) != null) {
             bidt.add(bi);
             imports.add(bi);
@@ -533,7 +506,7 @@ public class PEParser
             throws IOException {
         DataReader dr = new DataReader(b);
         ImportDirectory id = new ImportDirectory();
-        ImportDirectoryEntry ide = null;
+        ImportDirectoryEntry ide;
         while ((ide = readImportDirectoryEntry(dr)) != null) {
             id.add(ide);
         }
@@ -574,7 +547,7 @@ public class PEParser
     public static ImportDirectoryTable readImportDirectoryTable(IDataReader dr,
             int baseAddress) throws IOException {
         ImportDirectoryTable idt = new ImportDirectoryTable();
-        ImportEntry ie = null;
+        ImportEntry ie;
         while ((ie = readImportEntry(dr)) != null) {
             idt.add(ie);
         }
