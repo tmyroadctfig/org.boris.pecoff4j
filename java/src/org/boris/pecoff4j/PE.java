@@ -18,6 +18,7 @@ public class PE
     private OptionalHeader optionalHeader;
     private ImageData imageData;
     private SectionTable sectionTable;
+    private int endOfSectionTable;
 
     public DOSHeader getDosHeader() {
         return dosHeader;
@@ -75,5 +76,13 @@ public class PE
 
     public void setImageData(ImageData imageData) {
         this.imageData = imageData;
+    }
+
+    public void setEndOfSectionTable(int endOfSectionTable) {
+        this.endOfSectionTable = endOfSectionTable;
+    }
+
+    public int getEndOfSectionTable() {
+        return endOfSectionTable;
     }
 }

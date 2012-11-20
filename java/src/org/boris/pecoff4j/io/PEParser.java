@@ -33,9 +33,33 @@ public class PEParser
         return read(new DataReader(new FileInputStream(file)));
     }
 
+    /**
+     * Reads in the entire executable from the data reader.
+     *
+     * @param dr the reader to read from.
+     * @return the executable.
+     * @throws IOException if an error occurs reading the executable.
+     */
     public static PE read(IDataReader dr) throws IOException {
+        PE pe = readStructure(dr);
+        readSectionEntryData(pe, dr);
+        return pe;
+    }
+
+    /**
+     * Reads in the structure of the executable without reading in the section data.
+     *
+     * @param dr the reader to read from.
+     * @return the executable that was read.
+     * @throws IOException if an error occurs reading the executable.
+     */
+    public static PE readStructure(IDataReader dr) throws IOException {
         PE pe = new PE();
         pe.setDosHeader(readDos(dr));
+
+        if (!pe.getDosHeader().isValidMagic()) {
+            return pe;
+        }
 
         // Check if we have an old file type
         if (pe.getDosHeader().getAddressOfNewExeHeader() == 0 ||
@@ -43,7 +67,9 @@ public class PEParser
             return pe;
         }
 
-        pe.setStub(readStub(pe.getDosHeader(), dr));
+        // Skip the stub until we verify the PE header
+        int stubOffset = dr.getPosition();
+        dr.jumpTo(pe.getDosHeader().getAddressOfNewExeHeader());
         pe.setSignature(readSignature(dr));
 
         // Check signature to ensure we have a pe/coff file
@@ -51,19 +77,41 @@ public class PEParser
             return pe;
         }
 
+        // Now go back and read in the stub
+        int endOfSignature = dr.getPosition();
+        dr.jumpTo(stubOffset);
+        pe.setStub(readStub(pe.getDosHeader(), dr));
+        dr.jumpTo(endOfSignature);
+
         pe.setCoffHeader(readCOFF(dr));
         pe.setOptionalHeader(readOptional(dr));
         pe.setSectionTable(readSectionHeaders(pe, dr));
 
-        // Now read the rest of the file
+        pe.setEndOfSectionTable(dr.getPosition());
+
+        return pe;
+    }
+
+    /**
+     * Reads in the data from the section entries.
+     *
+     * @param pe the executable to get the section entries from and to add the section data to.
+     * @param dr the data reader to read from.
+     * @throws IOException if an error occurs reading the executable.
+     */
+    public static void readSectionEntryData(PE pe, IDataReader dr) throws IOException {
+
         DataEntry entry;
+
+        dr.jumpTo(pe.getEndOfSectionTable());
+
         while ((entry = findNextEntry(pe, dr.getPosition())) != null) {
             if (entry.isSection) {
                 readSection(pe, entry, dr);
             } else if (entry.isDebugRawData) {
                 readDebugRawData(pe, entry, dr);
             } else {
-                readImageData(pe, entry, dr);
+                readImageData(pe.getImageData(), entry, pe.getOptionalHeader().getDataDirectory(entry.index), dr);
             }
         }
 
@@ -77,8 +125,6 @@ public class PEParser
         if (tb.length > 0) {
             pe.getImageData().setTrailingData(tb);
         }
-
-        return pe;
     }
 
     public static DOSHeader readDos(IDataReader dr) throws IOException {
@@ -319,18 +365,15 @@ public class PEParser
         return false;
     }
 
-    private static void readImageData(PE pe, DataEntry entry, IDataReader dr)
+    private static void readImageData(ImageData id, DataEntry entry, ImageDataDirectory idd, IDataReader dr)
             throws IOException {
 
         // Read any preamble data
-        ImageData id = pe.getImageData();
         byte[] pa = readPreambleData(entry.pointer, dr);
         if (pa != null)
             id.put(entry.index, pa);
 
         // Read the image data
-        ImageDataDirectory idd = pe.getOptionalHeader().getDataDirectory(
-                entry.index);
         byte[] b = new byte[idd.getSize()];
         dr.read(b);
 
@@ -452,7 +495,7 @@ public class PEParser
                             .getSize());
                     DataEntry de = new DataEntry(i, 0);
                     de.baseAddress = sh.getVirtualAddress();
-                    readImageData(pe, de, idr);
+                    readImageData(pe.getImageData(), de, pe.getOptionalHeader().getDataDirectory(de.index), idr);
                 }
             }
         }
@@ -671,7 +714,7 @@ public class PEParser
         int pos = dr.getPosition();
         if ((id & 0x80000000) != 0) {
             dr.jumpTo(id & 0x7fffffff);
-            re.setName(dr.readUnicode());
+            re.setName(dr.readUnicode(255));
         } else {
             re.setId(id);
         }
