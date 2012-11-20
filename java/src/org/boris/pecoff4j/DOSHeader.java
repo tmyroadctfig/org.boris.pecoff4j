@@ -11,7 +11,7 @@ package org.boris.pecoff4j;
 
 public class DOSHeader
 {
-    public static final int DOS_MAGIC = 0;
+    public static final int DOS_MAGIC = 0x5a4d; // MZ
 
     private int magic;
     private int usedBytesInLastPage;
