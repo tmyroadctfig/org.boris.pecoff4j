@@ -35,6 +35,10 @@ public class ByteArrayDataReader implements IDataReader
         return position;
     }
 
+    public int getLength() {
+        return length;
+    }
+
     public void jumpTo(int location) throws IOException {
         position = location;
     }
@@ -101,7 +105,13 @@ public class ByteArrayDataReader implements IDataReader
     public String readUnicode(int size) throws IOException {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < size; i++) {
-            sb.append((char) readWord());
+            char c = (char) readWord();
+
+            if (c == 0) {
+                break;
+            }
+
+            sb.append(c);
         }
         return sb.toString();
     }

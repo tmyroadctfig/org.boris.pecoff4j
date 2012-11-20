@@ -20,12 +20,12 @@ public class DataReader implements IDataReader
     private int position = 0;
 
     public DataReader(byte[] buffer) {
-        this.dis = new BufferedInputStream(new ByteArrayInputStream(buffer));
+        this(new BufferedInputStream(new ByteArrayInputStream(buffer)));
     }
 
     public DataReader(byte[] buffer, int offset, int length) {
-        this.dis = new BufferedInputStream(new ByteArrayInputStream(buffer,
-                offset, length));
+        this(new BufferedInputStream(new ByteArrayInputStream(buffer,
+                offset, length)));
     }
 
     public DataReader(InputStream is) {
@@ -33,6 +33,12 @@ public class DataReader implements IDataReader
             this.dis = is;
         } else {
             this.dis = new BufferedInputStream(is);
+        }
+
+        try {
+            dis.mark(dis.available());
+        } catch (IOException e) {
+            throw new IllegalStateException("Error setting mark on stream", e);
         }
     }
 
@@ -61,19 +67,30 @@ public class DataReader implements IDataReader
         return position;
     }
 
+    public int getLength() {
+        try {
+            return dis.available();
+        } catch (IOException e) {
+            throw new IllegalStateException("Error getting stream length", e);
+        }
+    }
+
     public void jumpTo(int location) throws IOException {
-        if (location < position)
-            throw new IOException(
-                    "DataReader does not support scanning backwards (" +
-                            location + ")");
-        if (location > position)
+        if (location > position) {
             skipBytes(location - position);
+        }
+        else {
+            dis.reset();
+            position = 0;
+            skipBytes(location);
+        }
     }
 
     public void skipBytes(int numBytes) throws IOException {
         position += numBytes;
-        for (int i = 0; i < numBytes; i++) {
-            dis.read();
+
+        while (numBytes > 0) {
+            numBytes -= dis.skip(numBytes);
         }
     }
 
