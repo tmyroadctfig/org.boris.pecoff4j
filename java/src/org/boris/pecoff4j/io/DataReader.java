@@ -90,7 +90,12 @@ public class DataReader implements IDataReader
         position += numBytes;
 
         while (numBytes > 0) {
-            numBytes -= dis.skip(numBytes);
+            long bytesSkipped = dis.skip(numBytes);
+            numBytes -= bytesSkipped;
+
+            if (bytesSkipped == 0 && dis.available() == 0) {
+                break;
+            }
         }
     }
 
