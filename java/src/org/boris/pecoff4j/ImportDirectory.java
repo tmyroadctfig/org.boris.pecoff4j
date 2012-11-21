@@ -9,20 +9,25 @@
  *******************************************************************************/
 package org.boris.pecoff4j;
 
+import org.boris.pecoff4j.util.DataObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import org.boris.pecoff4j.util.DataObject;
-
 public class ImportDirectory extends DataObject
 {
-    private List<ImportDirectoryEntry> entries = new ArrayList();
-    private List<String> names = new ArrayList();
-    private List<ImportDirectoryTable> nameTables = new ArrayList();
-    private List<ImportDirectoryTable> addressTables = new ArrayList();
+    private List<ImportDirectoryEntry> entries = new ArrayList<ImportDirectoryEntry>();
+    private List<String> names = new ArrayList<String>();
+    private List<ImportDirectoryTable> nameTables = new ArrayList<ImportDirectoryTable>();
+    private List<ImportDirectoryTable> addressTables = new ArrayList<ImportDirectoryTable>();
 
     public void add(ImportDirectoryEntry entry) {
         entries.add(entry);
+
+        if (size() > 0x10000) {
+            // What is this? A Lotus Notes exe?
+            throw new IllegalStateException("Too many imports, are you sure the executable is valid?");
+        }
     }
 
     public void add(String name, ImportDirectoryTable names,
@@ -30,6 +35,11 @@ public class ImportDirectory extends DataObject
         this.names.add(name);
         nameTables.add(names);
         addressTables.add(addresses);
+
+        if (size() > 0x10000) {
+            // What is this? A Lotus Notes exe?
+            throw new IllegalStateException("Too many imports, are you sure the executable is valid?");
+        }
     }
 
     public int size() {

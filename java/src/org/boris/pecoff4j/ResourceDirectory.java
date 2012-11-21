@@ -9,15 +9,15 @@
  *******************************************************************************/
 package org.boris.pecoff4j;
 
+import org.boris.pecoff4j.util.DataObject;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import org.boris.pecoff4j.util.DataObject;
 
 public class ResourceDirectory extends DataObject
 {
     private ResourceDirectoryTable table;
-    private List<ResourceEntry> entries = new ArrayList();
+    private List<ResourceEntry> entries = new ArrayList<ResourceEntry>();
 
     public ResourceDirectoryTable getTable() {
         return table;
@@ -29,6 +29,10 @@ public class ResourceDirectory extends DataObject
 
     public void add(ResourceEntry entry) {
         this.entries.add(entry);
+
+        if (size() > 0x10000) {
+            throw new IllegalStateException("Too many resource directories, are you sure the executable is valid?");
+        }
     }
 
     public ResourceEntry get(int index) {

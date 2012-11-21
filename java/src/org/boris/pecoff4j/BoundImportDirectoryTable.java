@@ -14,10 +14,15 @@ import java.util.List;
 
 public class BoundImportDirectoryTable
 {
-    private List<BoundImport> imports = new ArrayList();
+    private List<BoundImport> imports = new ArrayList<BoundImport>();
 
     public void add(BoundImport bi) {
         imports.add(bi);
+
+        if (imports.size() > 0x10000) {
+            // What is this? A Lotus Notes exe?
+            throw new IllegalStateException("Too many imports, are you sure the executable is valid?");
+        }
     }
 
     public int size() {
