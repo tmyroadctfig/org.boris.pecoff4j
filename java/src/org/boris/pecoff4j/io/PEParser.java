@@ -43,6 +43,7 @@ public class PEParser
     public static PE read(IDataReader dr) throws IOException {
         PE pe = readStructure(dr);
         readSectionEntryData(pe, dr);
+        readTrailingData(pe, dr);
         return pe;
     }
 
@@ -114,7 +115,16 @@ public class PEParser
                 readImageData(pe.getImageData(), entry, pe.getOptionalHeader().getDataDirectory(entry.index), dr);
             }
         }
+    }
 
+    /**
+     * Reads in any trailing data that occurs after the section entries.
+     *
+     * @param pe the executable to add the trailing data to.
+     * @param dr the data reader to read from.
+     * @throws IOException if an error occurs reading the executable.
+     */
+    public static void readTrailingData(PE pe, IDataReader dr) throws IOException {
         // Read any trailing data
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         int read;
