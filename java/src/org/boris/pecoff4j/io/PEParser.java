@@ -126,14 +126,12 @@ public class PEParser
      */
     public static void readTrailingData(PE pe, IDataReader dr) throws IOException {
         // Read any trailing data
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        int read;
-        while ((read = dr.readByte()) != -1) {
-            bos.write(read);
-        }
-        byte[] tb = bos.toByteArray();
-        if (tb.length > 0) {
-            pe.getImageData().setTrailingData(tb);
+        int length = dr.getLength() - dr.getPosition();
+
+        if (length > 0) {
+            byte[] trailingData = new byte[length];
+            dr.read(trailingData);
+            pe.getImageData().setTrailingData(trailingData);
         }
     }
 
