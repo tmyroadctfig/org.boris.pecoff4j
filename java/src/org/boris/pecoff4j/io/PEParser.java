@@ -440,7 +440,7 @@ public class PEParser
     private static byte[] readPreambleData(int pointer, IDataReader dr)
             throws IOException {
         if (pointer > dr.getPosition()) {
-            byte[] pa = new byte[pointer - dr.getPosition()];
+            byte[] pa = new byte[Math.min(pointer - dr.getPosition(), dr.getLength())];
             dr.read(pa);
             boolean zeroes = true;
             for (int i = 0; i < pa.length; i++) {
