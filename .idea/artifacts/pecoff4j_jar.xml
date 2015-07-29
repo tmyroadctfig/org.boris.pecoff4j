@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="pecoff4j:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/pecoff4j_jar</output-path>
+    <root id="archive" name="pecoff4j.jar">
+      <element id="module-output" name="pecoff4j" />
+    </root>
+  </artifact>
+</component>

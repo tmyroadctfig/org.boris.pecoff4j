@@ -117,7 +117,7 @@ public class PEParser {
       } else if (entry.isDebugRawData) {
         readDebugRawData(pe, entry, dr);
       } else {
-        readImageData(pe.getImageData(), entry, pe.getOptionalHeader().getDataDirectory(entry.index), dr);
+        readImageData(pe, entry, dr);
       }
     }
   }
@@ -519,7 +519,7 @@ public class PEParser {
           IDataReader idr = new ByteArrayDataReader(b, off, idd.getSize());
           DataEntry de = new DataEntry(i, 0);
           de.baseAddress = sh.getVirtualAddress();
-          readImageData(pe.getImageData(), de, pe.getOptionalHeader().getDataDirectory(de.index), idr);
+          readImageData(pe, de, idr);
         }
       }
     }
