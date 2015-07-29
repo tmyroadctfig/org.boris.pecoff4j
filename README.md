@@ -27,3 +27,7 @@ The following snippet shows how to parse an executable.
             System.out.println(pe);
         }
     }
+
+###Other forks
+* https://github.com/kichik/pecoff4j
+* https://github.com/jonnyzzz/PE
