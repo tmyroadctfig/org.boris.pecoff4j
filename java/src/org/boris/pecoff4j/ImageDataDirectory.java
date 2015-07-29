@@ -1,7 +1,7 @@
 /*******************************************************************************
  * This program and the accompanying materials
  * are made available under the terms of the Common Public License v1.0
- * which accompanies this distribution, and is available at 
+ * which accompanies this distribution, and is available at  
  * http://www.eclipse.org/legal/cpl-v10.html
  * 
  * Contributors:
@@ -9,24 +9,23 @@
  *******************************************************************************/
 package org.boris.pecoff4j;
 
-public class ImageDataDirectory
-{
-    private int virtualAddress;
-    private int size;
+public class ImageDataDirectory {
+  private int virtualAddress;
+  private int size;
 
-    public int getVirtualAddress() {
-        return virtualAddress;
-    }
+  public int getVirtualAddress() {
+    return virtualAddress;
+  }
 
-    public int getSize() {
-        return size;
-    }
+  public int getSize() {
+    return size;
+  }
 
-    public void setVirtualAddress(int virtualAddress) {
-        this.virtualAddress = virtualAddress;
-    }
+  public void setVirtualAddress(int virtualAddress) {
+    this.virtualAddress = virtualAddress;
+  }
 
-    public void setSize(int size) {
-        this.size = size;
-    }
+  public void setSize(int size) {
+    this.size = size;
+  }
 }

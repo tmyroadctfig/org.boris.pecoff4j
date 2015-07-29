@@ -1,10 +1,111 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6557c41b-8504-4261-a3a8-84875600a8a5" name="Default" comment="" />
+    <list default="true" id="6557c41b-8504-4261-a3a8-84875600a8a5" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/asm/ADD.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/asm/ADD.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/asm/AbstractInstruction.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/asm/AbstractInstruction.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/asm/AssemblyFormatter.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/asm/AssemblyFormatter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/asm/AssemblyParser.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/asm/AssemblyParser.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/BaseRelocationTable.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/BaseRelocationTable.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/resources/Bitmap.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/resources/Bitmap.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/resources/BitmapFileHeader.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/resources/BitmapFileHeader.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/resources/BitmapInfoHeader.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/resources/BitmapInfoHeader.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/BoundImport.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/BoundImport.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/BoundImportDirectoryTable.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/BoundImportDirectoryTable.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/io/ByteArrayDataReader.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/io/ByteArrayDataReader.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/asm/CALL.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/asm/CALL.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/asm/CMP.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/asm/CMP.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/COFFHeader.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/COFFHeader.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/constant/Characteristics.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/constant/Characteristics.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/constant/DLLCharacteristics.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/constant/DLLCharacteristics.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/DOSHeader.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/DOSHeader.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/DOSStub.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/DOSStub.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/io/DataEntry.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/io/DataEntry.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/util/DataObject.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/util/DataObject.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/io/DataReader.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/io/DataReader.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/io/DataWriter.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/io/DataWriter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/DebugDirectory.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/DebugDirectory.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/constant/DebugType.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/constant/DebugType.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/util/Diff.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/util/Diff.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/elf/ELFHeader.java" afterPath="$PROJECT_DIR$/java/src/org/boris/elf/ELFHeader.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/ExceptionTable.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/ExceptionTable.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/ExportDirectory.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/ExportDirectory.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/util/FindFilesCallback.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/util/FindFilesCallback.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/resources/FixedFileInfo.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/resources/FixedFileInfo.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/resources/GroupIconDirectory.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/resources/GroupIconDirectory.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/resources/GroupIconDirectoryEntry.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/resources/GroupIconDirectoryEntry.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/util/HexDump.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/util/HexDump.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/io/IDataReader.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/io/IDataReader.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/io/IDataWriter.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/io/IDataWriter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/util/IO.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/util/IO.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/resources/IconDirectory.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/resources/IconDirectory.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/resources/IconDirectoryEntry.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/resources/IconDirectoryEntry.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/util/IconExtractor.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/util/IconExtractor.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/util/IconFile.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/util/IconFile.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/resources/IconImage.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/resources/IconImage.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/ImageData.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/ImageData.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/ImageDataDirectory.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/ImageDataDirectory.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/constant/ImageDataDirectoryType.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/constant/ImageDataDirectoryType.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/ImportDirectory.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/ImportDirectory.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/ImportDirectoryEntry.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/ImportDirectoryEntry.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/ImportDirectoryTable.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/ImportDirectoryTable.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/ImportEntry.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/ImportEntry.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/asm/Instruction.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/asm/Instruction.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/util/IntMap.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/util/IntMap.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/asm/JGE.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/asm/JGE.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/asm/JMP.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/asm/JMP.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/asm/JumpIfInstruction.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/asm/JumpIfInstruction.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/asm/LEA.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/asm/LEA.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/LoadConfigDirectory.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/LoadConfigDirectory.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/asm/MOV.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/asm/MOV.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/constant/MachineType.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/constant/MachineType.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/resources/Manifest.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/resources/Manifest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/asm/ModRM.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/asm/ModRM.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/OptionalHeader.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/OptionalHeader.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/PE.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/PE.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/io/PEAssembler.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/io/PEAssembler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/util/PEFilenameFilter.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/util/PEFilenameFilter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/io/PEParser.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/io/PEParser.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/PESignature.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/PESignature.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/asm/POP.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/asm/POP.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/asm/PUSH.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/asm/PUSH.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/util/RCEdit.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/util/RCEdit.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/asm/RET.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/asm/RET.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/resources/RGBQuad.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/resources/RGBQuad.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/RVAConverter.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/RVAConverter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/util/Reflection.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/util/Reflection.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/asm/Register.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/asm/Register.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/io/ResourceAssembler.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/io/ResourceAssembler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/ResourceDirectory.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/ResourceDirectory.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/ResourceDirectoryTable.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/ResourceDirectoryTable.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/ResourceEntry.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/ResourceEntry.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/util/ResourceHandle.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/util/ResourceHandle.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/util/ResourceHelper.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/util/ResourceHelper.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/io/ResourceParser.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/io/ResourceParser.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/util/ResourceStripper.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/util/ResourceStripper.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/constant/ResourceType.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/constant/ResourceType.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/asm/SHL.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/asm/SHL.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/asm/SIB.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/asm/SIB.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/asm/SUB.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/asm/SUB.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/io/SectionAssembler.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/io/SectionAssembler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/SectionData.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/SectionData.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/constant/SectionFlag.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/constant/SectionFlag.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/SectionHeader.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/SectionHeader.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/SectionTable.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/SectionTable.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/resources/StringFileInfo.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/resources/StringFileInfo.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/resources/StringPair.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/resources/StringPair.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/resources/StringTable.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/resources/StringTable.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/asm/TEST.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/asm/TEST.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/resources/VarFileInfo.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/resources/VarFileInfo.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/resources/VersionInfo.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/resources/VersionInfo.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/constant/WindowsSubsystem.java" afterPath="$PROJECT_DIR$/java/src/org/boris/pecoff4j/constant/WindowsSubsystem.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+    </list>
     <ignored path="pecoff4j.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/out/" />
+    <ignored path=".idea/dataSources.local.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -21,7 +122,20 @@
     <favorites_list name="pecoff4j" />
   </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf>
+      <file leaf-file-name="BoundImportDirectoryTable.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/java/src/org/boris/pecoff4j/BoundImportDirectoryTable.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.27522936">
+              <caret line="15" column="17" selection-start-line="15" selection-start-column="17" selection-end-line="15" selection-end-column="17" />
+              <folding>
+                <element signature="n#!!doc" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -29,6 +143,13 @@
   <component name="GradleLocalSettings">
     <option name="externalProjectsViewState">
       <projects_view />
+    </option>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/java/src/org/boris/pecoff4j/BoundImportDirectoryTable.java" />
+      </list>
     </option>
   </component>
   <component name="JsBuildToolGruntFileManager" detection-done="true" />
@@ -122,6 +243,32 @@
               <option name="myItemId" value="boris" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pecoff4j" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pecoff4j" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="org.boris.pecoff4j" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="boris" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
@@ -132,7 +279,7 @@
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
@@ -363,12 +510,12 @@
       <updated>1438131577623</updated>
       <workItem from="1438131577995" duration="157000" />
       <workItem from="1438138028733" duration="17000" />
-      <workItem from="1438138064004" duration="8000" />
+      <workItem from="1438138064004" duration="460000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="182000" />
+    <option name="totallyTimeSpent" value="634000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1696" height="926" extended-state="6" />
@@ -380,23 +527,23 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25611246" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Metrics" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -417,6 +564,16 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/java/src/org/boris/pecoff4j/BoundImportDirectoryTable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.27522936">
+          <caret line="15" column="17" selection-start-line="15" selection-start-column="17" selection-end-line="15" selection-end-column="17" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
