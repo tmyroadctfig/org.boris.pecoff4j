@@ -6,145 +6,7 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6557c41b-8504-4261-a3a8-84875600a8a5" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_intellij_annotations_12_0.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/pom.xml" />
-      <change type="DELETED" beforePath="C:\working\github\org.boris.pecoff4j\.idea\artifacts\pecoff4j_jar.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\working\github\org.boris.pecoff4j\.idea\libraries\intellij_annotations.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\working\github\org.boris.pecoff4j\.idea\libraries\testng.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\working\github\org.boris.pecoff4j\java\test\org\boris\pecoff4j\AssemblyParserTest.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\working\github\org.boris.pecoff4j\java\test\org\boris\pecoff4j\ExeDetect.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\working\github\org.boris.pecoff4j\java\test\org\boris\pecoff4j\FindExe.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\working\github\org.boris.pecoff4j\java\test\org\boris\pecoff4j\IconExtractorTest.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\working\github\org.boris.pecoff4j\java\test\org\boris\pecoff4j\MoveIcons.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\working\github\org.boris.pecoff4j\java\test\org\boris\pecoff4j\ObjParserTest.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\working\github\org.boris.pecoff4j\java\test\org\boris\pecoff4j\PrintBasicStructure.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\working\github\org.boris.pecoff4j\java\test\org\boris\pecoff4j\TestPAProblems.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\working\github\org.boris.pecoff4j\java\test\org\boris\pecoff4j\TestParseAssemble.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\working\github\org.boris.pecoff4j\java\test\org\boris\pecoff4j\TestParseDLLs.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\working\github\org.boris.pecoff4j\java\test\org\boris\pecoff4j\TestParseProblemDLL.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\working\github\org.boris.pecoff4j\java\test\org\boris\pecoff4j\WinRun4JTest1.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\working\github\org.boris.pecoff4j\java\test\org\boris\pecoff4j\oldstuff.txt" afterPath="" />
-      <change type="DELETED" beforePath="C:\working\github\org.boris.pecoff4j\site\favicon.ico" afterPath="" />
-      <change type="DELETED" beforePath="C:\working\github\org.boris.pecoff4j\site\index.html" afterPath="" />
-      <change type="DELETED" beforePath="C:\working\github\org.boris.pecoff4j\site\others\expr4j.gif" afterPath="" />
-      <change type="DELETED" beforePath="C:\working\github\org.boris.pecoff4j\site\others\jvst.gif" afterPath="" />
-      <change type="DELETED" beforePath="C:\working\github\org.boris.pecoff4j\site\others\jxll.gif" afterPath="" />
-      <change type="DELETED" beforePath="C:\working\github\org.boris.pecoff4j\site\others\variantcodec.gif" afterPath="" />
-      <change type="DELETED" beforePath="C:\working\github\org.boris.pecoff4j\site\others\winrun4j.gif" afterPath="" />
-      <change type="DELETED" beforePath="C:\working\github\org.boris.pecoff4j\site\others\xlloop.gif" afterPath="" />
-      <change type="DELETED" beforePath="C:\working\github\org.boris.pecoff4j\site\pecoff4j.gif" afterPath="" />
-      <change type="DELETED" beforePath="C:\working\github\org.boris.pecoff4j\site\style.css" afterPath="" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\META-INF\MANIFEST.MF" afterPath="$PROJECT_DIR$/src/main/resources/META-INF/MANIFEST.MF" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\elf\ELFHeader.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/elf/ELFHeader.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\BaseRelocationTable.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/BaseRelocationTable.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\BoundImport.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/BoundImport.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\BoundImportDirectoryTable.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/BoundImportDirectoryTable.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\COFFHeader.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/COFFHeader.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\DOSHeader.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/DOSHeader.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\DOSStub.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/DOSStub.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\DebugDirectory.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/DebugDirectory.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\ExceptionTable.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/ExceptionTable.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\ExportDirectory.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/ExportDirectory.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\ImageData.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/ImageData.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\ImageDataDirectory.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/ImageDataDirectory.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\ImportDirectory.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/ImportDirectory.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\ImportDirectoryEntry.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/ImportDirectoryEntry.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\ImportDirectoryTable.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/ImportDirectoryTable.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\ImportEntry.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/ImportEntry.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\LoadConfigDirectory.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/LoadConfigDirectory.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\OptionalHeader.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/OptionalHeader.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\PE.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/PE.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\PESignature.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/PESignature.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\RVAConverter.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/RVAConverter.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\ResourceDirectory.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/ResourceDirectory.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\ResourceDirectoryTable.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/ResourceDirectoryTable.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\ResourceEntry.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/ResourceEntry.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\SectionData.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/SectionData.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\SectionHeader.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/SectionHeader.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\SectionTable.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/SectionTable.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\asm\ADD.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/asm/ADD.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\asm\AbstractInstruction.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/asm/AbstractInstruction.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\asm\AssemblyFormatter.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/asm/AssemblyFormatter.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\asm\AssemblyParser.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/asm/AssemblyParser.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\asm\CALL.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/asm/CALL.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\asm\CMP.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/asm/CMP.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\asm\Instruction.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/asm/Instruction.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\asm\JGE.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/asm/JGE.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\asm\JMP.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/asm/JMP.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\asm\JumpIfInstruction.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/asm/JumpIfInstruction.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\asm\LEA.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/asm/LEA.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\asm\MOV.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/asm/MOV.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\asm\ModRM.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/asm/ModRM.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\asm\POP.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/asm/POP.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\asm\PUSH.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/asm/PUSH.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\asm\RET.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/asm/RET.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\asm\Register.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/asm/Register.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\asm\SHL.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/asm/SHL.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\asm\SIB.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/asm/SIB.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\asm\SUB.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/asm/SUB.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\asm\TEST.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/asm/TEST.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\constant\Characteristics.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/constant/Characteristics.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\constant\DLLCharacteristics.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/constant/DLLCharacteristics.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\constant\DebugType.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/constant/DebugType.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\constant\ImageDataDirectoryType.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/constant/ImageDataDirectoryType.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\constant\MachineType.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/constant/MachineType.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\constant\ResourceType.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/constant/ResourceType.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\constant\SectionFlag.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/constant/SectionFlag.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\constant\WindowsSubsystem.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/constant/WindowsSubsystem.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\io\ByteArrayDataReader.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/io/ByteArrayDataReader.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\io\DataEntry.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/io/DataEntry.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\io\DataReader.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/io/DataReader.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\io\DataWriter.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/io/DataWriter.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\io\IDataReader.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/io/IDataReader.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\io\IDataWriter.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/io/IDataWriter.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\io\PEAssembler.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/io/PEAssembler.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\io\PEParser.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/io/PEParser.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\io\ResourceAssembler.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/io/ResourceAssembler.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\io\ResourceParser.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/io/ResourceParser.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\io\SectionAssembler.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/io/SectionAssembler.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\resources\Bitmap.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/resources/Bitmap.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\resources\BitmapFileHeader.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/resources/BitmapFileHeader.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\resources\BitmapInfoHeader.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/resources/BitmapInfoHeader.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\resources\FixedFileInfo.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/resources/FixedFileInfo.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\resources\GroupIconDirectory.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/resources/GroupIconDirectory.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\resources\GroupIconDirectoryEntry.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/resources/GroupIconDirectoryEntry.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\resources\IconDirectory.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/resources/IconDirectory.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\resources\IconDirectoryEntry.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/resources/IconDirectoryEntry.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\resources\IconImage.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/resources/IconImage.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\resources\Manifest.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/resources/Manifest.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\resources\RGBQuad.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/resources/RGBQuad.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\resources\StringFileInfo.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/resources/StringFileInfo.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\resources\StringPair.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/resources/StringPair.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\resources\StringTable.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/resources/StringTable.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\resources\VarFileInfo.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/resources/VarFileInfo.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\resources\VersionInfo.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/resources/VersionInfo.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\util\DataObject.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/util/DataObject.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\util\Diff.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/util/Diff.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\util\FindFilesCallback.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/util/FindFilesCallback.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\util\HexDump.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/util/HexDump.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\util\IO.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/util/IO.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\util\IconExtractor.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/util/IconExtractor.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\util\IconFile.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/util/IconFile.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\util\IntMap.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/util/IntMap.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\util\PEFilenameFilter.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/util/PEFilenameFilter.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\util\RCEdit.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/util/RCEdit.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\util\Reflection.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/util/Reflection.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\util\ResourceHandle.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/util/ResourceHandle.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\util\ResourceHelper.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/util/ResourceHelper.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\util\ResourceStripper.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/util/ResourceStripper.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\java\src\org\boris\pecoff4j\util\Strings.java" afterPath="$PROJECT_DIR$/src/main/java/org/boris/pecoff4j/util/Strings.java" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\test\SplashScreen.gif" afterPath="$PROJECT_DIR$/src/test/resources/SplashScreen.gif" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\test\Test1.ini" afterPath="$PROJECT_DIR$/src/test/resources/Test1.ini" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\test\WinRun4J.exe" afterPath="$PROJECT_DIR$/src/test/resources/WinRun4J.exe" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\test\WinRun4J.jar" afterPath="$PROJECT_DIR$/src/test/resources/WinRun4J.jar" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\test\WinRun4JTest.jar" afterPath="$PROJECT_DIR$/src/test/resources/WinRun4JTest.jar" />
-      <change type="MOVED" beforePath="C:\working\github\org.boris.pecoff4j\test\eclipse.ico" afterPath="$PROJECT_DIR$/src/test/resources/eclipse.ico" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pecoff4j.iml" afterPath="$PROJECT_DIR$/pecoff4j.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-    </list>
+    <list default="true" id="6557c41b-8504-4261-a3a8-84875600a8a5" name="Default" comment="" />
     <ignored path="pecoff4j.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/out/" />
@@ -170,8 +32,8 @@
       <file leaf-file-name="pom.xml" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.43250328">
-              <caret line="22" column="121" selection-start-line="22" selection-start-column="14" selection-end-line="22" selection-end-column="14" />
+            <state vertical-scroll-proportion="0.21625164">
+              <caret line="11" column="105" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -665,7 +527,7 @@
       <workItem from="1438146715448" duration="1040000" />
       <workItem from="1438148533368" duration="799000" />
       <workItem from="1438149347378" duration="590000" />
-      <workItem from="1438149944711" duration="275000" />
+      <workItem from="1438149944711" duration="875000" />
     </task>
     <task id="LOCAL-00001" summary="Manually merge in changes from kichik/pecoff4j@48d483ac6a078de906f27f2ee650584c857a4198:&#10;&#10;added support for parsing version info strings">
       <created>1438147477023</created>
@@ -677,7 +539,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="3338000" />
+    <option name="totallyTimeSpent" value="3938000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1696" height="926" extended-state="6" />
@@ -1039,8 +901,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.43250328">
-          <caret line="22" column="121" selection-start-line="22" selection-start-column="14" selection-end-line="22" selection-end-column="14" />
+        <state vertical-scroll-proportion="0.21625164">
+          <caret line="11" column="105" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
           <folding />
         </state>
       </provider>
