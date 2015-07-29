@@ -6,8 +6,14 @@
  *
  * Contributors:
  *     Peter Smith
+ *     Amir Szekely
  *******************************************************************************/
 package org.boris.pecoff4j.resources;
+
+import org.boris.pecoff4j.util.Strings;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class StringTable {
   private int length;
@@ -15,6 +21,19 @@ public class StringTable {
   private int type;
   private String key;
   private int padding;
+  private List<StringPair> strings = new ArrayList<StringPair>();
+
+  public void add(StringPair string) {
+    strings.add(string);
+  }
+
+  public int getCount() {
+    return strings.size();
+  }
+
+  public StringPair getString(int index) {
+    return strings.get(index);
+  }
 
   public int getLength() {
     return length;
@@ -54,5 +73,12 @@ public class StringTable {
 
   public void setPadding(int padding) {
     this.padding = padding;
+  }
+
+  public boolean allStringsRead() {
+    int actualLength = 6 + padding + Strings.getUtf16Length(key);
+    for (StringPair s : strings)
+      actualLength += s.getLength();
+    return this.length <= actualLength;
   }
 }
