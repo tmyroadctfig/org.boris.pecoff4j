@@ -3,12 +3,14 @@
  * are made available under the terms of the Common Public License v1.0
  * which accompanies this distribution, and is available at 
  * http://www.eclipse.org/legal/cpl-v10.html
- * <p/>
+ *
  * Contributors:
  *     Peter Smith
  *******************************************************************************/
 package org.boris.pecoff4j.resources;
 
+
+import org.jetbrains.annotations.NotNull;
 
 public class IconDirectoryEntry {
   private int width;
@@ -84,7 +86,7 @@ public class IconDirectoryEntry {
     this.offset = offset;
   }
 
-  public void copyFrom(GroupIconDirectoryEntry gide) {
+  public void copyFrom(@NotNull GroupIconDirectoryEntry gide) {
     width = gide.getWidth();
     height = gide.getHeight();
     colorCount = gide.getColorCount();

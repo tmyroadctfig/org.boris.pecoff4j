@@ -3,18 +3,22 @@
  * are made available under the terms of the Common Public License v1.0
  * which accompanies this distribution, and is available at 
  * http://www.eclipse.org/legal/cpl-v10.html
- * <p/>
+ *
  * Contributors:
  *     Peter Smith
  *******************************************************************************/
 package org.boris.pecoff4j.resources;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class VarFileInfo {
   private String key;
+  @NotNull
   private List<String> names = new ArrayList();
+  @NotNull
   private List<String> values = new ArrayList();
 
   public String getKey() {

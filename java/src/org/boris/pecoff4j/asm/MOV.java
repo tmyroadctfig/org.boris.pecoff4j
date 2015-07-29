@@ -1,13 +1,15 @@
 /*******************************************************************************
  * This program and the accompanying materials
  * are made available under the terms of the Common Public License v1.0
- * which accompanies this distribution, and is available at  
+ * which accompanies this distribution, and is available at 
  * http://www.eclipse.org/legal/cpl-v10.html
- * 
+ *
  * Contributors:
  *     Peter Smith
  *******************************************************************************/
 package org.boris.pecoff4j.asm;
+
+import org.jetbrains.annotations.NotNull;
 
 public class MOV extends AbstractInstruction {
   private ModRM modrm;
@@ -77,6 +79,7 @@ public class MOV extends AbstractInstruction {
     this.code = toCode(opcode, modrm, sib, imm32);
   }
 
+  @NotNull
   public String toIntelAssembly() {
     switch (((int) code[0]) & 0xff) {
       case 0x8b:

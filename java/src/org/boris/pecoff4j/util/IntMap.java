@@ -3,11 +3,14 @@
  * are made available under the terms of the Common Public License v1.0
  * which accompanies this distribution, and is available at 
  * http://www.eclipse.org/legal/cpl-v10.html
- * <p/>
+ *
  * Contributors:
  *     Peter Smith
  *******************************************************************************/
 package org.boris.pecoff4j.util;
+
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public class IntMap {
   private Entry[] hashtable;
@@ -64,6 +67,7 @@ public class IntMap {
     }
   }
 
+  @Nullable
   public Object get(int key) {
     int pos = Math.abs((int) (key % hashtable.length));
     Entry e = hashtable[pos];
@@ -82,6 +86,7 @@ public class IntMap {
     return null;
   }
 
+  @NotNull
   public int[] keySet() {
     int[] keys = new int[size];
     int idx = 0;

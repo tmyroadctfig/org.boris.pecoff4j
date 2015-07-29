@@ -3,7 +3,7 @@
  * are made available under the terms of the Common Public License v1.0
  * which accompanies this distribution, and is available at 
  * http://www.eclipse.org/legal/cpl-v10.html
- * <p/>
+ *
  * Contributors:
  *     Peter Smith
  *******************************************************************************/
@@ -11,6 +11,7 @@ package org.boris.pecoff4j.resources;
 
 import org.boris.pecoff4j.io.IDataReader;
 import org.boris.pecoff4j.util.Reflection;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 
@@ -24,7 +25,8 @@ public class GroupIconDirectoryEntry {
   private int bytesInRes;
   private int id;
 
-  public static GroupIconDirectoryEntry read(IDataReader dr)
+  @NotNull
+  public static GroupIconDirectoryEntry read(@NotNull IDataReader dr)
           throws IOException {
     GroupIconDirectoryEntry ge = new GroupIconDirectoryEntry();
     ge.width = dr.readByte();

@@ -3,11 +3,14 @@
  * are made available under the terms of the Common Public License v1.0
  * which accompanies this distribution, and is available at 
  * http://www.eclipse.org/legal/cpl-v10.html
- * <p/>
+ *
  * Contributors:
  *     Peter Smith
  *******************************************************************************/
 package org.boris.pecoff4j.io;
+
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
 
@@ -42,7 +45,7 @@ public class ByteArrayDataReader implements IDataReader {
     position = location;
   }
 
-  public void read(byte[] b) throws IOException {
+  public void read(@NotNull byte[] b) throws IOException {
     for (int i = 0; i < b.length; i++) {
       b[i] = data[offset + position + i];
     }
@@ -63,6 +66,7 @@ public class ByteArrayDataReader implements IDataReader {
     return readWord() | readWord() << 16;
   }
 
+  @NotNull
   public String readUtf(int size) throws IOException {
     byte[] b = new byte[size];
     read(b);
@@ -89,6 +93,7 @@ public class ByteArrayDataReader implements IDataReader {
     position += numBytes;
   }
 
+  @Nullable
   public String readUnicode() throws IOException {
     StringBuilder sb = new StringBuilder();
     char c = 0;

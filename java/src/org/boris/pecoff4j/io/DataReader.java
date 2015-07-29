@@ -3,28 +3,27 @@
  * are made available under the terms of the Common Public License v1.0
  * which accompanies this distribution, and is available at 
  * http://www.eclipse.org/legal/cpl-v10.html
- * <p/>
+ *
  * Contributors:
  *     Peter Smith
  *******************************************************************************/
 package org.boris.pecoff4j.io;
 
-import java.io.BufferedInputStream;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import java.io.*;
 
 public class DataReader implements IDataReader {
   private InputStream dis;
   private int position = 0;
 
-  public DataReader(byte[] buffer) {
-    this(new BufferedInputStream(new ByteArrayInputStream(buffer)));
+  public DataReader(@NotNull final byte[] buffer) {
+    this.dis = new BufferedInputStream(new ByteArrayInputStream(buffer));
   }
 
-  public DataReader(byte[] buffer, int offset, int length) {
-    this(new BufferedInputStream(new ByteArrayInputStream(buffer,
-            offset, length)));
+  public DataReader(@NotNull final byte[] buffer, final int offset, final int length) {
+    this.dis = new BufferedInputStream(new ByteArrayInputStream(buffer, offset, length));
   }
 
   public DataReader(InputStream is) {
@@ -52,14 +51,12 @@ public class DataReader implements IDataReader {
   }
 
   public long readLong() throws IOException {
-    return (readDoubleWord() & 0x00000000ffffffffl) |
-            ((long) readDoubleWord() << 32l);
+    return (readDoubleWord() & 0x00000000ffffffffl) | ((long) readDoubleWord() << 32l);
   }
 
   public int readDoubleWord() throws IOException {
     position += 4;
-    return dis.read() | dis.read() << 8 | dis.read() << 16 |
-            dis.read() << 24;
+    return dis.read() | dis.read() << 8 | dis.read() << 16 | dis.read() << 24;
   }
 
   public int getPosition() {
@@ -75,7 +72,9 @@ public class DataReader implements IDataReader {
   }
 
   public void jumpTo(int location) throws IOException {
-    if (location > position) {
+    if (location < position)
+      throw new IOException("DataReader does not support scanning backwards (" +location + ")");
+    if (location > position)
       skipBytes(location - position);
     } else {
       dis.reset();
@@ -101,15 +100,16 @@ public class DataReader implements IDataReader {
     dis.close();
   }
 
-  public void read(byte[] b) throws IOException {
+  public void read(@NotNull byte[] b) throws IOException {
     position += b.length;
     dis.read(b);
   }
 
-  public String readUtf(int size) throws IOException {
+  @NotNull
+  public String readUtf(final int size) throws IOException {
     position += size;
     byte b[] = new byte[size];
-    dis.read(b);
+    read(b);
     int i = 0;
     for (; i < b.length; i++) {
       if (b[i] == 0)
@@ -119,8 +119,9 @@ public class DataReader implements IDataReader {
   }
 
   public String readUtf() throws IOException {
+    //TODO: use encoding
     StringBuilder sb = new StringBuilder();
-    int c = 0;
+    int c;
     while ((c = readByte()) != 0) {
       if (c == -1)
         throw new IOException("Unexpected end of stream");
@@ -129,9 +130,11 @@ public class DataReader implements IDataReader {
     return sb.toString();
   }
 
+  @Nullable
   public String readUnicode() throws IOException {
+    //TODO: use encoding
     StringBuilder sb = new StringBuilder();
-    char c = 0;
+    char c;
     while ((c = (char) readWord()) != 0) {
       sb.append(c);
     }
@@ -141,7 +144,9 @@ public class DataReader implements IDataReader {
     return sb.toString();
   }
 
-  public String readUnicode(int maxLength) throws IOException {
+  @NotNull
+  public String readUnicode(final int size) throws IOException {
+    //TODO: use encoding
     StringBuilder sb = new StringBuilder();
     for (int i = 0; i < maxLength; i++) {
       char c = (char) readWord();

@@ -3,7 +3,7 @@
  * are made available under the terms of the Common Public License v1.0
  * which accompanies this distribution, and is available at 
  * http://www.eclipse.org/legal/cpl-v10.html
- * <p/>
+ *
  * Contributors:
  *     Peter Smith
  *******************************************************************************/
@@ -11,29 +11,30 @@ package org.boris.pecoff4j.util;
 
 import org.boris.pecoff4j.ResourceDirectory;
 import org.boris.pecoff4j.ResourceEntry;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ResourceHelper {
-  public static ResourceEntry[] findResources(ResourceDirectory rd, int type) {
+  public static ResourceEntry[] findResources(@NotNull ResourceDirectory rd, int type) {
     return findResources(rd, type, -1, -1);
   }
 
-  public static ResourceEntry[] findResources(ResourceDirectory rd, int type,
+  public static ResourceEntry[] findResources(@NotNull ResourceDirectory rd, int type,
                                               int name) {
     return findResources(rd, type, name, -1);
   }
 
-  public static ResourceEntry[] findResources(ResourceDirectory rd, int type,
+  public static ResourceEntry[] findResources(@NotNull ResourceDirectory rd, int type,
                                               int name, int lang) {
     List<ResourceEntry> entries = new ArrayList();
     findResources(rd, type, name, lang, entries);
     return entries.toArray(new ResourceEntry[0]);
   }
 
-  private static void findResources(ResourceDirectory parent, int type,
-                                    int name, int language, List<ResourceEntry> entries) {
+  private static void findResources(@NotNull ResourceDirectory parent, int type,
+                                    int name, int language, @NotNull List<ResourceEntry> entries) {
     int id = type;
     if (id == -1)
       id = name;

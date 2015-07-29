@@ -1,23 +1,28 @@
 /*******************************************************************************
  * This program and the accompanying materials
  * are made available under the terms of the Common Public License v1.0
- * which accompanies this distribution, and is available at  
+ * which accompanies this distribution, and is available at 
  * http://www.eclipse.org/legal/cpl-v10.html
- * 
+ *
  * Contributors:
  *     Peter Smith
  *******************************************************************************/
 package org.boris.pecoff4j;
 
 import org.boris.pecoff4j.util.DataObject;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ImportDirectory extends DataObject {
+  @NotNull
   private List<ImportDirectoryEntry> entries = new ArrayList<ImportDirectoryEntry>();
+  @NotNull
   private List<String> names = new ArrayList<String>();
+  @NotNull
   private List<ImportDirectoryTable> nameTables = new ArrayList<ImportDirectoryTable>();
+  @NotNull
   private List<ImportDirectoryTable> addressTables = new ArrayList<ImportDirectoryTable>();
 
   public void add(ImportDirectoryEntry entry) {
