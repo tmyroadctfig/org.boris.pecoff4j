@@ -72,8 +72,6 @@ public class DataReader implements IDataReader {
   }
 
   public void jumpTo(int location) throws IOException {
-    if (location < position)
-      throw new IOException("DataReader does not support scanning backwards (" +location + ")");
     if (location > position) {
       skipBytes(location - position);
     } else {
