@@ -164,6 +164,8 @@ public class ResourceParser {
   @Nullable
   public static StringTable readStringTable(@NotNull IDataReader dr)
           throws IOException {
+    int initialPos = dr.getPosition();
+
     StringTable vfi = new StringTable();
     vfi.setLength(dr.readWord());
     if (vfi.getLength() == 0) {
@@ -174,7 +176,7 @@ public class ResourceParser {
     vfi.setKey(dr.readUnicode());
     vfi.setPadding(alignDataReader(dr));
 
-    while (!vfi.allStringsRead())
+    while (dr.getPosition() - initialPos < vfi.getLength())
       vfi.add(readStringPair(dr));
 
     return vfi;
@@ -214,6 +216,8 @@ public class ResourceParser {
   @NotNull
   public static StringFileInfo readStringFileInfo(IDataReader dr)
           throws IOException {
+    int initialPos = dr.getPosition();
+
     StringFileInfo sfi = new StringFileInfo();
 
     sfi.setLength(dr.readWord());
@@ -222,7 +226,7 @@ public class ResourceParser {
     sfi.setKey(dr.readUnicode());
     sfi.setPadding(alignDataReader(dr));
 
-    while (!sfi.allTablesRead())
+    while (dr.getPosition() - initialPos < sfi.getLength())
       sfi.add(readStringTable(dr));
 
     return sfi;
