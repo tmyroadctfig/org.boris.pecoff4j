@@ -138,7 +138,7 @@ public class ResourceParser {
     vi.setLength(dr.readWord());
     vi.setValueLength(dr.readWord());
     vi.setType(dr.readWord());
-    vi.setKey(dr.readUnicode());
+    vi.setKey(dr.readUnicode(vi.getLength()));
     alignDataReader(dr);
     vi.setFixedFileInfo(ResourceParser.readFixedFileInfo(dr));
     vi.setStringFileInfo(readStringFileInfo(dr));
@@ -173,7 +173,7 @@ public class ResourceParser {
     }
     vfi.setValueLength(dr.readWord());
     vfi.setType(dr.readWord());
-    vfi.setKey(dr.readUnicode());
+    vfi.setKey(dr.readUnicode(vfi.getLength()));
     vfi.setPadding(alignDataReader(dr));
 
     while (dr.getPosition() - initialPos < vfi.getLength())
@@ -188,9 +188,9 @@ public class ResourceParser {
     sp.setLength(dr.readWord());
     sp.setValueLength(dr.readWord());
     sp.setType(dr.readWord());
-    sp.setKey(dr.readUnicode());
+    sp.setKey(dr.readUnicode(sp.getLength()));
     sp.setPadding(alignDataReader(dr));
-    sp.setValue(dr.readUnicode());
+    sp.setValue(dr.readUnicode(sp.getValueLength()));
     alignDataReader(dr);
     return sp;
   }
@@ -223,7 +223,7 @@ public class ResourceParser {
     sfi.setLength(dr.readWord());
     sfi.setValueLength(dr.readWord());
     sfi.setType(dr.readWord());
-    sfi.setKey(dr.readUnicode());
+    sfi.setKey(dr.readUnicode(sfi.getLength()));
     sfi.setPadding(alignDataReader(dr));
 
     while (dr.getPosition() - initialPos < sfi.getLength())
