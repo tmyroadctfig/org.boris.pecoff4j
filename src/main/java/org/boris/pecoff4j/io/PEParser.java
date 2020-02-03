@@ -754,7 +754,11 @@ public class PEParser {
       re.setId(id);
     }
     if ((offset & 0x80000000) != 0) {
-      dr.jumpTo(offset & 0x7fffffff);
+      int newOffset = offset & 0x7fffffff;
+      if (newOffset <= 0) {
+        throw new IllegalArgumentException("Invalid format, circular link detected.");
+      }
+      dr.jumpTo(newOffset);
       re.setDirectory(readResourceDirectory(dr, baseAddress));
     } else {
       dr.jumpTo(offset);
